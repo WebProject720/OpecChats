@@ -1,8 +1,11 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { user } from "./model.interface";
+import { userModel } from "./models";
+
 
 export interface members extends Document {
   isShowDetailes: boolean;
-  userID: string;
+  userID: user;
   username: string;
   isActive: boolean;
 }
@@ -13,10 +16,7 @@ const membersSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    userID: {
-      type: String,
-      required: false,
-    },
+    userID: userModel,
     username: {
       type: String,
       required: false,

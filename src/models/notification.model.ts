@@ -1,16 +1,18 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { user } from "./model.interface";
+import { userModel } from "./models";
 
 export interface notifications extends Document {
-  sendBy: string;
-  sendTo: string;
+  sendBy: user;
+  sendTo: user[];
   isResolved: boolean;
   msg: string;
 }
 
 const notificationsSchema = new Schema(
   {
-    sendBy: {},
-    sendTo: {},
+    sendBy: userModel,
+    sendTo: [userModel],
     isResolved: {
       type: Boolean,
       default: false,

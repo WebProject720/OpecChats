@@ -1,4 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
+
+import { group, notifications } from "./model.interface";
+import { groupModel, notificationsModel } from "./models";
+
 //use Document for TS for Type Safety
 
 export interface user extends Document {
@@ -6,18 +10,18 @@ export interface user extends Document {
   email: string;
   password: string;
   isEmailVerified: boolean;
-  adminOfGroups: Array<string>;
+  adminOfGroups: group[];
   adminOfGroupsCount: number;
-  joinedGroups: Array<string>;
+  joinedGroups: group[];
   groupAllowed: number;
   extraGroupAllowed: number;
   isSubscribed: boolean;
   currentStatus: boolean;
-  notifications: Array<string>;
+  notifications: notifications[];
   profileImage: string;
   token: string;
   isPrivateProfile: boolean;
-  requestedForGroups: Array<string>;
+  requestedForGroups: group[];
   providerIds: Array<String>;
 }
 
@@ -43,12 +47,12 @@ export const userSchema: Schema<user> = new Schema(
       type: Boolean,
       default: false,
     },
-    adminOfGroups: {},
+    adminOfGroups: [groupModel],
     adminOfGroupsCount: {
       type: Number,
       default: 0,
     },
-    joinedGroups: {},
+    joinedGroups: [groupModel],
     groupAllowed: {
       type: Number,
       default: 3,
@@ -65,7 +69,7 @@ export const userSchema: Schema<user> = new Schema(
       type: Boolean,
       default: true,
     },
-    notifications: {},
+    notifications: [notificationsModel],
     profileImage: {
       type: String,
       default: null,
@@ -78,8 +82,8 @@ export const userSchema: Schema<user> = new Schema(
       type: Boolean,
       default: false,
     },
-    requestedForGroups: {},
-    providerIds: {},
+    requestedForGroups: [groupModel],
+    providerIds: [],
   },
   {
     timestamps: true,

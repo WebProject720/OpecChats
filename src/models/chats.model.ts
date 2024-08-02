@@ -1,7 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { members } from "./model.interface";
+import { membersModel } from "./models";
 
 export interface chats extends Document {
-  senderID: string;
+  senderID: members;
   canUpdate: boolean;
   targetedMsgID: string;
   msg: string;
@@ -11,10 +13,7 @@ export interface chats extends Document {
 
 const chatsSchema = new Schema(
   {
-    senderID: {
-      type: String,
-      required: true,
-    },
+    senderID: membersModel,
     canUpdate: {
       type: Boolean,
       default: true,
