@@ -1,0 +1,45 @@
+import mongoose, { Schema, Document } from "mongoose";
+
+export interface chats extends Document {
+  senderID: string;
+  canUpdate: boolean;
+  targetedMsgID: string;
+  msg: string;
+  MsgBeforeUpdate: string;
+  isRemoved: boolean;
+}
+
+const chatsSchema = new Schema(
+  {
+    senderID: {
+      type: String,
+      required: true,
+    },
+    canUpdate: {
+      type: Boolean,
+      default: true,
+    },
+    targetedMsgID: {
+      default: null,
+    },
+    msg: {
+      type: String,
+      required: true,
+    },
+    MsgBeforeUpdate: {
+      type: String,
+      default: null,
+    },
+    isRemoved: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
+
+const chatsModel =
+  (mongoose.models.Chat as mongoose.Model<chats>) ||
+  mongoose.model<chats>("Chat", chatsSchema);
+
+export default chatsModel;

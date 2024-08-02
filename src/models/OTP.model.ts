@@ -1,0 +1,31 @@
+import mongoose, { Schema, Document } from "mongoose";
+
+export interface OTP extends Document {
+  email: string;
+  OTP: string;
+  username?: string;
+}
+
+const OtpSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: false,
+    },
+    OTP: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const OtpModel =
+  (mongoose.models.Otp as mongoose.Model<OTP>) ||
+  mongoose.model<OTP>("Otp", OtpSchema);
+
+export default OtpModel;

@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 //use Document for TS for Type Safety
 
-export interface User extends Document {
+export interface user extends Document {
   username: string;
   email: string;
   password: string;
@@ -18,79 +18,76 @@ export interface User extends Document {
   token: string;
   isPrivateProfile: boolean;
   requestedForGroups: Array<string>;
-  createdAt: Date;
-  lastUpdated: Date;
+  providerIds: Array<String>;
 }
 
 //Schema for type Safety and document follow this scehma
-export const userSchema: Schema<User> = new Schema({
-  username: {
-    type: String,
-    required: false,
-    unique: true,
+export const userSchema: Schema<user> = new Schema(
+  {
+    username: {
+      type: String,
+      required: false,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      match: [/.+\@.+..+/, "Please provide a valid email address"],
+    },
+    password: {
+      type: String,
+      required: [true, "Password are required"],
+    },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    adminOfGroups: {},
+    adminOfGroupsCount: {
+      type: Number,
+      default: 0,
+    },
+    joinedGroups: {},
+    groupAllowed: {
+      type: Number,
+      default: 3,
+    },
+    extraGroupAllowed: {
+      type: Number,
+      default: 0,
+    },
+    isSubscribed: {
+      type: Boolean,
+      default: false,
+    },
+    currentStatus: {
+      type: Boolean,
+      default: true,
+    },
+    notifications: {},
+    profileImage: {
+      type: String,
+      default: null,
+    },
+    token: {
+      type: String,
+      default: null,
+    },
+    isPrivateProfile: {
+      type: Boolean,
+      default: false,
+    },
+    requestedForGroups: {},
+    providerIds: {},
   },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-    match: [/.+\@.+..+/, "Please provide a valid email address"],
-  },
-  password: {
-    type: String,
-    required: [true, "Password are required"],
-  },
-  isEmailVerified: {
-    type: Boolean,
-    default: false,
-  },
-  adminOfGroups: {},
-  adminOfGroupsCount: {
-    type: Number,
-    default: 0,
-  },
-  joinedGroups: {},
-  groupAllowed: {
-    type: Number,
-    default: 3,
-  },
-  extraGroupAllowed: {
-    type: Number,
-    default: 0,
-  },
-  isSubscribed: {
-    type: Boolean,
-    default: false,
-  },
-  currentStatus: {
-    type: Boolean,
-    default: true,
-  },
-  notifications: {},
-  profileImage: {
-    type: String,
-    default: null,
-  },
-  token: {
-    type: String,
-    default: null,
-  },
-  isPrivateProfile: {
-    type: Boolean,
-    default: false,
-  },
-  requestedForGroups: {},
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-  lastUpdated: {
-    type: Date,
-    default: new Date(),
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const userModel =
-  (mongoose.models.User as mongoose.Model<User>) ||
-  mongoose.model<User>("User", userSchema);
+  (mongoose.models.Users as mongoose.Model<user>) ||
+  mongoose.model<user>("User", userSchema);
 
 export default userModel;
