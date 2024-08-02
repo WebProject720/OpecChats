@@ -35,6 +35,7 @@ const MembersSchema = new Schema(
 
 <<<<<<< HEAD
 const membersModel =
+<<<<<<< HEAD
   (mongoose.models.Chat as mongoose.Model<members>) ||
   mongoose.model<members>("Chat", membersSchema);
 =======
@@ -42,4 +43,8 @@ export const MembersModel =
   (mongoose.models.Member as mongoose.Model<Members>) ||
   mongoose.model<Members>("Member", MembersSchema);
 >>>>>>> b636828 (Models)
+=======
+  (mongoose.models.Member as mongoose.Model<members>) ||
+  mongoose.model<members>("Member", membersSchema);
+>>>>>>> 481dd77 (DBconnect & Collections)
 

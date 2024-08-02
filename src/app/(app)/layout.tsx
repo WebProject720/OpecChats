@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import DBconnect from "@/lib/DBconnect";
 
 
 
@@ -16,6 +17,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  DBconnect();
   return (
     <html lang="en">
         <body className={inter.className}>{children}</body>
