@@ -1,32 +1,31 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-import { group, notifications } from "./model.interface";
-import { groupModel, notificationsModel } from "./models";
+import { Group, Notifications } from "./model.interface";
 
 //use Document for TS for Type Safety
 
-export interface user extends Document {
+export interface User extends Document {
   username: string;
   email: string;
   password: string;
   isEmailVerified: boolean;
-  adminOfGroups: group[];
+  adminOfGroups: Group[];
   adminOfGroupsCount: number;
-  joinedGroups: group[];
+  joinedGroups: Group[];
   groupAllowed: number;
   extraGroupAllowed: number;
   isSubscribed: boolean;
   currentStatus: boolean;
-  notifications: notifications[];
+  notifications: Notifications[];
   profileImage: string;
   token: string;
   isPrivateProfile: boolean;
-  requestedForGroups: group[];
+  requestedForGroups: Group[];
   providerIds: Array<String>;
 }
 
 //Schema for type Safety and document follow this scehma
-export const userSchema: Schema<user> = new Schema(
+export const UserSchema: Schema<User> = new Schema(
   {
     username: {
       type: String,
@@ -47,12 +46,18 @@ export const userSchema: Schema<user> = new Schema(
       type: Boolean,
       default: false,
     },
-    adminOfGroups: [groupModel],
+    adminOfGroups: {
+      type: [Schema.Types.ObjectId],
+      ref: "Group",
+    },
     adminOfGroupsCount: {
       type: Number,
       default: 0,
     },
-    joinedGroups: [groupModel],
+    joinedGroups: {
+      type: [Schema.Types.ObjectId],
+      ref: "Group",
+    },
     groupAllowed: {
       type: Number,
       default: 3,
@@ -69,7 +74,10 @@ export const userSchema: Schema<user> = new Schema(
       type: Boolean,
       default: true,
     },
-    notifications: [notificationsModel],
+    notifications: {
+      type: [Schema.Types.ObjectId],
+      ref: "Notification",
+    },
     profileImage: {
       type: String,
       default: null,
@@ -82,16 +90,20 @@ export const userSchema: Schema<user> = new Schema(
       type: Boolean,
       default: false,
     },
-    requestedForGroups: [groupModel],
-    providerIds: [],
+    requestedForGroups: {
+      type: [Schema.Types.ObjectId],
+      ref: "Group",
+    },
+    providerIds: {
+      type: [String],
+      required: false,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const userModel =
-  (mongoose.models.Users as mongoose.Model<user>) ||
-  mongoose.model<user>("User", userSchema);
-
-export default userModel;
+export const UserModel =
+  (mongoose.models.User as mongoose.Model<User>) ||
+  mongoose.model<User>("User", UserSchema);

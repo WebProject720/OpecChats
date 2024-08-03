@@ -1,18 +1,23 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { user } from "./model.interface";
-import { userModel } from "./models";
+import { User } from "./model.interface";
 
-export interface notifications extends Document {
-  sendBy: user;
-  sendTo: user[];
+export interface Notifications extends Document {
+  sendBy: User;
+  sendTo: User[];
   isResolved: boolean;
   msg: string;
 }
 
-const notificationsSchema = new Schema(
+const NotificationsSchema = new Schema(
   {
-    sendBy: userModel,
-    sendTo: [userModel],
+    sendBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    sendTo: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     isResolved: {
       type: Boolean,
       default: false,
@@ -25,8 +30,7 @@ const notificationsSchema = new Schema(
   { timestamps: true }
 );
 
-const notificationsModel =
-  (mongoose.models.Notification as mongoose.Model<notifications>) ||
-  mongoose.model<notifications>("Notification", notificationsSchema);
+export const NotificationsModel =
+  (mongoose.models.Notification as mongoose.Model<Notifications>) ||
+  mongoose.model<Notifications>("Notification", NotificationsSchema);
 
-export default notificationsModel;

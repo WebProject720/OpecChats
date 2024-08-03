@@ -1,27 +1,27 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { members, user, chatsHistory } from "./model.interface";
-import { membersModel, userModel, chatsHistoryModel } from "./models";
+import { Members, User, ChatsHistory } from "./model.interface";
+import { MembersModel, UserModel, ChatsHistoryModel } from "./models";
 
-export interface group extends Document {
+export interface Group extends Document {
   groupName: string;
   profileImage: string;
   bgImage: string;
   isGroupPrivate: boolean;
   memberAllowedAtSingleTime: number;
-  admin: user;
+  admin: User;
   activeMemberCount: number;
   currentStatus: boolean;
-  chatID: chatsHistory;
+  chatID: ChatsHistory;
   extraMemberAllowed: number;
   isSubscribed: boolean;
-  memberLists: members[];
-  waitingMember: members[];
-  removedMembers: members[];
-  blockedMembers: members[];
+  memberLists: Members[];
+  waitingMember: Members[];
+  removedMembers: Members[];
+  blockedMembers: Members[];
   uniqueCode: string;
 }
 
-export const groupSchema: Schema<group> = new Schema(
+export const GroupSchema: Schema<Group> = new Schema(
   {
     groupName: {
       type: String,
@@ -43,7 +43,10 @@ export const groupSchema: Schema<group> = new Schema(
       type: Number,
       default: 20,
     },
-    admin: userModel,
+    admin: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     activeMemberCount: {
       type: Number,
       default: 0,
@@ -52,16 +55,31 @@ export const groupSchema: Schema<group> = new Schema(
       type: Boolean,
       default: true,
     },
-    chatID: chatsHistoryModel,
+    chatID: {
+      type: Schema.Types.ObjectId,
+      ref: "ChatHistory",
+    },
     extraMemberAllowed: { type: Number, default: 0 },
     isSubscribed: {
       type: Boolean,
       default: false,
     },
-    memberLists: [membersModel],
-    waitingMember: [membersModel],
-    removedMembers: [membersModel],
-    blockedMembers: [membersModel],
+    memberLists: {
+      type: [Schema.Types.ObjectId],
+      ref: "Member",
+    },
+    waitingMember: {
+      type: [Schema.Types.ObjectId],
+      ref: "Member",
+    },
+    removedMembers: {
+      type: [Schema.Types.ObjectId],
+      ref: "Member",
+    },
+    blockedMembers: {
+      type: [Schema.Types.ObjectId],
+      ref: "Member",
+    },
     uniqueCode: {
       type: String,
       required: false,
@@ -71,8 +89,7 @@ export const groupSchema: Schema<group> = new Schema(
   { timestamps: true }
 );
 
-const groupModel =
-  (mongoose.models.Group as mongoose.Model<group>) ||
-  mongoose.model<group>("Group", groupSchema);
+export const GroupModel =
+  (mongoose.models.Group as mongoose.Model<Group>) ||
+  mongoose.model<Group>("Group", GroupSchema);
 
-export default groupModel;

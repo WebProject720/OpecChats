@@ -1,14 +1,13 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { chats } from "./model.interface";
-import { chatsModel } from "./models";
+import { Chats } from "./model.interface";
 
-export interface chatsHistory extends Document {
+export interface ChatsHistory extends Document {
   admin: string;
   currentStatus: boolean;
-  chatIDs: chats;
+  chatIDs: Chats[];
 }
 
-const chatsHistorySchema = new Schema(
+const ChatsHistorySchema = new Schema(
   {
     admin: {
       type: String,
@@ -18,13 +17,15 @@ const chatsHistorySchema = new Schema(
       type: Boolean,
       default: true,
     },
-    chatIDs: chatsModel,
+    chatIDs: {
+      type:Schema.Types.ObjectId,
+      ref:"Chat"
+    }
   },
   { timestamps: true }
 );
 
-const chatsHistoryModel =
-  (mongoose.models.ChatHistory as mongoose.Model<chatsHistory>) ||
-  mongoose.model<chatsHistory>("ChatHistory", chatsHistorySchema);
+export const ChatsHistoryModel =
+  (mongoose.models.ChatHistory as mongoose.Model<ChatsHistory>) ||
+  mongoose.model<ChatsHistory>("ChatHistory", ChatsHistorySchema);
 
-export default chatsHistoryModel;

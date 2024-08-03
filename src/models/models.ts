@@ -1,17 +1,17 @@
-import chatsHistoryModel from "./chatHistory.model";
-import chatsModel from "./chats.model";
-import groupModel from "./group.model";
-import membersModel from "./member.model";
-import notificationsModel from "./notification.model";
-import OtpModel from "./OTP.model";
-import userModel from "./user.model";
+import {ChatsHistoryModel} from "./chatHistory.model";
+import {ChatsModel} from "./chats.model";
+import {GroupModel} from "./group.model";
+import {MembersModel} from "./member.model";
+import {NotificationsModel} from "./notification.model";
+import {OtpModel} from "./OTP.model";
+import {UserModel} from "./user.model";
 
 export {
-  chatsHistoryModel,
-  chatsModel,
-  groupModel,
-  membersModel,
-  notificationsModel,
+  ChatsHistoryModel,
+  ChatsModel,
+  GroupModel,
+  MembersModel,
+  NotificationsModel,
   OtpModel,
-  userModel,
+  UserModel
 };

@@ -24,8 +24,7 @@ const OtpSchema = new Schema(
   { timestamps: true }
 );
 
-const OtpModel =
+export const OtpModel =
   (mongoose.models.Otp as mongoose.Model<OTP>) ||
   mongoose.model<OTP>("Otp", OtpSchema);
 
-export default OtpModel;

@@ -1,9 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { members } from "./model.interface";
-import { membersModel } from "./models";
+import { Members } from "./model.interface";
+import { MembersModel } from "./models";
 
-export interface chats extends Document {
-  senderID: members;
+export interface Chats extends Document {
+  senderID: Members;
   canUpdate: boolean;
   targetedMsgID: string;
   msg: string;
@@ -11,9 +11,12 @@ export interface chats extends Document {
   isRemoved: boolean;
 }
 
-const chatsSchema = new Schema(
+const ChatsSchema = new Schema(
   {
-    senderID: membersModel,
+    senderID: {
+      type:Schema.Types.ObjectId,
+      ref:"Member"
+    },
     canUpdate: {
       type: Boolean,
       default: true,
@@ -37,8 +40,7 @@ const chatsSchema = new Schema(
   { timestamps: true }
 );
 
-const chatsModel =
-  (mongoose.models.Chat as mongoose.Model<chats>) ||
-  mongoose.model<chats>("Chat", chatsSchema);
+export const ChatsModel =
+  (mongoose.models.Chat as mongoose.Model<Chats>) ||
+  mongoose.model<Chats>("Chat", ChatsSchema);
 
-export default chatsModel;

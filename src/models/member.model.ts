@@ -1,22 +1,24 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { user } from "./model.interface";
-import { userModel } from "./models";
+import { User } from "./model.interface";
 
 
-export interface members extends Document {
+export interface Members extends Document {
   isShowDetailes: boolean;
-  userID: user;
+  userID: User;
   username: string;
   isActive: boolean;
 }
 
-const membersSchema = new Schema(
+const MembersSchema = new Schema(
   {
     isShowDetailes: {
       type: Boolean,
       default: false,
     },
-    userID: userModel,
+    userID: {
+      type:Schema.Types.ObjectId,
+      ref:"User"
+    },
     username: {
       type: String,
       required: false,
@@ -31,8 +33,13 @@ const membersSchema = new Schema(
   }
 );
 
+<<<<<<< HEAD
 const membersModel =
   (mongoose.models.Chat as mongoose.Model<members>) ||
   mongoose.model<members>("Chat", membersSchema);
+=======
+export const MembersModel =
+  (mongoose.models.Member as mongoose.Model<Members>) ||
+  mongoose.model<Members>("Member", MembersSchema);
+>>>>>>> b636828 (Models)
 
-export default membersModel;
