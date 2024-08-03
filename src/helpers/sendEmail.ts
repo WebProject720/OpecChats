@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import renderEmailTemplate from "./mailTemplate";
 
 const genOTP = () => {
-  let OTP = 0;
-  while (OTP < 999) {
-    OTP = Math.floor(Math.random() * 10000);
-  }
-  return OTP;
+  return Math.floor(1000 + Math.random() * 9000);
 };
 
 export const sendMail = async (tagertEmail: string) => {
@@ -21,16 +18,17 @@ export const sendMail = async (tagertEmail: string) => {
       auth: {
         user: process.env.EMAIL_SENDER,
         pass: process.env.EMAIL_SENDER_PASSWORD,
-      },
+      }
     });
     const mailOptions = {
       from: process.env.EMAIL_SENDER,
       to: tagertEmail,
       subject: "OpecChats || One Time Password",
-      text: `Your OTP is ${OTP}`,
+      html: renderEmailTemplate(OTP, tagertEmail),
     };
 
     const email = await transport.sendMail(mailOptions);
+    console.log(email)
     if (!email) {
       return NextResponse.json(
         {
