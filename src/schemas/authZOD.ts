@@ -7,7 +7,7 @@ export const username = z
 
 export const email = z
   .string()
-  .email("Invalid Email")
+  .email("Invalid Email syntax")
   .min(5, "Email character must be greater then 5")
   .max(40, "Email character not greater then 40");
 
@@ -16,8 +16,18 @@ export const password = z
   .min(5, "Password must greater then 5 character")
   .max(30, "password must less then 30 character");
 
+export const OTP = z.number();
+
 export const signUpSchema = z.object({
   username: username,
   email: email,
   password: password,
+});
+export const signInSchema = z.object({
+  username: username,
+  email: email,
+  password: password,
+});
+export const OtpSchema = z.object({
+  otp: OTP,
 });
