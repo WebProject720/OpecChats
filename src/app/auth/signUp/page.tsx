@@ -30,12 +30,14 @@ export default function SignUp() {
         <Layout>
             <section className="min-w-full min-h-full flex justify-center items-center flex-col gap-6">
                 <div>
-                    <h1 className="text-center font-bold">
+                    <h1 className="text-center font-bold text-3xl">
                         Sign up
                     </h1>
                 </div>
                 <Form {...form}>
-                    <form action="">
+                    <form action=""
+                        className="space-y-2"
+                    >
                         <FormField
                             control={form.control}
                             name="username"
@@ -45,7 +47,7 @@ export default function SignUp() {
                                     <FormControl>
                                         <Input placeholder="username" {...field} />
                                     </FormControl>
-                                    <FormDescription>This is your public display name.</FormDescription>
+                                    {/* <FormDescription>This is your public display name.</FormDescription> */}
                                     <FormMessage />
                                 </FormItem>
                             )}

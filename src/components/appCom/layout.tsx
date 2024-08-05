@@ -1,5 +1,8 @@
+'use client'
 import React from 'react'
-import '../../app/globals.css'
+import '../../app/(app)/globals.css'
+import { signIn } from 'next-auth/react'
+
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -18,6 +21,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           "
                         >
                             {children}
+                            <div>
+                                <button onClick={() => signIn('google')}>Continue with GitHub</button>
+                            </div>
                         </div>
                     </div>
                 </div>
