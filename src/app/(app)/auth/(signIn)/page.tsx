@@ -10,12 +10,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "@/schemas/authZOD";
 import '../../globals.css'
 import { Loader } from "@/components/custom/loader";
+import axios from "axios";
 
 
 
 
 export default function SignUp() {
     const [submiting, setSubmiting] = useState(false);
+    const [error, setError] = useState('');
     const { register, handleSubmit, formState: { errors }
     } = useForm({
         defaultValues: {
@@ -24,8 +26,19 @@ export default function SignUp() {
         },
         resolver: zodResolver(signInSchema)
     })
-    const submit = (data: any) => {
-        console.log(data);
+    const submit = async (data: any) => {
+        setError('')
+        try {
+            setSubmiting(true)
+            const res = await axios.post('/api/auth/signIn', data);
+            console.log(res.data);
+            setError(res?.data?.message || 'Sign In failled')
+            setSubmiting(false)
+        } catch (error: any) {
+            setSubmiting(false)
+            console.log(error?.response?.data)
+            setError(error?.response?.data?.message || 'Sign In failled')
+        }
     }
     return (
         <Layout>
@@ -46,6 +59,12 @@ export default function SignUp() {
                         <Input {...register('password')} placeholder="Password" type="password" />
                         {errors.password &&
                             <p className="authErrorslabel">{errors.password.message}</p>
+                        }
+                        {
+                            error &&
+                            <p className={`authErrorslabel text-center w-full
+                                ${error == 'Request successfully' ? '!text-green-500' : ''}
+                                `}>{error}</p>
                         }
                         <Button disabled={submiting} type='submit' text={submiting ? <Loader /> : 'Save'}></Button>
                     </form>

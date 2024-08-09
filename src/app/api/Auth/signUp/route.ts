@@ -1,6 +1,6 @@
 import DBconnect from "@/lib/DBconnect";
 import { UserModel } from "@/models/user.model";
-import { signInSchema } from "@/schemas/authZOD";
+import { signUpSchema } from "@/schemas/authZOD";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { username, email, password } = signInSchema.parse(body);
+    const { username, email, password } = signUpSchema.parse(body);
     const userWithUsername = await UserModel.findOne({
       username,
     });
@@ -46,9 +46,12 @@ export async function POST(request: Request) {
 
     const saveUser = await user.save();
     if (saveUser) {
-      const emailResponse = await axios.post(`${process.env.SERVER_PATH}/auth/email`, {
-        email: saveUser.email,
-      });
+      const emailResponse = await axios.post(
+        `${process.env.SERVER_PATH}/auth/email`,
+        {
+          email: saveUser.email,
+        }
+      );
       return NextResponse.json(
         {
           message: "user register successfully",
@@ -61,6 +64,7 @@ export async function POST(request: Request) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         {
+          success:false,
           errors: error.errors.map((e) => ({
             path: e.path,
             message: e.message,

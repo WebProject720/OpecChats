@@ -7,7 +7,6 @@ export const username = z
   .min(1, "Username Required")
   .min(5, "Too short username")
   .max(20, "Too large username")
-  .refine((value) => /\s/.test(value), "No space allowed");
 
 export const email = z
   .string({ invalid_type_error, required_error })
