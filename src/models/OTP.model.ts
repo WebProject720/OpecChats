@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface OTP extends Document {
   email: string;
-  OTP: string;
+  OTP: any;
   username?: string;
 }
 

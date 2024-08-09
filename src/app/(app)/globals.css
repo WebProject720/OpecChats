@@ -67,3 +67,15 @@
     @apply bg-background text-foreground;
   }
 }
+.authInput{
+  @apply p-3 bg-white bg-opacity-15 text-white rounded outline-none
+  placeholder-white placeholder-opacity-60
+}
+
+.authButtons{
+  @apply bg-white text-black rounded p-3 outline-none font-bold
+}
+
+.authErrorslabel{
+  @apply text-xs text-red-700
+}

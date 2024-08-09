@@ -1,22 +1,17 @@
 import DBconnect from "@/lib/DBconnect";
 import { UserModel } from "@/models/user.model";
+import { signInSchema } from "@/schemas/authZOD";
+import axios from "axios";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
 export async function POST(request: Request) {
   await DBconnect();
 
   try {
-    const { username, email, password } = await request.json();
-    // if (!username || !email || !password) {
-    //   return NextResponse.json(
-    //     {
-    //       success: false,
-    //       message: "All fields are required ",
-    //     },
-    //     { status: 400 }
-    //   );
-    // }
+    const body = await request.json();
+    const { username, email, password } = signInSchema.parse(body);
     const userWithUsername = await UserModel.findOne({
       username,
     });
@@ -51,6 +46,9 @@ export async function POST(request: Request) {
 
     const saveUser = await user.save();
     if (saveUser) {
+      const emailResponse = await axios.post(`${process.env.SERVER_PATH}/auth/email`, {
+        email: saveUser.email,
+      });
       return NextResponse.json(
         {
           message: "user register successfully",
@@ -60,7 +58,18 @@ export async function POST(request: Request) {
       );
     }
   } catch (error) {
-    console.log("Something went wrong");
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        {
+          errors: error.errors.map((e) => ({
+            path: e.path,
+            message: e.message,
+          })),
+        },
+        { status: 400 }
+      );
+    }
+    console.log("Something went wrong in SignUp");
     return NextResponse.json(
       {
         message: "User signUp failled",

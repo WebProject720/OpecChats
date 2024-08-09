@@ -1,20 +1,26 @@
-import { z } from "zod";
+import { z, object, string } from "zod";
+const invalid_type_error = "invalid input";
+const required_error = "invalid input";
 
 export const username = z
-  .string()
-  .max(20, "Username must not more then 20 character")
-  .min(5, "Username character are greater then 5 character");
+  .string({ invalid_type_error, required_error })
+  .trim()
+  .min(1, "Username Required")
+  .min(5, "Too short username")
+  .max(20, "Too large username")
 
 export const email = z
-  .string()
+  .string({ invalid_type_error, required_error })
+  .min(1, "Email Required")
   .email("Invalid Email syntax")
-  .min(5, "Email character must be greater then 5")
-  .max(40, "Email character not greater then 40");
+  .min(5, "Too short email")
+  .max(40, "Too large email");
 
 export const password = z
-  .string()
-  .min(5, "Password must greater then 5 character")
-  .max(30, "password must less then 30 character");
+  .string({ invalid_type_error, required_error })
+  .min(1, "Password Required")
+  .min(5, "Too short password")
+  .max(30, "Too large password");
 
 export const OTP = z.number();
 
