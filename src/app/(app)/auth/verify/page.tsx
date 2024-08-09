@@ -117,7 +117,10 @@ export default function page() {
                                     ? "bg-[#23CF9B]"
                                     : "bg-[#EB2D5B]"
                             }
+                            ${submiting ? 'cursor-not-allowed' : ''
+                            }
                     `}
+                        disabled={submiting}
                     >
                         {status == undefined
                             ? (submiting ? <Loader /> : "Verify Account ")

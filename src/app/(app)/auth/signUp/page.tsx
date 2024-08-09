@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
 import React, { useEffect, useState } from "react"
 import { useDebounceValue } from 'usehooks-ts';
 import Layout from "../AuthLayout"
@@ -9,9 +8,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import '../../globals.css'
 import { signUpSchema } from "@/schemas/authZOD"
 import { Loader } from "@/components/custom/loader";
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { useRouter } from "next/navigation";
-
+import { LinkButton } from "@/components/custom/LinkButton";
+import { Button } from "@/components/custom/button";
+import { GoogleButton } from "@/components/custom/googleButton";
+import { Input } from "@/components/custom/input";
 
 
 
@@ -53,10 +55,14 @@ export default function signUp() {
     useEffect(() => {
         const checkUsername = async () => {
             if (debounceUsername) {
-                setusernameMsg('')
+                const username = debounceUsername.trim();
+                if (username.length <= 0) {
+                    return
+                }
                 setCheckingUsername(true)
+                setusernameMsg('')
                 const response = await axios.post('/api/auth/checkUsername', {
-                    username: debounceUsername.trim()
+                    username
                 });
                 if (response) {
                     setusernameMsg(response.data.message);
@@ -75,10 +81,10 @@ export default function signUp() {
                             Sign Up
                         </h1>
                     </div>
-                    <form action="" className="flex gap-6 flex-col"
+                    <form action="" className="flex gap-2 flex-col"
                         onSubmit={handleSubmit(submitForm)}>
                         <div className="space-y-1">
-                            <input className="authInput"
+                            <Input className="authInput"
                                 {...register('username')}
                                 placeholder="Username" type="text" />
                             {errors.username && (
@@ -97,12 +103,12 @@ export default function signUp() {
                             {
                                 usernameMsg && !isCheckingUsername && !errors.username &&
                                 (<p
-                                    className={usernameMsg == 'username is unique' ? 'text-green-600 text-xs' : 'authErrorslabel'}
+                                    className={usernameMsg == 'username is unique' ? 'text-[#30f578] text-xs' : 'authErrorslabel'}
                                 >{usernameMsg}</p>)
                             }
                         </div>
                         <div className="space-y-1">
-                            <input className="authInput" {...register('email')}
+                            <Input className="authInput" {...register('email')}
                                 placeholder="Email" type="email" />
                             {errors.email && (<p className="authErrorslabel">
                                 {errors.email.message}
@@ -114,21 +120,30 @@ export default function signUp() {
                             }
                         </div>
                         <div className="space-y-1">
-                            <input className="authInput" {...register('password')} placeholder="Password" type="password" />
+                            <Input className="authInput" {...register('password')} placeholder="Password" type="password" />
                             {errors.password && (<p className="authErrorslabel">
                                 {errors.password.message}
                             </p>)}
                         </div>
-                        <Button className={`${submiting ? 'disabled:' : ''}  text-center flex justify-center`} type="submit">
-                            {submiting ? <Loader></Loader> : 'save'}
+                        <Button className={`${submiting ? 'cursor-not-allowed' : ''}  text-center flex justify-center`}
+                            disabled={submiting}
+                            type="submit"
+                            text={submiting ? <Loader></Loader> : 'save'}>
                         </Button>
                     </form>
                 </div>
                 <div >
                     <hr className="mt-3 mb-3" />
                     <div>
-                        <Button className="w-full">Continue with Google</Button>
+                        <GoogleButton />
                     </div>
+                </div>
+                <div className="flex justify-between mt-7">
+                    <div></div>
+                    <LinkButton
+                        url={'/auth'}
+                        text={'Sign In'}
+                    ></LinkButton>
                 </div>
             </div>
         </Layout>

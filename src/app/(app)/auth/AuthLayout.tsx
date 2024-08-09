@@ -4,7 +4,10 @@ import React from "react"
 
 export default function Layout({ children }: any) {
   return (
-    <div className='bg-gray-500 bg-gradient-to-tl from-blue-400 to-[#d04dd6] min-h-screen'>
+    <div className='bg-gray-500 bg-gradient-to-tl from-blue-400 to-[#d04dd6] min-h-screen
+    CustomAuthBG
+    
+    '>
             <div
                 className=" min-h-screen min-w-full 
     flex justify-center items-center

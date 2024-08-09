@@ -77,5 +77,10 @@
 }
 
 .authErrorslabel{
-  @apply text-xs text-red-700
+  @apply text-xs text-[#f86161]
+}
+
+.CustomAuthBG{
+  background: repeating-linear-gradient(45deg, #202ea4, #1a1111 100px);
+  @apply bg-opacity-25
 }
