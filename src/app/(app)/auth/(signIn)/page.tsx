@@ -26,6 +26,8 @@ export default function SignUp() {
         },
         resolver: zodResolver(signInSchema)
     })
+    
+    
     const submit = async (data: any) => {
         setError('')
         try {
@@ -78,7 +80,7 @@ export default function SignUp() {
                     <div>
                         <LinkButton
                             url={'/auth/signUp'}
-                            text={'Sign Up'}
+                            text={'Register'}
                         ></LinkButton>
                     </div>
                 </div>

@@ -142,7 +142,7 @@ export default function signUp() {
                     <div></div>
                     <LinkButton
                         url={'/auth'}
-                        text={'Sign In'}
+                        text={'Login'}
                     ></LinkButton>
                 </div>
             </div>

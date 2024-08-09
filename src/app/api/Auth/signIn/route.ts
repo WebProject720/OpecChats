@@ -1,15 +1,17 @@
 import DBconnect from "@/lib/DBconnect";
 import { UserModel } from "@/models/user.model";
-import { signInSchema } from "@/schemas/authZOD";
-import { NextResponse } from "next/server";
+import { email, signInSchema } from "@/schemas/authZOD";
+import { NextResponse, NextRequest } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { cookie } from "@/helpers/Cookies";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   await DBconnect();
   try {
     const body = await request.json();
+    const accessToken = request.cookies.get(process.env.TokenName||'AccessToken');
+    console.log(accessToken);
     const { identifier, password } = signInSchema.parse(body);
     const user: any = await UserModel.findOne({
       $or: [{ email: identifier }, { username: identifier }],
@@ -35,7 +37,11 @@ export async function POST(request: Request) {
       );
     }
 
-    return cookie();
+    return cookie({
+      _id: user._id,
+      email: user.email,
+      username: user.username,
+    });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
