@@ -11,6 +11,16 @@ const config = {
 	],
   prefix: "",
   theme: {
+    screens: {
+      'phone': { 'max': '651px' },
+      // => @media (min-width: 640px) { ... }
+
+      'laptop': '651px',
+      // => @media (min-width: 1024px) { ... }
+      'Max650':{'max':'650px'},
+      'Min650':'651px'
+
+    },
     container: {
       center: true,
       padding: "2rem",

@@ -6,7 +6,8 @@ export default function Home() {
   return (
     <div className=" bg-slate-700 text-white
     w-full min-h-screen  bg-gradient-to-t from-[#969697] to-[#2e2c5c]
-    p-3
+    p-3 flex justify-center flex-col items-center
+    bg-radient
     ">
       <div className='w-full h-full mt-7'>
         <div className='w-full h-3/4 
@@ -15,8 +16,13 @@ export default function Home() {
             className='rounded'
           ></Image>
           <div>
-            <h1 className='text-4xl font-bold'>
-              Welcome To OpecChats
+            <h1 className='text-4xl font-bold font-serif hover:scale-110
+            transition-all duration-700  animate-pulse 
+            '>
+             | Welcome 
+              <span className='text-black text-5xl'> To 
+              </span>
+              <span>  OpecChats |</span>
             </h1>
           </div>
           <div className='flex flex-row gap-4 justify-center w-3/4'>
@@ -25,10 +31,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='w-full p-4 bg-white bg-opacity-10 rounded mt-6'>
+      <div className='w-full laptop:w-2/3 p-4 bg-white bg-opacity-10 rounded mt-6'>
         <div className="heading">
           <div>
-            <h1 className='text-3xl font-bold '>
+            <h1 className='text-3xl font-bold font-serif'>
               Description
             </h1>
             <hr className='mt-2 mb-2' />
