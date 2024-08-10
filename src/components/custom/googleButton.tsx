@@ -16,10 +16,10 @@ export const GoogleButton = forwardRef<HTMLDivElement, ButtonProps>((
     return (
         <button
             type={type || "submit"}
-            className={`p-2 bg-black text-white rounded outline-none
+            className={`p-2 bg-white text-black rounded outline-none
   placeholder-white placeholder-opacity-60 mt-1 mb-1 w-full text-center
   flex justify-center items-center gap-2  text-xs transition-all duration-500
-  hover:bg-white hover:text-black 
+  hover:bg-black hover:text-white 
                 ${className} 
                 `}
             ref={ref || null}

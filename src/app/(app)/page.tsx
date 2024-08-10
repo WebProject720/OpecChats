@@ -7,22 +7,22 @@ export default function Home() {
     <div className=" bg-slate-700 text-white
     w-full min-h-screen  bg-gradient-to-t from-[#969697] to-[#2e2c5c]
     p-3 flex justify-center flex-col items-center
-    bg-radient
+    bg-radient CustomAuthBG
     ">
       <div className='w-full h-full mt-7'>
         <div className='w-full h-3/4 
         flex justify-center flex-col gap-10 items-center'>
-          <Image alt='Logo' width={200} height={200} src='/favicon.ico'
-            className='rounded'
+          <Image alt='Logo' width={200} height={200} src='/logo-black.svg'
+            className='rounded-full'
           ></Image>
           <div>
             <h1 className='text-4xl font-bold font-serif hover:scale-110
-            transition-all duration-700  animate-pulse 
+            transition-all duration-700 phone:text-xl  animate-pulse  text-center
             '>
-             | Welcome 
-              <span className='text-black text-5xl'> To 
+              Welcome
+              <span className='text-[#1ef519] text-5xl'> To
               </span>
-              <span>  OpecChats |</span>
+              <span>  OpecChats </span>
             </h1>
           </div>
           <div className='flex flex-row gap-4 justify-center w-3/4'>
