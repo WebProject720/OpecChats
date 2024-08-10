@@ -7,7 +7,6 @@ const connection: connectionObject = {};
 
 async function DBconnect(): Promise<void> {
   if (connection.isConnected) {
-    console.log("Connection Already Exits");
     return;
   }
 

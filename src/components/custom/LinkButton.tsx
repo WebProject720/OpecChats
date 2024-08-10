@@ -14,7 +14,7 @@ export const LinkButton = forwardRef<HTMLDivElement, ButtonProps>((
         className={`
             text-white bg-black hover:bg-white hover:text-black 
                             p-3 rounded-full transition-all duration-500
-
+                            text-center
              ${className}`}
              ref={ref}
         >{text || '-->'}</Link>
