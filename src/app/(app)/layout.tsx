@@ -20,6 +20,7 @@ export default async function RootLayout({
   DBconnect();
   return (
     <html lang="en">
+      <link rel="icon" href="/logo-black.svg" type="image/x-icon" sizes="any" />
         <body className={inter.className}>{children}</body>
     </html>
   );

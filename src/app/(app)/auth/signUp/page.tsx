@@ -17,7 +17,7 @@ import { Input } from "@/components/custom/input";
 
 
 
-export default function signUp() {
+export default function Page() {
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: {
             username: '',

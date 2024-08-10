@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Loader } from "@/components/custom/loader";
 
-export default function page() {
+export default function Page() {
     const search = useSearchParams();
     const route = useRouter()
     const [status, setStatus]: any = useState();

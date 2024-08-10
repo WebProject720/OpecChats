@@ -2,7 +2,7 @@ import Image from 'next/image';
 import './globals.css'
 import { LinkButton } from '@/components/custom/LinkButton';
 
-export default function Home() {
+export default function Page() {
   return (
     <div className=" bg-slate-700 text-white
     w-full min-h-screen  bg-gradient-to-t from-[#969697] to-[#2e2c5c]

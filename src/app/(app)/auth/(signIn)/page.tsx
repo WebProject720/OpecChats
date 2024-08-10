@@ -15,7 +15,7 @@ import axios from "axios";
 
 
 
-export default function SignUp() {
+export default function Page() {
     const [submiting, setSubmiting] = useState(false);
     const [error, setError] = useState('');
     const { register, handleSubmit, formState: { errors }
