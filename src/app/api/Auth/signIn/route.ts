@@ -11,7 +11,8 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const accessToken = request.cookies.get(process.env.TokenName||'AccessToken');
-    console.log(accessToken);
+    console.log('Cookies', accessToken);
+
     const { identifier, password } = signInSchema.parse(body);
     const user: any = await UserModel.findOne({
       $or: [{ email: identifier }, { username: identifier }],
