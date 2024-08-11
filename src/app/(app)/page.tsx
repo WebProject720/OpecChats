@@ -7,7 +7,7 @@ export default function Page() {
     <div className=" bg-slate-700 text-white
     w-full min-h-screen  bg-gradient-to-t from-[#969697] to-[#2e2c5c]
     p-3 flex justify-center flex-col items-center
-    bg-radient CustomAuthBG
+    bg-radient 
     ">
       <div className='w-full h-full mt-7'>
         <div className='w-full h-3/4 
