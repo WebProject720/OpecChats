@@ -12,7 +12,7 @@ export const Button = forwardRef<HTMLDivElement, ButtonProps>((
         <button
             type={type || "submit"}
             className={`p-2 bg-white text-black rounded outline-none
-  placeholder-white placeholder-opacity-60 mt-2 w-full text-center
+  placeholder-white placeholder-opacity-60 mt-1 w-full text-center
   flex justify-center font-bold text-xl 
   hover:bg-black hover:text-white transition-all duration-500 
   disabled:hover:bg-black  disabled:hover:text-white
