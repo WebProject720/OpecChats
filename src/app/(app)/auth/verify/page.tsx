@@ -29,10 +29,9 @@ export default function Page() {
             return;
         }
         const OTP = Number(digit1 + digit2 + digit3 + digit4);
-
         try {
             setSubmiting(true);
-            const response = await axios.post('/api/auth/verify', { email, OTP })
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/verify`, { email, OTP })
             if (response) {
                 route.replace('/auth')
                 setStatus(true)
@@ -57,7 +56,7 @@ export default function Page() {
     }, [status]);
     return (
         <Layout>
-            <h1 className="font-bold text-black text-xl text-center">
+            <h1 className="font-bold text-white text-xl text-center">
                 Email Verification
             </h1>
             <div>

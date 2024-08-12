@@ -32,7 +32,7 @@ export default function Page() {
         setError('')
         try {
             setSubmiting(true)
-            const res = await axios.post('/api/auth/signIn', data);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/login`, data);
             console.log(res.data);
             setError(res?.data?.message || 'Sign In failled')
             setSubmiting(false)

@@ -14,10 +14,12 @@ import { LinkButton } from "@/components/custom/LinkButton";
 import { Button } from "@/components/custom/button";
 import { GoogleButton } from "@/components/custom/googleButton";
 import { Input } from "@/components/custom/input";
-
+import 'dotenv/config'
 
 
 export default function Page() {
+    console.log(process.env.NEXT_PUBLIC_SERVER_PATH);
+    
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: {
             username: '',
@@ -41,7 +43,7 @@ export default function Page() {
         try {
             if (usernameMsg != 'username is unique') return;
             setSubmiting(true)
-            const { response }: any = await axios.post('/api/auth/signUp', e)
+            const { response }: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/register`, e)
             console.log(response);
             setSubmiting(false)
             route.replace(`/auth/verify?email=${e.email}`);
@@ -61,7 +63,7 @@ export default function Page() {
                 }
                 setCheckingUsername(true)
                 setusernameMsg('')
-                const response = await axios.post('/api/auth/checkUsername', {
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/checkUsername`, {
                     username
                 });
                 if (response) {
