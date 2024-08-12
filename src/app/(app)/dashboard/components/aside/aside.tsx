@@ -27,14 +27,14 @@ export const Aside = () => {
             <div className="flex flex-col w-full h-full items-center justify-center">
                 <div className="top w-full h-4/5 ">
                     <div className="search">
-                        <Search placeholder="Search"></Search>
+                        <Search className="bg-transparent" placeholder="Search"></Search>
                     </div>
                     <section className="flex flex-col gap-2 mt-2">
                         {groups &&
-                            groups.map((e: any) => (
-                                <Link href={e.url}>
-                                    <div className="flex border-2 border-black border-opacity-15
-                                     flex-row hover:bg-white hover:bg-opacity-25 
+                            groups.map((e: any,i:number) => (
+                                <Link key={i} href={e.url}>
+                                    <div  className="flex border-[1px] border-white border-opacity-55
+                                     flex-row hover:bg-white hover:bg-opacity-50 
                                      rounded p-2 gap-1 justify-start items-center">
                                         <div>
                                             <Image alt='Logo' width={30} height={30} src='/logo-black.svg'

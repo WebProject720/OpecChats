@@ -15,7 +15,7 @@ export const Button = forwardRef<HTMLDivElement, ButtonProps>((
   placeholder-white placeholder-opacity-60 mt-1 w-full text-center
   flex justify-center font-bold text-xl 
   hover:bg-black hover:text-white transition-all duration-500 
-  disabled:hover:bg-black  disabled:hover:text-white
+  disabled:hover:bg-black  disabled:hover:text-white   items-center
                 ${className} 
             `}
             ref={ref || null}

@@ -9,7 +9,7 @@ export interface inputProps
 export const Input = forwardRef<HTMLDivElement, inputProps>((
     { label, className = '', placeholder, type, ...props }, ref: any) => {
     return (
-        <div className="space-y-1">
+        <div className="space-y-1 w-full">
             <label className="text-white">
                 {label}
             </label>
