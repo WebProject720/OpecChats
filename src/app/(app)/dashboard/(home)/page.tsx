@@ -6,7 +6,7 @@ export default function Page() {
         <DashboardLayout>
             <main>
                 <h1>
-                    main dashboard features
+                    
                 </h1>
             </main>
         </DashboardLayout>

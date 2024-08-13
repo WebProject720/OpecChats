@@ -14,12 +14,12 @@ const config = {
     screens: {
       'phone': { 'max': '651px' },
       // => @media (min-width: 640px) { ... }
-
       'laptop': '651px',
       // => @media (min-width: 1024px) { ... }
       'Max650':{'max':'650px'},
-      'Min650':'651px'
-
+      'Min650':'651px',
+      'phoneTheme':{'max':'1000px'},
+      'laptopTheme':'1001px'
     },
     container: {
       center: true,

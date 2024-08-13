@@ -87,3 +87,22 @@
   background: repeating-linear-gradient(45deg, #202ea4, #1a1111 100px);
   @apply bg-opacity-25
 }
+
+.hiddren-scroll::-webkit-scrollbar {
+  width: 1px;
+}
+
+.hiddren-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 5px;
+}
+
+.hiddren-scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 14px;
+  border: 3px solid transparent;
+}
+
+.message{
+  scroll-snap-align: start;
+}
