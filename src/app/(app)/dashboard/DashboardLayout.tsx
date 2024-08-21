@@ -7,8 +7,9 @@ import { Aside } from './components/aside/aside';
 export default function DashboardLayout({ children }: any) {
   return (
     <div className="h-screen flex flex-row bg-[#052043] text-white">
-      <div className='w-1/5 bg-[#032f6e] p-3 
-      phoneTheme:w-1/2 phone:!w-full phone:!bg-[#052043]
+      <div className='w-1/5 bg-[#032f6e] phone:!bg-[#3d4876] p-3 
+      phoneTheme:w-1/2 phone:!w-full phone:!bg-[#052043] phone:!bg-[#3d4876]
+      phone:bg-gradient-to-t from-[#e68220] to-[#dc3ea39e] 
       border-[0px] border-white '>
         <Aside />
       </div>
