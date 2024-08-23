@@ -9,8 +9,8 @@ export function middleware(request: NextRequest) {
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   } else if (request?.url.includes("/dashboard") && !accessToken) {
-    // url.pathname = "/auth";
-    // return NextResponse.redirect(url);
+    url.pathname = "/auth";
+    return NextResponse.redirect(url);
   }
   return NextResponse.next();
 }

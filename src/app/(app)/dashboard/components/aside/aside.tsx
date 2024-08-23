@@ -1,12 +1,32 @@
 import { Button } from "@/components/custom/button"
 import { LinkButton } from "@/components/custom/LinkButton"
 import { Search } from "@/components/custom/search"
+import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+
 import React from "react"
 
-
 export const Aside = () => {
+    const route = useRouter()
+    const logout = async () => {
+
+        try {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/logout`, undefined,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',  // Ensure the content type is correct
+                    }
+                });
+            if (res) {
+                route.push('/')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     const groups = [
         {
             name: 'Group A',
@@ -103,7 +123,7 @@ export const Aside = () => {
                 <div className="footer w-full flex   flex-col justify-end h-auto gap-1
                 phone:flex-row phone:items-end phone:absolute top-[93%] ">
                     <LinkButton className="w-full" url={'/dashboard/group/create'} text='New Group'></LinkButton>
-                    <LinkButton className="w-full" url={'/logout'} text='Logout'></LinkButton>
+                    <Button onClick={logout} className="w-full rounded-full p-3 font-normal text-base" text='Logout'></Button>
                 </div>
             </div>
         </aside>

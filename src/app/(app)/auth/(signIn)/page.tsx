@@ -11,12 +11,15 @@ import { signInSchema } from "@/schemas/authZOD";
 import '../../globals.css'
 import { Loader } from "@/components/custom/loader";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+
 
 
 
 
 export default function Page() {
     const [submiting, setSubmiting] = useState(false);
+    const route = useRouter();
     const [error, setError] = useState('');
     const { register, handleSubmit, formState: { errors }
     } = useForm({
@@ -26,19 +29,27 @@ export default function Page() {
         },
         resolver: zodResolver(signInSchema)
     })
-    
-    
+
+
     const submit = async (data: any) => {
         setError('')
         try {
             setSubmiting(true)
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/login`, data);
-            console.log(res.data);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/login`, data,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',  // Ensure the content type is correct
+                    }
+                });
+            if (res) {
+                route.push('/dashboard');
+            }
             setError(res?.data?.message || 'Sign In failled')
             setSubmiting(false)
         } catch (error: any) {
             setSubmiting(false)
-            console.log(error?.response?.data)
+            console.log(error)
             setError(error?.response?.data?.message || 'Sign In failled')
         }
     }
@@ -65,7 +76,7 @@ export default function Page() {
                         {
                             error &&
                             <p className={`authErrorslabel text-center w-full
-                                ${error == 'Request successfully' ? '!text-green-500' : ''}
+                                ${error == ('login successfully') ? '!text-green-500' : ''}
                                 `}>{error}</p>
                         }
                         <Button disabled={submiting} type='submit' text={submiting ? <Loader /> : 'Save'}></Button>
