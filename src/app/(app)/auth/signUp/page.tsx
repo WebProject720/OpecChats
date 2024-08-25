@@ -18,8 +18,7 @@ import 'dotenv/config'
 
 
 export default function Page() {
-    console.log(process.env.NEXT_PUBLIC_SERVER_PATH);
-    
+
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: {
             username: '',
@@ -56,20 +55,25 @@ export default function Page() {
 
     useEffect(() => {
         const checkUsername = async () => {
-            if (debounceUsername) {
-                const username = debounceUsername.trim();
-                if (username.length <= 0) {
-                    return
+            try {
+                if (debounceUsername) {
+                    const username = debounceUsername.trim();
+                    if (username.length <= 0) {
+                        return
+                    }
+                    setCheckingUsername(true)
+                    setusernameMsg('')
+                    const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/checkUsername`, {
+                        username
+                    });
+                    if (response) {
+                        setusernameMsg(response.data.message);
+                    }
+                    setCheckingUsername(false);
                 }
-                setCheckingUsername(true)
-                setusernameMsg('')
-                const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/checkUsername`, {
-                    username
-                });
-                if (response) {
-                    setusernameMsg(response.data.message);
-                }
+            } catch (error: any) {
                 setCheckingUsername(false);
+                setusernameMsg(error?.response.data.message);
             }
         }
         checkUsername();
