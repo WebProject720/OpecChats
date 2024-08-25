@@ -15,8 +15,6 @@ import { useRouter } from "next/navigation";
 
 
 
-
-
 export default function Page() {
     const [submiting, setSubmiting] = useState(false);
     const route = useRouter();
