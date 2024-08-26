@@ -4,17 +4,16 @@ import '../globals.css'
 import { Aside } from './components/aside/aside';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { store } from '@/store/poxy';
+import { state } from '@/store/poxy';
 import { useSnapshot } from 'valtio';
 
 export default function DashboardLayout({ children }: any) {
   const path = usePathname();
-  const proxy = useSnapshot(store);
-  console.log(proxy.user, proxy);
+  const [groupPath, setGroupPath] = useState(false);
+  const user = useSnapshot(state);
 
-  const [screen, setScreen] = useState(false);
   useEffect(() => {
-    setScreen(path.includes('group'));
+    setGroupPath(path.includes('group'));
   }, [path])
 
   return (
@@ -23,13 +22,15 @@ export default function DashboardLayout({ children }: any) {
       <div className={`w-1/5 bg-[#032f6e]  p-3 
       phoneTheme:w-1/2 phone:!w-full 
       phone:bg-gradient-to-t from-[#e68220] to-[#dc3ea39e] 
-      border-[0px] border-white 
-      phoneTheme:${screen && screen ? 'hidden' : 'auto'}
+      border-[0px] border-white
+      phone:${groupPath ? '!hidden' : ''}
       `}>
         <Aside />
       </div>
-      <BgText className={`phoneTheme:w-1/2 laptopTheme:!hidden  phoneTheme:${screen && screen ? 'hidden' : 'auto'} phone:!hidden`} />
-      <main className={`phoneTheme:${screen && screen ? '' : 'hidden'}   w-full bg-[#052043] p-0 flex h-screen flex-col  flex-grow`}>
+      <BgText className={`phoneTheme:w-1/2 laptopTheme:!hidden
+         phone:!hidden ${groupPath ? '!hidden' : ''}`} />
+      <main className={`${groupPath ? 'flex' : '!hidden'}
+         w-full bg-[#052043] p-0  h-screen flex-col  flex-grow`}>
         <section className='bg-[#052043] flex-grow'>
           {children}
         </section>

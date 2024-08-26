@@ -128,11 +128,11 @@ export function Group() {
             date: "Tue Aug 13 2024 16:20:45 GMT+0530 (India Standard Time)"
         }
     ]
-    const scrollDiv: any = useRef(null);
+    let scrollDiv: any = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         if (scrollDiv.current)
             scrollDiv.current.scrollTop = scrollDiv.current.scrollHeight
-    }, [scrollDiv])
+    }, [])
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>

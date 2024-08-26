@@ -1,15 +1,22 @@
+'use client'
 import { Button } from "@/components/custom/button"
 import { LinkButton } from "@/components/custom/LinkButton"
 import { Search } from "@/components/custom/search"
+import { state } from "@/store/poxy"
 import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useSnapshot } from "valtio"
 
 export const Aside = () => {
     const route = useRouter()
+    const [user, setUser]: any = useState(null);
+    useEffect(() => {
+        const { isActive, loggedUser } = state;
+        setUser(loggedUser)
+    }, [])
     const logout = async () => {
 
         try {
@@ -21,6 +28,8 @@ export const Aside = () => {
                     }
                 });
             if (res) {
+                state.loggedUser = null;
+                state.isActive = false;
                 route.push('/')
             }
         } catch (error) {
@@ -80,16 +89,19 @@ export const Aside = () => {
                 <div className="top w-full h-5/6 flex flex-col gap-2">
                     <div className="flex flex-nowrap text-xl items-center gap-2 bg-white bg-opacity-45 rounded p-2">
                         <div>
-                            <Image alt='Logo' width={30} height={30} src='/logo-black.svg'
+                            <Image alt='Logo' width={30} height={30} src={user && user.profileImage || `/logo-black.svg`}
                                 className='rounded-full'
                             ></Image>
                         </div>
                         <div className="">
-                            <h1>
-                                <b>
-                                    Username
+                            <h1 >
+                                <b className="text-xl">
+                                    {user && user?.username.toUpperCase()}
                                 </b>
                             </h1>
+                            <p className="text-xs">
+                                {user && user?.email}
+                            </p>
                         </div>
                     </div>
                     <div className="search">

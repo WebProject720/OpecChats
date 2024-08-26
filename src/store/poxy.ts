@@ -4,17 +4,23 @@ if (typeof window !== "undefined") {
   stored = localStorage.getItem("store");
 }
 
-const collection = {
-  user: {},
+
+type store={
+  loggedUser?:Object,
+  isActive:Boolean
+}
+
+
+const collection:store = {
+  loggedUser: {},
+  isActive: false,
 };
 
 const initValue = stored ? JSON.parse(stored) : collection;
 
-const store = proxy(initValue);
+const state = proxy(initValue);
 
-subscribe(store, () => {
-  if (typeof window !== "undefined")
-    localStorage.setItem("store", JSON.stringify(store));
+subscribe(state, () => {
+  localStorage.setItem("store", JSON.stringify(state));
 });
-
-export { store };
+export { state };

@@ -12,6 +12,7 @@ import '../../globals.css'
 import { Loader } from "@/components/custom/loader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { state } from "@/store/poxy";
 
 
 
@@ -41,6 +42,8 @@ export default function Page() {
                     }
                 });
             if (res) {
+                state.loggedUser = res?.data?.data.user || {};
+                state.isActive=true;
                 route.push('/dashboard');
             }
             setError(res?.data?.message || 'Sign In failled')
