@@ -4,13 +4,15 @@ import '../globals.css'
 import { Aside } from './components/aside/aside';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { state } from '@/store/poxy';
-import { useSnapshot } from 'valtio';
+import { io } from 'socket.io-client';
 
 export default function DashboardLayout({ children }: any) {
   const path = usePathname();
   const [groupPath, setGroupPath] = useState(false);
-  const user = useSnapshot(state);
+  const socket = io();
+  socket.on('chats', () => {
+
+  })
 
   useEffect(() => {
     setGroupPath(path.includes('group'));
