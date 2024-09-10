@@ -11,7 +11,8 @@ import React, { useEffect, useState } from "react"
 import { useSnapshot } from "valtio"
 
 export const Aside = () => {
-    const route = useRouter()
+    const route: any = useRouter()
+
     const [user, setUser]: any = useState(null);
     useEffect(() => {
         const { isActive, loggedUser } = state;
@@ -83,6 +84,7 @@ export const Aside = () => {
             image: '/logo-black.svg'
         },
     ]
+
     return (
         <aside className="w-full relative h-full">
             <div className="flex flex-col w-full h-full items-center justify-between">
@@ -109,9 +111,9 @@ export const Aside = () => {
                     </div>
                     <hr />
                     <section className="flex flex-col gap-2 mt-2 overflow-y-auto hiddren-scroll">
-                        {groups &&
-                            groups.map((e: any, i: number) => (
-                                <Link key={i} href='/dashboard/group'>
+                        {user &&
+                            user.adminOfGroups.map((e: any, i: number) => (
+                                <Link key={i} href={`/dashboard/group?id=${e?.groupName}`}>
                                     <div className="flex border-[0px] border-white border-opacity-55
                                      flex-row hover:bg-white hover:bg-opacity-50 
                                      rounded p-2 gap-1 justify-start items-center">
@@ -122,11 +124,10 @@ export const Aside = () => {
                                         </div>
                                         <div>
                                             <h1>
-                                                {e.name}
+                                                {e.groupName}
                                             </h1>
                                         </div>
                                     </div>
-                                    <hr className="my-1" />
                                 </Link>
                             ))
                         }

@@ -1,26 +1,27 @@
 import { proxy, subscribe } from "valtio";
-var stored: any = false;
-if (typeof window !== "undefined") {
-  stored = localStorage.getItem("store");
-}
 
+type Store = {
+  loggedUser?: Object;
+  isActive: Boolean;
+};
 
-type store={
-  loggedUser?:Object,
-  isActive:Boolean
-}
-
-
-const collection:store = {
+const collection: Store = {
   loggedUser: {},
   isActive: false,
 };
 
-const initValue = stored ? JSON.parse(stored) : collection;
+const initValue =
+  typeof window !== "undefined" && localStorage.getItem("store")
+    ? JSON.parse(localStorage.getItem("store") as string)
+    : collection;
 
 const state = proxy(initValue);
 
-subscribe(state, () => {
-  localStorage.setItem("store", JSON.stringify(state));
-});
+// Subscribe and update localStorage only on the client side
+if (typeof window !== "undefined") {
+  subscribe(state, () => {
+    localStorage.setItem("store", JSON.stringify(state));
+  });
+}
+
 export { state };

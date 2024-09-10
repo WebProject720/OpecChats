@@ -8,7 +8,9 @@ export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get(
     process.env.TokenName || "AccessToken"
   );
-  if (!accessToken) logout();
+  if (!accessToken) {
+    logout();
+  }
   const url = request.nextUrl.clone();
   if (request?.url.includes("/auth") && accessToken?.value) {
     url.pathname = "/dashboard";

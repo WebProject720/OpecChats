@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLDivElement, inputProps>((
             </label>
             <input type={type || "text"}
                 className={`p-3 bg-white bg-opacity-15 text-white rounded outline-none
-                placeholder-white placeholder-opacity-60
+                placeholder-white placeholder-opacity-60 disabled:hover:cursor-no-drop disabled:bg-black disabled:bg-opacity-15
                 ${className} 
                 `}
                 placeholder={placeholder}

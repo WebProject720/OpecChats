@@ -9,10 +9,10 @@ import { io } from 'socket.io-client';
 export default function DashboardLayout({ children }: any) {
   const path = usePathname();
   const [groupPath, setGroupPath] = useState(false);
-  const socket = io();
-  socket.on('chats', () => {
+  // const socket = io();
+  // socket.on('chats', () => {
 
-  })
+  // })
 
   useEffect(() => {
     setGroupPath(path.includes('group'));
