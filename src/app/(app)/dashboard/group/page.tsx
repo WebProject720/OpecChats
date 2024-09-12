@@ -12,8 +12,10 @@ export default function Page() {
     const [data, setData]: any = useState(null);
     const [error, setError] = useState(false);
     const id = params.get('id');
+    const [groupName,setGroupName]=useState(id);
 
     useEffect(() => {
+        setGroupName(id);
         setData([])
         setLoading(true);
         setError(false)
@@ -38,7 +40,7 @@ export default function Page() {
                 {
                     loading ? <h1><center>Loading...</center></h1> :
                         error ? <h1><center>{error && error || 'Something Error'}</center></h1> :
-                            <Group chats={data || []} />
+                            <Group chats={data || []} identifier={groupName||null} />
                 }
             </div>
         </DashboardLayout>

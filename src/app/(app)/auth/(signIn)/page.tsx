@@ -43,7 +43,7 @@ export default function Page() {
                 });
             if (res) {
                 state.loggedUser = res?.data?.data.user || {};
-                state.isActive=true;
+                state.isActive = true;
                 route.push('/dashboard');
             }
             setError(res?.data?.message || 'Sign In failled')

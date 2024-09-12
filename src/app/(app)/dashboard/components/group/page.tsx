@@ -5,9 +5,10 @@ import React, { useEffect, useRef, useState } from "react"
 import '../../../globals.css'
 import { Header } from "../header/header"
 import { state } from "@/store/poxy"
+import axios from "axios"
 
 
-export function Group({ chats }: any) {
+export function Group({ chats, identifier }: any) {
     // const chats = [
     //     {
     //         msg: "HELLO, how are you?",
@@ -137,7 +138,24 @@ export function Group({ chats }: any) {
         setuserID(state.loggedUser._id);
     }, []);
 
-
+    const sendText = async (e: any) => {
+        e.preventDefault()
+        const form = new FormData(e.target)
+        const text = form.get('message') as string;
+        if (text.length <= 0)
+            return
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/chat/write`, {
+            identifier: identifier,
+            msg: text
+        }, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',  // Ensure the content type is correct
+            }
+        })
+        console.log(response);
+        e.target.reset();
+    }
 
 
     let scrollDiv: any = useRef<HTMLDivElement | null>(null);
@@ -190,8 +208,8 @@ export function Group({ chats }: any) {
                     }
                 </div>
                 <div className="input bg-[#052043]">
-                    <form action="" className="flex w-full flex-row gap-2 py-1">
-                        <Input className="w-full flex-grow" placeholder="Message"></Input>
+                    <form onSubmit={sendText} action="" className="flex w-full flex-row gap-2 py-1">
+                        <Input name="message" className="w-full flex-grow" placeholder="Message"></Input>
                         <Button className="!w-28" type='submit' text='Send'></Button>
                     </form>
                 </div>

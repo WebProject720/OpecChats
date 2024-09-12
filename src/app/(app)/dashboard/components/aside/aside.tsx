@@ -8,7 +8,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
-import { useSnapshot } from "valtio"
 
 export const Aside = () => {
     const route: any = useRouter()
@@ -135,7 +134,8 @@ export const Aside = () => {
                 </div>
                 <div className="footer w-full flex   flex-col justify-end h-auto gap-1
                 phone:flex-row phone:items-end phone:absolute top-[93%] ">
-                    <LinkButton className="w-full" url={'/dashboard/group/create'} text='New Group'></LinkButton>
+                    <LinkButton className="w-full" url={'/dashboard/group/create'} text='Create Group'></LinkButton>
+                    <LinkButton className="w-full" url={'/dashboard/group/join'} text='Join Group'></LinkButton>
                     <Button onClick={logout} className="w-full rounded-full p-3 font-normal text-base" text='Logout'></Button>
                 </div>
             </div>

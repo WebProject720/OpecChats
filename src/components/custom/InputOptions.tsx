@@ -4,10 +4,10 @@ import React, { forwardRef } from "react";
 export interface inputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: any,
-    options: string[]
+    options: string[],
 }
 
-export const Options = forwardRef<HTMLDivElement, inputProps>((
+export const Options = forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement> & inputProps>((
     { label, options, className = '', placeholder, ...props }, ref: any) => {
 
     return (
@@ -17,7 +17,7 @@ export const Options = forwardRef<HTMLDivElement, inputProps>((
             </label>
             <select name="" id="" className={`p-3 w-full bg-white bg-opacity-15 text-white rounded outline-none
                 placeholder-white placeholder-opacity-60
-                ${className}`}>
+                ${className}`} {...props} ref={ref || null}>
                 {
                     options &&
                     options.map((e, i) => (
