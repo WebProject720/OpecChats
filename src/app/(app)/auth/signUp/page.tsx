@@ -35,7 +35,7 @@ export default function Page() {
     const [submiting, setSubmiting] = useState(false)
     useEffect(() => {
         setDebounce(watch('username'))
-    }, [debounceUsername])
+    }, [debounceUsername,watch])
 
 
     const submitForm = async (e: any) => {
