@@ -1,6 +1,6 @@
 'use client'
 import { useSearchParams } from "next/navigation";
-import { GroupSection } from "../components/group/page";
+import GroupChats from "../components/group/page";
 import DashboardLayout from "../DashboardLayout";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ export default function Page() {
     const [data, setData]: any = useState(null);
     const [error, setError] = useState(false);
     const id = params.get('id');
-    const [groupName,setGroupName]=useState(id);
+    const [groupName, setGroupName] = useState(id);
 
     useEffect(() => {
         setGroupName(id);
@@ -40,7 +40,7 @@ export default function Page() {
                 {
                     loading ? <h1><center>Loading...</center></h1> :
                         error ? <h1><center>{error && error || 'Something Error'}</center></h1> :
-                            <GroupSection chats={data || []} identifier={groupName||null} />
+                            <GroupChats chats={data || []} identifier={groupName || null} />
                 }
             </div>
         </DashboardLayout>

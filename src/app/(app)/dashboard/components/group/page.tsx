@@ -8,7 +8,7 @@ import { state } from "@/store/poxy"
 import axios from "axios"
 
 
-export const GroupSection = ({ chats, identifier }: any) => {
+function GroupChats  ({ chats, identifier }: any) {
     // const chats = [
     //     {
     //         msg: "HELLO, how are you?",
@@ -218,3 +218,4 @@ export const GroupSection = ({ chats, identifier }: any) => {
         </div>
     )
 }
+export default GroupChats;
