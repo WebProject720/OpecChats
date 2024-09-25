@@ -132,7 +132,7 @@ function GroupChats  ({ chats, identifier }: any) {
     //     }
     // ]
 
-    if (chats.length <= 0) chats = [];
+    if (chats?.length <= 0) chats = [];
     const [userID, setuserID] = useState(null);
     useEffect(() => {
         setuserID(state.loggedUser._id);
@@ -142,7 +142,7 @@ function GroupChats  ({ chats, identifier }: any) {
         e.preventDefault()
         const form = new FormData(e.target)
         const text = form.get('message') as string;
-        if (text.length <= 0)
+        if (text?.length <= 0)
             return
         const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/chat/write`, {
             identifier: identifier,
@@ -153,7 +153,6 @@ function GroupChats  ({ chats, identifier }: any) {
                 'Content-Type': 'application/json',  // Ensure the content type is correct
             }
         })
-        console.log(response);
         e.target.reset();
     }
 
@@ -176,7 +175,7 @@ function GroupChats  ({ chats, identifier }: any) {
                  ">
                     {
                         chats &&
-                            chats.length <= 0 ?
+                            chats?.length <= 0 ?
                             <div>
                                 <h1 className="text-3xl h-full opacity-35 font-extrabold align-middle">
                                     <center>

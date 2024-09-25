@@ -1,10 +1,11 @@
 "use client"
-import React from "react";
+import React, { Suspense } from "react";
 import { useEffect, useState } from "react";
 import Layout from "../AuthLayout";
 import axios from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Loader } from "@/components/custom/loader";
+
 
 export default function Page() {
     const search = useSearchParams();
@@ -55,6 +56,14 @@ export default function Page() {
             }, 2000);
     }, [status]);
     return (
+        <Suspense fallback={<div>
+            <p>
+                Loading... <br />
+            </p>
+            <Loader/>
+            </div>
+            }>
+
         <Layout>
             <h1 className="font-bold text-white text-xl text-center">
                 Email Verification
@@ -136,5 +145,8 @@ export default function Page() {
                 </div>
             </form>
         </Layout>
+
+        </Suspense>
+
     );
 };
