@@ -6,6 +6,7 @@ import { LinkButton } from "@/components/custom/LinkButton";
 import { GroupSchema } from "@/models/group.model";
 import { CreateGroupSchema } from "@/schemas/createG";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -48,7 +49,7 @@ export default function Page() {
                 <form onSubmit={handleSubmit(submit)} action="" className="flex flex-col gap-4 z-10">
                     <div className="">
                         <label htmlFor="file" className="flex gap-1 w-full justify-start bg-white bg-opacity-15 rounded-md p-2 items-center hover:cursor-pointer">
-                            <img width="50" height="50" className="bg-white rounded-full p-1" src="https://img.icons8.com/external-outline-black-m-oki-orlando/32/external-upload-image-photography-outline-outline-black-m-oki-orlando.png" alt="external-upload-image-photography-outline-outline-black-m-oki-orlando" />
+                            <Image width="50" height="50" className="bg-white rounded-full p-1" src="https://img.icons8.com/external-outline-black-m-oki-orlando/32/external-upload-image-photography-outline-outline-black-m-oki-orlando.png" alt="external-upload-image-photography-outline-outline-black-m-oki-orlando" />
                             <span className="bg-transparent">Upload Image</span>
                         </label>
                         <input className="hidden" type="file" name="file" id="file" />
