@@ -35,16 +35,13 @@ export default function Page() {
         <div className="heading">
           <div>
             <h1 className='text-3xl font-bold font-serif'>
-              Description
+              About OpecChats
             </h1>
             <hr className='mt-2 mb-2' />
           </div>
           <div>
-            <p className='font-light p-2'>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat aspernatur ad illo fuga, et cumque dolore ducimus deleniti libero voluptates quasi provident ab, sit quas quam consequatur alias laborum neque.
-              <br />
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat aspernatur ad illo fuga, et cumque dolore ducimus deleniti libero voluptates quasi provident ab, sit quas quam consequatur alias laborum neque.
-            </p>
+            <p className='font-light p-2 indent-5'>
+            <strong> OpecChats</strong> not only brings advanced messaging capabilities but also focuses on providing a more personalized and enriched communication experience. It introduces features like multi-device sync, allowing users to access their chats across devices without interruption. The app also supports larger group capacities, making it ideal for businesses, communities, and large social circles. With enhanced media sharing options and integrated file support, users can collaborate more effectively. OpecChats ensures a secure, smooth, and tailored experience, with intuitive design elements that let users interact more comfortably. It’s built for those who need more than just messaging—it's a communication hub.</p>
           </div>
         </div>
       </div>

@@ -11,15 +11,15 @@ import { signInSchema } from "@/schemas/authZOD";
 import '../../globals.css'
 import { Loader } from "@/components/custom/loader";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { state } from "@/store/poxy";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Page() {
     const [submiting, setSubmiting] = useState(false);
-    const route = useRouter();
     const [error, setError] = useState('');
+    const route = useRouter();
     const { register, handleSubmit, formState: { errors }
     } = useForm({
         defaultValues: {
@@ -46,6 +46,8 @@ export default function Page() {
                 state.isActive = true;
                 route.push('/dashboard');
             }
+            console.log(res);
+            
             setError(res?.data?.message || 'Sign In failled')
             setSubmiting(false)
         } catch (error: any) {
@@ -80,7 +82,7 @@ export default function Page() {
                                 ${error == ('login successfully') ? '!text-green-500' : ''}
                                 `}>{error}</p>
                         }
-                        <Button disabled={submiting} type='submit' text={submiting ? <Loader /> : 'Save'}></Button>
+                        <Button className={submiting ? 'disabled:bg-black' : ''} disabled={submiting} type='submit' text={submiting ? <Loader /> : 'Save'}></Button>
                     </form>
                 </div>
                 <div>
