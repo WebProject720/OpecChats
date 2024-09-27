@@ -5,27 +5,35 @@ import { Aside } from './components/aside/aside';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import { state } from '@/store/poxy';
+import { useRouter } from 'next/navigation';
+
 
 export default function DashboardLayout({ children }: any) {
   const path = usePathname();
+  const router = useRouter()
   const [groupPath, setGroupPath] = useState(false);
   // const socket = io();
   // socket.on('chats', () => {
 
   // })
-
+  useEffect(() => {
+    const { isActive } = state;
+    if (!isActive)
+      router.replace('/auth')
+  }, [state])
   useEffect(() => {
     setGroupPath(path.includes('group'));
   }, [path])
 
   return (
-    <div className="h-screen flex flex-row bg-[#052043] text-white">
+    <div className="h-screen flex flex-row bg-[#052043] text-white
+    ">
       {/* phone:!bg-[#3d4876] phone:!bg-[#052043] phone:!bg-[#3d4876] */}
-      <div className={`w-1/5 bg-[#032f6e]  p-3 
+      <div className={`w-1/5   p-3 
       phoneTheme:w-1/2 phone:!w-full 
-      phone:bg-gradient-to-t from-[#e68220] to-[#dc3ea39e] 
-      border-[0px] border-white
-      phone:${groupPath ? '!hidden' : ''}
+      border-[0px] border-white  bg-radient  laptop:!bg-[#032f6e]
+      phone:${groupPath ? '!hidden' : ''} 
       `}>
         <Aside />
       </div>

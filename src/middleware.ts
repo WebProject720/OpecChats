@@ -12,6 +12,7 @@ export function middleware(request: NextRequest) {
     logout();
   }
   const url = request.nextUrl.clone();
+  
   if (request?.url.includes("/auth") && accessToken?.value) {
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
