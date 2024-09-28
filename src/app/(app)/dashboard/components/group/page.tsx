@@ -8,7 +8,7 @@ import { state } from "@/store/poxy"
 import axios from "axios"
 
 
-function GroupChats  ({ chats, identifier }: any) {
+function GroupChats({ chats, identifier }: any) {
     // const chats = [
     //     {
     //         msg: "HELLO, how are you?",
@@ -144,15 +144,19 @@ function GroupChats  ({ chats, identifier }: any) {
         const text = form.get('message') as string;
         if (text?.length <= 0)
             return
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/chat/write`, {
-            identifier: identifier,
-            msg: text
-        }, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/json',  // Ensure the content type is correct
-            }
-        })
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/chat/write`, {
+                identifier: identifier,
+                msg: text
+            }, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',  // Ensure the content type is correct
+                }
+            })
+        } catch ({ response }: any) {
+            console.log(response?.data?.message || "Error");
+        }
         e.target.reset();
     }
 
@@ -165,7 +169,7 @@ function GroupChats  ({ chats, identifier }: any) {
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
-                <Header />
+                <Header name={identifier} />
             </div>
             <div className="h-full flex flex-col p-2">
                 <div

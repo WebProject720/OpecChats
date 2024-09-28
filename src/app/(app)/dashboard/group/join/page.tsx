@@ -2,6 +2,7 @@
 import { LinkButton } from "@/components/custom/LinkButton";
 import { Loader } from "@/components/custom/loader";
 import { Search } from "@/components/custom/search";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 
@@ -13,10 +14,18 @@ export default function Page() {
 
     useEffect(() => {
         const search = async () => {
-            setLoading(true);
-            console.log(bounce);
-            setGroups([]);
-            setLoading(false)
+            if (!bounce) { setGroups([]); return };
+            try {
+                setLoading(true);
+                const { data }: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/group/search`, { q: bounce })
+                setGroups(data.data);
+
+                setLoading(false)
+            } catch (error) {
+                console.log(error);
+                setLoading(false)
+                setGroups([])
+            }
         }
         search();
     }, [bounce])
@@ -38,11 +47,40 @@ export default function Page() {
                         }} className="p-3" placeholder="Search Group"></Search>
                     </form>
                 </div>
-                <div className="bg-white rounded-md bg-opacity-20 p-3 flex flex-col justify-center items-center min-h-28 laptopTheme:w-1/2 phoneTheme:w-full">
+                <div className="bg-white gap-2 rounded-md bg-opacity-20 p-3 flex flex-col justify-center items-center min-h-28 laptopTheme:w-1/2 phoneTheme:w-full">
                     {
                         loading ?
                             <Loader></Loader> :
-                            groups && groups.length > 0 ? '' :
+                            groups && groups.length > 0 ?
+                                groups.map((e: any, i) => (
+                                    <div key={e._id} className="flex items-center w-full flex-row justify-between p-2 bg-white bg-opacity-10 rounded-md">
+                                        <div>
+                                            <p>
+                                                {e?.groupName}
+                                                <span>
+                                                    <sup>
+                                                        {
+                                                            e?.isGroupPrivate ? <span className="bg-red-500 p-1 rounded-md bg-opacity-70 ml-2">Private</span> : <span
+                                                                className="bg-green-500 ml-2 p-1 bg-opacity-70 rounded-md">Public</span>
+                                                        }
+                                                    </sup>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs"> Created At <span> </span>
+                                                {
+                                                    new Date(e?.createdAt).toLocaleDateString()
+                                                }
+                                            </p>
+                                        </div>
+                                        <div>
+                                            {e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}`}></LinkButton>:
+                                                <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}`}></LinkButton>}
+                                        </div>
+                                    </div>
+                                ))
+                                :
                                 <div>
                                     <h1 className="font-bold">
                                         <center className="text-opacity-50 text-white">

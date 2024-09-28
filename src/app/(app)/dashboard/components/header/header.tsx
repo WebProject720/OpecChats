@@ -5,7 +5,7 @@ import Link from "next/link"
 import React from "react"
 
 
-export const Header = () => {
+export const Header = ({name}:any) => {
     return (
         <header className="w-full h-full bg-opacity-15 gap-2 bg-white  p-2 flex items-center">
             <LinkButton url='/dashboard' text='<-' className="!p-0 font-extrabold !bg-transparent text-white text-3xl"></LinkButton>
@@ -17,7 +17,7 @@ export const Header = () => {
                 </div>
                 <div>
                     <h1 className="text-xl">
-                        Group Name
+                       {name|| "Group Name"}
                     </h1>
                 </div>
             </Link>

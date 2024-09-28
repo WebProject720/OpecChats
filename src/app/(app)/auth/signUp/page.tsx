@@ -43,11 +43,9 @@ export default function Page() {
             if (usernameMsg != 'username is unique') return;
             setSubmiting(true)
             const { response }: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/register`, e)
-            console.log(response);
             setSubmiting(false)
             route.replace(`/auth/verify?email=${e.email}`);
         } catch ({ response }: any) {
-            console.log(response)
             setSubmiting(false)
             setEmailErr(response?.data.message || 'Try again');
         }

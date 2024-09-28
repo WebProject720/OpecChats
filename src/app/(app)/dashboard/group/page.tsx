@@ -12,6 +12,7 @@ export default function Page() {
     const [data, setData]: any = useState(null);
     const [error, setError] = useState(false);
     const id = params.get('id');
+
     const [groupName, setGroupName] = useState(id);
 
     useEffect(() => {
