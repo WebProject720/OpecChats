@@ -6,6 +6,8 @@ import '../../../globals.css'
 import { Header } from "../header/header"
 import { state } from "@/store/poxy"
 import axios from "axios"
+import { io } from "socket.io-client"
+
 
 
 function GroupChats({ chats, identifier }: any) {
@@ -131,6 +133,12 @@ function GroupChats({ chats, identifier }: any) {
     //         date: "Tue Aug 13 2024 16:20:45 GMT+0530 (India Standard Time)"
     //     }
     // ]
+
+
+    const socket=io();
+    socket.on('chats',()=>{
+        
+    })
 
     if (chats?.length <= 0) chats = [];
     const [userID, setuserID] = useState(null);
