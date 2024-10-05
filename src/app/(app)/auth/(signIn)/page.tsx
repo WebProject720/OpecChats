@@ -44,10 +44,9 @@ export default function Page() {
             if (res) {
                 state.loggedUser = res?.data?.data.user || {};
                 state.isActive = true;
-                route.push('/dashboard');
+                route.replace('/dashboard');
             }
-            console.log(res);
-            
+
             setError(res?.data?.message || 'Sign In failled')
             setSubmiting(false)
         } catch (error: any) {

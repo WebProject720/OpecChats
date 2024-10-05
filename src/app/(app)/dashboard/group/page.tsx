@@ -4,6 +4,7 @@ import GroupChats from "../components/group/page";
 import DashboardLayout from "../DashboardLayout";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Loader } from "@/components/custom/loader";
 
 
 export default function Page() {
@@ -39,9 +40,14 @@ export default function Page() {
         <DashboardLayout>
             <div className="w-full h-full">
                 {
-                    loading ? <h1><center>Loading...</center></h1> :
+                    loading ? <div className="p-5 flex  flex-col justify-center items-center">
+                        <div className="my-6">
+                            <Loader />
+                        </div>
+                        <center className="text-3xl mb-5">Loading...</center>
+                    </div> :
                         error ? <h1><center>{error && error || 'Something Error'}</center></h1> :
-                            <GroupChats chats={data || []} identifier={groupName || null} />
+                            <GroupChats chatsArray={data || []} identifier={groupName || null} />
                 }
             </div>
         </DashboardLayout>

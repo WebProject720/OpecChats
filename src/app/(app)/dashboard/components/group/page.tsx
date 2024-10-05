@@ -5,12 +5,11 @@ import React, { useEffect, useRef, useState } from "react"
 import '../../../globals.css'
 import { Header } from "../header/header"
 import { state } from "@/store/poxy"
-import axios from "axios"
 import { io } from "socket.io-client"
 
 
 
-function GroupChats({ chats, identifier }: any) {
+function GroupChats({ chatsArray, identifier }: any) {
     // const chats = [
     //     {
     //         msg: "HELLO, how are you?",
@@ -133,12 +132,24 @@ function GroupChats({ chats, identifier }: any) {
     //         date: "Tue Aug 13 2024 16:20:45 GMT+0530 (India Standard Time)"
     //     }
     // ]
+    let [chats, setChats]: any = useState(chatsArray);
 
+    const SERVER_URL=process.env.NEXT_PUBLIC_SERVER_PATH_||'http://localhost:5000';
+    const socket = io(SERVER_URL, { transports: ['websocket'] });
+    let scrollDiv: any = useRef<HTMLDivElement | null>(null);
+    useEffect(() => {
+        socket.emit('join-group', identifier);
+    }, [])
+    useEffect(() => {
+        socket.on('new-msg', (msg) => {
+            setChats((e: []) => [...e, msg])
+        })
+        return () => {
+            if (socket)
+                socket.off('new-msg');
+        }
+    }, [])
 
-    const socket=io();
-    socket.on('chats',()=>{
-        
-    })
 
     if (chats?.length <= 0) chats = [];
     const [userID, setuserID] = useState(null);
@@ -152,28 +163,29 @@ function GroupChats({ chats, identifier }: any) {
         const text = form.get('message') as string;
         if (text?.length <= 0)
             return
-        try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/chat/write`, {
-                identifier: identifier,
-                msg: text
-            }, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',  // Ensure the content type is correct
-                }
-            })
-        } catch ({ response }: any) {
-            console.log(response?.data?.message || "Error");
-        }
+        // try {
+        //     const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/chat/write`, {
+        //         identifier: identifier,
+        //         msg: text
+        //     }, {
+        //         withCredentials: true,
+        //         headers: {
+        //             'Content-Type': 'application/json',  // Ensure the content type is correct
+        //         }
+        //     })
+        // } catch ({ response }: any) {
+        //     console.log(response?.data?.message || "Error");
+        // }
         e.target.reset();
+
+        socket.emit('group-msg', { msg: text, identifier: identifier })
+
     }
 
-
-    let scrollDiv: any = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         if (scrollDiv.current)
             scrollDiv.current.scrollTop = scrollDiv.current.scrollHeight
-    }, [])
+    }, [chats])
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
