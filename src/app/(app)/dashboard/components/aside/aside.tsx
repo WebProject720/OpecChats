@@ -36,53 +36,6 @@ export const Aside = () => {
             console.log(error);
         }
     }
-    const groups = [
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-        {
-            name: 'Group A',
-            url: '',
-            image: '/logo-black.svg'
-        },
-    ]
 
     return (
         <aside className="w-full relative h-full">
@@ -122,9 +75,12 @@ export const Aside = () => {
                                             ></Image>
                                         </div>
                                         <div>
-                                            <h1>
+                                            <h1 className="font-bold">
                                                 {e.groupName}
                                             </h1>
+                                            <span className="text-xs p-0 m-0 font-light">
+                                                {e.isGroupPrivate ? 'Private' : 'Public'}
+                                            </span>
                                         </div>
                                     </div>
                                 </Link>

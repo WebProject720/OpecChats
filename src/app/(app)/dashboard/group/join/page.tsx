@@ -19,7 +19,6 @@ export default function Page() {
                 setLoading(true);
                 const { data }: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/group/search`, { q: bounce })
                 setGroups(data.data);
-
                 setLoading(false)
             } catch (error) {
                 console.log(error);

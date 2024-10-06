@@ -44,7 +44,7 @@ export default function Page() {
                         <div className="my-6">
                             <Loader />
                         </div>
-                        <center className="text-3xl mb-5">Loading...</center>
+                        <center className="text-3xl text-white mb-5 text-opacity-55">Wait a minute...</center>
                     </div> :
                         error ? <h1><center>{error && error || 'Something Error'}</center></h1> :
                             <GroupChats chatsArray={data || []} identifier={groupName || null} />

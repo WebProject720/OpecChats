@@ -134,7 +134,7 @@ function GroupChats({ chatsArray, identifier }: any) {
     // ]
     let [chats, setChats]: any = useState(chatsArray);
 
-    const SERVER_URL=process.env.NEXT_PUBLIC_SERVER_PATH_||'http://localhost:5000';
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_PATH_ || 'http://localhost:5000';
     const socket = io(SERVER_URL, { transports: ['websocket'] });
     let scrollDiv: any = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
@@ -186,6 +186,8 @@ function GroupChats({ chatsArray, identifier }: any) {
         if (scrollDiv.current)
             scrollDiv.current.scrollTop = scrollDiv.current.scrollHeight
     }, [chats])
+    let chatDate:any='';
+
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
@@ -194,13 +196,14 @@ function GroupChats({ chatsArray, identifier }: any) {
             <div className="h-full flex flex-col p-2">
                 <div
                     ref={scrollDiv} id="scrollDiv" className="fields flex flex-col  flex-grow h-[50vh]
-                 hiddren-scroll overflow-y-auto bg-[#052043]
+                 hiddren-scroll overflow-y-auto 
                  transition-all duration-1000 ease-linear
                  ">
                     {
                         chats &&
                             chats?.length <= 0 ?
                             <div>
+
                                 <h1 className="text-3xl h-full opacity-35 font-extrabold align-middle">
                                     <center>
                                         Not Chats Till Now
@@ -208,23 +211,41 @@ function GroupChats({ chatsArray, identifier }: any) {
                                 </h1>
                             </div> :
                             chats.map((e: any, i: number) => (
-                                <div key={i} className={`w-full my-2
+                                <div key={i} className="w-full">
+                                    <div className={`w-full text-center py-5 text-white text-opacity-30`}>
+                                        <div className="flex justify-center">
+                                            {
+                                                chatDate === new Date(e?.createdAt).toDateString() ? '' :
+                                                (() => {
+                                                    chatDate=(new Date(e?.createdAt).toDateString());
+                                                        return (<p className="w-fit p-2 rounded-full bg-white bg-opacity-10">
+                                                            <span>
+                                                                {new Date(e.createdAt).toDateString()}
+                                                            </span>
+                                                        </p>);
+                                                    })()
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className={`w-full my-2
                             flex message
                             ${e.senderID == userID ? `justify-end ` : `justify-start`}
                         `}>
-                                    <div className={`p-3 rounded-full bg-white
+
+                                        <div className={`p-3 rounded-full bg-white
                          text-white bg-opacity-25 w-fit my-1 max-w-[60%]
                          ${e.senderID == userID ? 'bg-white ' : 'bg-blue-500 bg-opacity-50'}`}>
-                                        <div>
-                                            {e.msg}
+                                            <div>
+                                                {e.msg}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="">
-                                        <p className="text-xs h-full flex items-end text-opacity-50 text-white">
-                                            {
-                                                new Date(e.updatedAt).toLocaleTimeString('en-US', { hour12: true, minute: '2-digit', hour: 'numeric' })
-                                            }
-                                        </p>
+                                        <div className="">
+                                            <p className="text-xs h-full flex items-end text-opacity-50 text-white">
+                                                {
+                                                    new Date(e.updatedAt).toLocaleTimeString('en-US', { hour12: true, minute: '2-digit', hour: 'numeric' })
+                                                }
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             ))

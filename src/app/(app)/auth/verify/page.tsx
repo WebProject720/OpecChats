@@ -75,7 +75,7 @@ export default function Page() {
             </div>
             <form className="flex flex-col gap-4">
                 <div className="flex flex-row flex-nowrap gap-3 justify-around">
-                    {idArray.map((state, i) => (
+                    {idArray&& idArray.map((state, i) => (
                         <input
                             required
                             type="number"

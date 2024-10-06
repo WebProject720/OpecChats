@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: any) {
       {/* phone:!bg-[#3d4876] phone:!bg-[#052043] phone:!bg-[#3d4876] */}
       <div className={`w-1/5   p-3 
       phoneTheme:w-1/2 phone:!w-full 
-      border-[0px] border-white  bg-radient  laptop:!bg-[#032f6e]
+      border-[0px] border-white    laptop:!bg-[#032f6e]
       phone:${groupPath ? '!hidden' : ''} 
       `}>
         <Aside />

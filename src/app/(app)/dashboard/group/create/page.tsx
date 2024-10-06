@@ -3,9 +3,12 @@ import { Button } from "@/components/custom/button";
 import { Input } from "@/components/custom/input";
 import { Options } from "@/components/custom/InputOptions";
 import { LinkButton } from "@/components/custom/LinkButton";
+import { Loader } from "@/components/custom/loader";
 import { GroupSchema } from "@/models/group.model";
 import { CreateGroupSchema } from "@/schemas/createG";
+import { state } from "@/store/poxy";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,8 +28,33 @@ export default function Page() {
         },
         resolver: zodResolver(CreateGroupSchema)
     });
-    const submit = (data: any) => {
-        console.log(data);
+    const submit = async (data: any) => {
+        setErrMsg('')
+        setSubmit(true)
+        if (!data.code) data.type = "public"
+        else data.type = "private"
+        if (!disabled) {
+
+            if (!data.code) {
+                setErrMsg('Code Required for Private Group')
+                setSubmit(false)
+                return
+            }
+        }
+        try {
+            const response: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/group/create`, data, { withCredentials: true });
+            console.log(response);
+            const newG = response.data.data;
+            console.log(newG);
+            state.loggedUser.adminOfGroups.push(newG)
+            console.log(state);
+
+            setSubmit(false)
+        } catch (error: any) {
+            setSubmit(false)
+            const errorMsg: any = error?.response?.data?.message;
+            setErrMsg(errorMsg);
+        }
     }
     return (
         <div className="min-w-full  flex flex-col gap-2 justify-center items-center bg-gray-500 bg-gradient-to-tl from-blue-400 to-[#d04dd6] min-h-screen text-white
@@ -42,7 +70,7 @@ export default function Page() {
                 <div>
                     <h1>
                         <center>
-                            New Group
+                            Create Group
                         </center>
                     </h1>
                 </div>
@@ -65,7 +93,11 @@ export default function Page() {
                     {errors.code &&
                         <p className="authErrorslabel">{errors.code.message}</p>
                     }
-                    <Button type='submit' text='Create'></Button>
+                    {
+                        errMsg &&
+                        <p className="authErrorslabel">{errMsg}</p>
+                    }
+                    <Button className={submiting ? 'disabled:bg-black' : ''} disabled={submiting} type='submit' text={submiting ? <Loader /> : 'Create'}></Button>
                 </form>
             </div>
             <div className="mt-9">
