@@ -18,7 +18,9 @@ export default function Page() {
     useEffect(() => {
         try {
             axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/guest`,{},{withCredentials:true}).then((res) => {
-                state.loggedUser="guest"
+                console.log(res);
+                
+                state.loggedUser=res?.data?.data
                 state.isActive=true;
                 router.replace('/dashboard/group/join')
             })

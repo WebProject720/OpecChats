@@ -176,10 +176,8 @@ function GroupChats({ chatsArray, identifier }: any) {
         // } catch ({ response }: any) {
         //     console.log(response?.data?.message || "Error");
         // }
-        e.target.reset();
-
         socket.emit('group-msg', { msg: text, identifier: identifier })
-
+        e.target.reset();
     }
 
     useEffect(() => {
@@ -187,7 +185,7 @@ function GroupChats({ chatsArray, identifier }: any) {
             scrollDiv.current.scrollTop = scrollDiv.current.scrollHeight
     }, [chats])
     let chatDate:any='';
-
+    
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
@@ -229,14 +227,14 @@ function GroupChats({ chatsArray, identifier }: any) {
                                     </div>
                                     <div className={`w-full my-2
                             flex message
-                            ${e.senderID == userID ? `justify-end ` : `justify-start`}
+                            ${(e.senderID == userID)||((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
                         `}>
 
                                         <div className={`p-3 rounded-full bg-white
                          text-white bg-opacity-25 w-fit my-1 max-w-[60%]
                          ${e.senderID == userID ? 'bg-white ' : 'bg-blue-500 bg-opacity-50'}`}>
                                             <div>
-                                                {e.msg}
+                                                {e.msg }
                                             </div>
                                         </div>
                                         <div className="">

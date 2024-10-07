@@ -19,14 +19,12 @@ export function middleware(request: NextRequest) {
     logout();
   }
   const url = request.nextUrl.clone();
-  console.log(request?.url.endsWith("/dashboard"));
   
   
   if (request?.url.includes("/auth") && accessToken?.value) {
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   } else if ((request.url.includes('/group') && !GuestTokenName) && (!accessToken)) {
-    console.log(request.url);
     url.pathname = "/";
     logout()
     return NextResponse.redirect(url);

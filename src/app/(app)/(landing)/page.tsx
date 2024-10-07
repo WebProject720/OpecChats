@@ -1,8 +1,43 @@
+'use client'
 import Image from 'next/image';
 import '../globals.css'
 import { LinkButton } from '@/components/custom/LinkButton';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { state } from '@/store/poxy';
+
 
 export default function Page() {
+  useEffect(() => {
+    try {
+      // axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/logout`, {},
+      //   {
+      //     withCredentials: true,
+      //     headers: {
+      //       'Content-Type': 'application/json',  // Ensure the content type is correct
+      //     }
+      //   }).then((res) => {
+      //     console.log(res);
+      //   }).catch((err) => {
+      //     console.log(err);
+      //   })
+      axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/GuestLogout`, {},
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',  // Ensure the content type is correct
+          }
+        }).then((res) => {
+          state.loggedUser = {};
+          state.isActive = false
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        })
+    } catch (error) {
+      console.log(error);
+    }
+  }, [])
   return (
     <div className=" bg-slate-700 text-white
     w-full min-h-screen  bg-gradient-to-t from-[#969697] to-[#2e2c5c]
@@ -42,7 +77,7 @@ export default function Page() {
           </div>
           <div>
             <p className='font-light p-2 indent-5'>
-            <strong> OpecChats</strong> not only brings advanced messaging capabilities but also focuses on providing a more personalized and enriched communication experience. It introduces features like multi-device sync, allowing users to access their chats across devices without interruption. The app also supports larger group capacities, making it ideal for businesses, communities, and large social circles. With enhanced media sharing options and integrated file support, users can collaborate more effectively. OpecChats ensures a secure, smooth, and tailored experience, with intuitive design elements that let users interact more comfortably. It’s built for those who need more than just messaging—it's a communication hub.</p>
+              <strong> OpecChats</strong> not only brings advanced messaging capabilities but also focuses on providing a more personalized and enriched communication experience. It introduces features like multi-device sync, allowing users to access their chats across devices without interruption. The app also supports larger group capacities, making it ideal for businesses, communities, and large social circles. With enhanced media sharing options and integrated file support, users can collaborate more effectively. OpecChats ensures a secure, smooth, and tailored experience, with intuitive design elements that let users interact more comfortably. It’s built for those who need more than just messaging—it's a communication hub.</p>
           </div>
         </div>
       </div>
