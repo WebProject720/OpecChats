@@ -74,8 +74,8 @@ export default function Page() {
                                             </p>
                                         </div>
                                         <div>
-                                            {e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}`}></LinkButton>:
-                                                <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}`}></LinkButton>}
+                                            {e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}&u=g`}></LinkButton>:
+                                                <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}&u=g`}></LinkButton>}
                                         </div>
                                     </div>
                                 ))

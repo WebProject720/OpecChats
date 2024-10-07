@@ -27,7 +27,7 @@ export default function Page() {
           </div>
           <div className='flex flex-row gap-4 justify-center w-3/4'>
             {/* <LinkButton className='w-52 font-bold' text='Login' url='/auth'></LinkButton> */}
-            <LinkButton className='w-52 font-bold' text='Join Group as Guest' url=''></LinkButton>
+            <LinkButton className='w-52 font-bold' text='Join Group as Guest' url='/auth/guest'></LinkButton>
             <LinkButton className='w-52 font-bold' url='/dashboard' text='Get Started ->'></LinkButton>
           </div>
         </div>

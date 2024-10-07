@@ -9,7 +9,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 
-export const Aside = () => {
+export const Aside = ({props}:any) => {
     const route: any = useRouter()
 
     const [user, setUser]: any = useState(null);
@@ -38,7 +38,7 @@ export const Aside = () => {
     }
 
     return (
-        <aside className="w-full relative h-full">
+        <aside className="w-full relative h-full" {...props}>
             <div className="flex flex-col w-full h-full items-center justify-between">
                 <div className="top w-full h-5/6 flex flex-col gap-2">
                     <div className="flex flex-nowrap text-xl items-center gap-2 bg-white bg-opacity-45 rounded p-2">

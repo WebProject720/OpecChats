@@ -8,7 +8,7 @@ interface ButtonProps {
     text?:any
 }
 export const LinkButton = forwardRef<HTMLDivElement, ButtonProps>((
-    { className, url,text }, ref: any) => {
+    { className, url,text,...props }, ref: any) => {
     return (
         <Link href={url}
         className={`
@@ -17,6 +17,7 @@ export const LinkButton = forwardRef<HTMLDivElement, ButtonProps>((
                              text-center align-middle flex justify-center items-center
              ${className}`}
              ref={ref}
+             {...props}
         >{text || '-->'}</Link>
     )
 })

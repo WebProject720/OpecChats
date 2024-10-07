@@ -5,6 +5,7 @@ import DashboardLayout from "../DashboardLayout";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/custom/loader";
+import { state } from "@/store/poxy";
 
 
 export default function Page() {
@@ -13,6 +14,9 @@ export default function Page() {
     const [data, setData]: any = useState(null);
     const [error, setError] = useState(false);
     const id = params.get('id');
+    const user = params.get('u');
+    
+
 
     const [groupName, setGroupName] = useState(id);
 
