@@ -6,8 +6,7 @@ import axios from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Loader } from "@/components/custom/loader";
 
-
-export default function Page() {
+function Verify() {
     const search = useSearchParams();
     const route = useRouter()
     const [status, setStatus]: any = useState();
@@ -150,3 +149,9 @@ export default function Page() {
 
     );
 };
+
+export default function Page(){
+    <Suspense>
+        <Verify/>
+    </Suspense>
+}
