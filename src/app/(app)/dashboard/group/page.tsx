@@ -3,19 +3,18 @@ import { useSearchParams } from "next/navigation";
 import GroupChats from "../components/group/page";
 import DashboardLayout from "../DashboardLayout";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Loader } from "@/components/custom/loader";
-import { state } from "@/store/poxy";
 
 
-export default function Page() {
+function Group() {
     const params = useSearchParams();
     const [loading, setLoading] = useState(true);
     const [data, setData]: any = useState(null);
     const [error, setError] = useState(false);
     const id = params.get('id');
     const user = params.get('u');
-    
+
 
 
     const [groupName, setGroupName] = useState(id);
@@ -55,5 +54,13 @@ export default function Page() {
                 }
             </div>
         </DashboardLayout>
+    )
+}
+
+export default function Page() {
+    return (
+        <Suspense fallback={<div>loading...</div>}>
+            <Group />
+        </Suspense>
     )
 }

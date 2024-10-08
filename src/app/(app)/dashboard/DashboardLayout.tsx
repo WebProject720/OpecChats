@@ -3,13 +3,12 @@ import { BgText } from '@/components/custom/bgText';
 import '../globals.css'
 import { Aside } from './components/aside/aside';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { Suspense, useEffect, useState } from 'react';
 import { state } from '@/store/poxy';
 import { useRouter } from 'next/navigation';
 
 
-export default function DashboardLayout({ children }: any) {
+function Layout({ children }: any) {
   const path = usePathname();
   const router = useRouter()
   const params = useSearchParams();
@@ -32,11 +31,11 @@ export default function DashboardLayout({ children }: any) {
       <div className={`w-1/5   p-3 
       phoneTheme:w-1/2 phone:!w-full 
       border-[0px] border-white    laptop:!bg-[#032f6e]
-      phone:${groupPath ? '!hidden' : ''} ${user == 'g' ? 'hidden' :''}
+      phone:${groupPath ? '!hidden' : ''} ${user == 'g' ? 'hidden' : ''}
       `}>
         {
           user == 'g' ? '' :
-            <Aside  className={user == 'g' ? 'hidden' :''}/>
+            <Aside className={user == 'g' ? 'hidden' : ''} />
         }
       </div>
       <BgText className={`phoneTheme:w-1/2 laptopTheme:!hidden
@@ -51,3 +50,8 @@ export default function DashboardLayout({ children }: any) {
   );
 }
 
+export default function DashboardLayout({ children }: any) {
+  return(<Suspense fallback={<div>loading...</div>}>
+    <Layout>{children}</Layout>
+  </Suspense>)
+}

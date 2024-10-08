@@ -208,7 +208,7 @@ function GroupChats({ chatsArray, identifier }: any) {
                                     </center>
                                 </h1>
                             </div> :
-                            chats.map((e: any, i: number) => (
+                            chats && chats?.map((e: any, i: number) => (
                                 <div key={i} className="w-full">
                                     <div className={`w-full text-center py-5 text-white text-opacity-30`}>
                                         <div className="flex justify-center">
