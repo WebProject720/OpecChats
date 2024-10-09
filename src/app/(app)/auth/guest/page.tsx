@@ -22,7 +22,7 @@ export default function Page() {
                 
                 state.loggedUser=res?.data?.data
                 state.isActive=true;
-                router.replace('/dashboard/group/join')
+                router.push('/dashboard/group/join')
             })
         } catch (error) {
             console.log(error);
