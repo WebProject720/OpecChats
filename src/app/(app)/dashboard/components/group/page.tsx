@@ -6,134 +6,13 @@ import '../../../globals.css'
 import { Header } from "../header/header"
 import { state } from "@/store/poxy"
 import { io } from "socket.io-client"
+import { Loader } from "@/components/custom/loader"
 
 
 
 function GroupChats({ chatsArray, identifier }: any) {
-    // const chats = [
-    //     {
-    //         msg: "HELLO, how are you?",
-    //         sender: "Alice",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 15:35:58 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "I'm good, thanks! What about you?",
-    //         sender: "Bob",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 15:40:10 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "I'm doing well too! I'm doing well too! I'm doing well too! I'm doing well too!",
-    //         sender: "Charlie",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 15:45:22 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "What are your plans for today?",
-    //         sender: "Diana",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 15:50:35 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Just working on a new project. You?",
-    //         sender: "Alice",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 15:55:48 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Same here! What are you working on?",
-    //         sender: "Bob",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 16:00:05 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "A new web app using Next.js.",
-    //         sender: "Charlie",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 16:05:12 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Sounds interesting! Need any help?",
-    //         sender: "Diana",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 16:10:29 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Thanks! I might need some feedback later.",
-    //         sender: "Alice",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 16:15:36 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Sure, just let me know!",
-    //         sender: "Bob",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 16:20:45 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "HELLO, how are you?",
-    //         sender: "Alice",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 15:35:58 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "I'm good, thanks! What about you?",
-    //         sender: "Bob",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 15:40:10 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "I'm doing well too!",
-    //         sender: "Charlie",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 15:45:22 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "What are your plans for today?",
-    //         sender: "Diana",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 15:50:35 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Just working on a new project. You?",
-    //         sender: "Alice",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 15:55:48 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Same here! What are you working on?",
-    //         sender: "Bob",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 16:00:05 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "A new web app using Next.js.",
-    //         sender: "Charlie",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 16:05:12 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Sounds interesting! Need any help?",
-    //         sender: "Diana",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 16:10:29 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Thanks! I might need some feedback later.",
-    //         sender: "Alice",
-    //         sendBy: true,
-    //         date: "Tue Aug 13 2024 16:15:36 GMT+0530 (India Standard Time)"
-    //     },
-    //     {
-    //         msg: "Sure, just let me know!",
-    //         sender: "Bob",
-    //         sendBy: false,
-    //         date: "Tue Aug 13 2024 16:20:45 GMT+0530 (India Standard Time)"
-    //     }
-    // ]
     let [chats, setChats]: any = useState(chatsArray);
-
+    const [msgSending, setMsgSending] = useState(false);
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_PATH_ || 'http://localhost:5000';
     const socket = io(SERVER_URL, { transports: ['websocket'] });
     let scrollDiv: any = useRef<HTMLDivElement | null>(null);
@@ -142,15 +21,14 @@ function GroupChats({ chatsArray, identifier }: any) {
     }, [])
     useEffect(() => {
         socket.on('new-msg', (msg) => {
-            console.log(msg);
-            
+            setMsgSending(false)
             setChats((e: []) => [...e, msg])
         })
         return () => {
             if (socket)
                 socket.off('new-msg');
         }
-    }, [socket])
+    }, [])
 
 
     if (chats?.length <= 0) chats = [];
@@ -165,6 +43,7 @@ function GroupChats({ chatsArray, identifier }: any) {
         const text = form.get('message') as string;
         if (text?.length <= 0)
             return
+        setMsgSending(true)
         socket.emit('group-msg', { msg: text, identifier: identifier })
         e.target.reset();
     }
@@ -173,8 +52,8 @@ function GroupChats({ chatsArray, identifier }: any) {
         if (scrollDiv.current)
             scrollDiv.current.scrollTop = scrollDiv.current.scrollHeight
     }, [chats])
-    let chatDate:any='';
-    
+    let chatDate: any = '';
+
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
@@ -203,8 +82,8 @@ function GroupChats({ chatsArray, identifier }: any) {
                                         <div className="flex justify-center">
                                             {
                                                 chatDate === new Date(e?.createdAt).toDateString() ? '' :
-                                                (() => {
-                                                    chatDate=(new Date(e?.createdAt).toDateString());
+                                                    (() => {
+                                                        chatDate = (new Date(e?.createdAt).toDateString());
                                                         return (<p className="w-fit p-2 rounded-full bg-white bg-opacity-10">
                                                             <span>
                                                                 {new Date(e.createdAt).toDateString()}
@@ -216,14 +95,14 @@ function GroupChats({ chatsArray, identifier }: any) {
                                     </div>
                                     <div className={`w-full my-2
                             flex message
-                            ${(e.senderID == userID)||((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
+                            ${(e.senderID == userID) || ((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
                         `}>
 
                                         <div className={`p-3 rounded-full bg-white
                          text-white bg-opacity-25 w-fit my-1 max-w-[60%]
                          ${e.senderID == userID ? 'bg-white ' : 'bg-blue-500 bg-opacity-50'}`}>
                                             <div>
-                                                {e.msg }
+                                                {e.msg}
                                             </div>
                                         </div>
                                         <div className="">
@@ -241,7 +120,7 @@ function GroupChats({ chatsArray, identifier }: any) {
                 <div className="input bg-[#052043]">
                     <form onSubmit={sendText} action="" className="flex w-full flex-row gap-2 py-1">
                         <Input name="message" className="w-full flex-grow" placeholder="Message"></Input>
-                        <Button className="!w-28" type='submit' text='Send'></Button>
+                        <Button disabled={msgSending} className="!w-28 !bg-black hover:!bg-black hover:!text-white !text-white" type='submit' text={msgSending ? <Loader /> : 'Send'}></Button>
                     </form>
                 </div>
             </div>
