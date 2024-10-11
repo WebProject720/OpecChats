@@ -16,9 +16,9 @@ function Layout({ children }: any) {
   const user = params.get('u');
 
   useEffect(() => {
-    const { isActive } = state;
-    if (!isActive)
-      router.replace('/auth')
+    const { isActive, isGuest } = state;
+    if (!isActive && !isGuest)
+      router?.replace('/auth')
   }, [state.isActive])
   useEffect(() => {
     setGroupPath(path.includes('group'));
@@ -51,7 +51,7 @@ function Layout({ children }: any) {
 }
 
 export default function DashboardLayout({ children }: any) {
-  return(<Suspense fallback={<div>loading...</div>}>
+  return (<Suspense fallback={<div>loading...</div>}>
     <Layout>{children}</Layout>
   </Suspense>)
 }

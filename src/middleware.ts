@@ -9,10 +9,10 @@ export function middleware(request: NextRequest) {
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   }
-  //  else if ((request?.url?.endsWith('/dashboard') && !state.isActive) || (request?.url?.endsWith('/dashboard') && state.isGuest )) {
-  //   url.pathname = '/';
-  //   return NextResponse.redirect(url);
-  // }
+  else if ((request?.url?.endsWith('/dashboard') && !state.isActive) || (request?.url?.endsWith('/dashboard') && state.isGuest)) {
+    url.pathname = '/';
+    return NextResponse.redirect(url);
+  }
 
   return NextResponse.next();
 }
