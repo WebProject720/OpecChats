@@ -3,9 +3,10 @@ import Image from 'next/image';
 import '../globals.css'
 import { LinkButton } from '@/components/custom/LinkButton';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { state } from '@/store/poxy';
 import { useRouter } from 'next/navigation';
+import { UserLogout } from '@/helpers/UserLogout';
+import { GuestLogout } from '@/helpers/GuestLogout';
 
 
 export default function Page() {
@@ -17,28 +18,8 @@ export default function Page() {
       state.loggedUser = {}
     }
   }, [])
-  useEffect(() => {
-    try {
-      axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/GuestLogout`, {},
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',  // Ensure the content type is correct
-          }
-        }).then((res) => {
-          state.isGuest = false;
-          state.isActive = false;
-        }).catch((err) => {
-          const { response } = err;
-          if (!response?.data?.success) {
-            state.isGuest = false;
-            state.isActive = false;
-          }
-        })
-    } catch (error) {
-      console.log(error);
-    }
-  }, [])
+  UserLogout();
+  GuestLogout();
   return (
     <div className=" bg-slate-700 text-white
     w-full min-h-screen  bg-gradient-to-t from-[#969697] to-[#2e2c5c]

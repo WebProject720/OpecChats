@@ -142,13 +142,15 @@ function GroupChats({ chatsArray, identifier }: any) {
     }, [])
     useEffect(() => {
         socket.on('new-msg', (msg) => {
+            console.log(msg);
+            
             setChats((e: []) => [...e, msg])
         })
         return () => {
             if (socket)
                 socket.off('new-msg');
         }
-    }, [])
+    }, [socket])
 
 
     if (chats?.length <= 0) chats = [];
@@ -163,19 +165,6 @@ function GroupChats({ chatsArray, identifier }: any) {
         const text = form.get('message') as string;
         if (text?.length <= 0)
             return
-        // try {
-        //     const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/chat/write`, {
-        //         identifier: identifier,
-        //         msg: text
-        //     }, {
-        //         withCredentials: true,
-        //         headers: {
-        //             'Content-Type': 'application/json',  // Ensure the content type is correct
-        //         }
-        //     })
-        // } catch ({ response }: any) {
-        //     console.log(response?.data?.message || "Error");
-        // }
         socket.emit('group-msg', { msg: text, identifier: identifier })
         e.target.reset();
     }
