@@ -18,8 +18,10 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href="/logo-black.svg" type="image/x-icon" sizes="any" />
-        <body className={inter.className}>{children}</body>
+      <head>
+        <link rel="icon" href="/logo-black.svg" type="image/x-icon" sizes="any" />
+      </head>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

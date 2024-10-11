@@ -91,7 +91,7 @@ export default function Page() {
                 </div>
             </div>
             <div className="mt-9">
-                <LinkButton url={'/dashboard'} text={'Go To Home'}></LinkButton>
+                <LinkButton url={'/'} text={'Go To Home'}></LinkButton>
             </div>
         </div>
     )

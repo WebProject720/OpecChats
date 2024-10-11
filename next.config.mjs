@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
   env: {
     SERVER_URL: process.env.NEXT_PUBLIC_SERVER_PATH,
     i_icon:'https://img.icons8.com/?size=100&id=63308&format=png&color=000000'

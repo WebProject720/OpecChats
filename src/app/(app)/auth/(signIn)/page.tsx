@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../AuthLayout";
 import { Input } from "@/components/custom/input";
 import { Button } from "@/components/custom/button";
@@ -44,7 +44,6 @@ export default function Page() {
             if (res) {
                 state.loggedUser = res?.data?.data.user || {};
                 state.isActive = true;
-                route.push('/dashboard');
             }
 
             setError(res?.data?.message || 'Sign In failled')
@@ -55,6 +54,11 @@ export default function Page() {
             setError(error?.response?.data?.message || 'Sign In failled')
         }
     }
+    useEffect(() => {
+        if (state.isActive) {
+            route.replace('/dashboard');
+        }
+    }, [state.isActive])
     return (
         <Layout>
             <div>
