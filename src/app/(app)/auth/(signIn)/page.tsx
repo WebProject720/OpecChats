@@ -44,6 +44,7 @@ export default function Page() {
             if (res) {
                 state.loggedUser = res?.data?.data.user || {};
                 state.isActive = true;
+                route.replace('/dashboard');
             }
 
             setError(res?.data?.message || 'Sign In failled')
@@ -54,11 +55,7 @@ export default function Page() {
             setError(error?.response?.data?.message || 'Sign In failled')
         }
     }
-    useEffect(() => {
-        if (state.isActive) {
-            route.replace('/dashboard');
-        }
-    }, [state.isActive])
+
     return (
         <Layout>
             <div>

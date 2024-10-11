@@ -4,7 +4,6 @@ import { Input } from "@/components/custom/input";
 import { Options } from "@/components/custom/InputOptions";
 import { LinkButton } from "@/components/custom/LinkButton";
 import { Loader } from "@/components/custom/loader";
-import { GroupSchema } from "@/models/group.model";
 import { CreateGroupSchema } from "@/schemas/createG";
 import { state } from "@/store/poxy";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,11 +42,8 @@ export default function Page() {
         }
         try {
             const response: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/group/create`, data, { withCredentials: true });
-            console.log(response);
             const newG = response.data.data;
-            console.log(newG);
             state.loggedUser.adminOfGroups.push(newG)
-            console.log(state);
 
             setSubmit(false)
         } catch (error: any) {

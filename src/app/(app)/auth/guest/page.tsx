@@ -10,26 +10,18 @@ import { useRouter } from "next/navigation";
 export default function Page() {
     const router = useRouter()
     useEffect(() => {
-        if (state.loggedUser.name == "guest") {
-            router.replace('/dashboard/group/join');
-        }
-    }, [state.isActive])
-
-    useEffect(() => {
         try {
             axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/guest`, {}, { withCredentials: true }).then((res) => {
                 state.loggedUser = res?.data?.data
-                state.isActive = true;
+                state.isActive = false;
+                state.isGuest = true;
+                router.push('/dashboard/group/join')
             })
         } catch (error) {
             console.log(error);
         }
     }, [])
-    useEffect(() => {
-        if (state.isActive) {
-            router.replace('/dashboard/group/join')
-        }
-    }, [state.isActive])
+    
     return (
         <Layout>
             <div className="w-full h-full flex justify-center items-center">

@@ -19,7 +19,7 @@ function Layout({ children }: any) {
     const { isActive } = state;
     if (!isActive)
       router.replace('/auth')
-  }, [state])
+  }, [state.isActive])
   useEffect(() => {
     setGroupPath(path.includes('group'));
   }, [path])

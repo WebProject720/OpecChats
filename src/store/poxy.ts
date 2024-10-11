@@ -3,11 +3,13 @@ import { proxy, subscribe } from "valtio";
 type Store = {
   loggedUser?: Object;
   isActive: Boolean;
+  isGuest:Boolean;
 };
 
 const collection: Store = {
   loggedUser: {},
   isActive: false,
+  isGuest:false
 };
 
 const initValue =

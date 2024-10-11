@@ -11,6 +11,7 @@ export default function Page() {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [bounce, setBounce] = useDebounceValue('', 800)
+    
 
     useEffect(() => {
         const search = async () => {

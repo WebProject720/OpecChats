@@ -5,22 +5,20 @@ import { LinkButton } from '@/components/custom/LinkButton';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { state } from '@/store/poxy';
+import { useRouter } from 'next/navigation';
 
 
 export default function Page() {
+  const router = useRouter();
+  useEffect(() => {
+    if (state.isActive) {
+      router.replace('/dashboard');
+    } else {
+      state.loggedUser = {}
+    }
+  }, [])
   useEffect(() => {
     try {
-      // axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/logout`, {},
-      //   {
-      //     withCredentials: true,
-      //     headers: {
-      //       'Content-Type': 'application/json',  // Ensure the content type is correct
-      //     }
-      //   }).then((res) => {
-      //     console.log(res);
-      //   }).catch((err) => {
-      //     console.log(err);
-      //   })
       axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/GuestLogout`, {},
         {
           withCredentials: true,
@@ -28,11 +26,14 @@ export default function Page() {
             'Content-Type': 'application/json',  // Ensure the content type is correct
           }
         }).then((res) => {
-          state.loggedUser = {};
-          state.isActive = false
-          console.log(res);
+          state.isGuest = false;
+          state.isActive = false;
         }).catch((err) => {
-          console.log(err);
+          const { response } = err;
+          if (!response?.data?.success) {
+            state.isGuest = false;
+            state.isActive = false;
+          }
         })
     } catch (error) {
       console.log(error);
