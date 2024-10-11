@@ -15,7 +15,7 @@ export default function Page() {
                 state.loggedUser = res?.data?.data
                 state.isActive = false;
                 state.isGuest = true;
-                router.push('/dashboard/group/join')
+                router.push('/dashboard/group/search')
             })
         } catch (error) {
             console.log(error);

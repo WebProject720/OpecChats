@@ -78,21 +78,23 @@ function GroupChats({ chatsArray, identifier }: any) {
                             </div> :
                             chats && chats?.map((e: any, i: number) => (
                                 <div key={i} className="w-full">
-                                    <div className={`w-full text-center py-5 text-white text-opacity-30`}>
-                                        <div className="flex justify-center">
-                                            {
-                                                chatDate === new Date(e?.createdAt).toDateString() ? '' :
-                                                    (() => {
-                                                        chatDate = (new Date(e?.createdAt).toDateString());
-                                                        return (<p className="w-fit p-2 rounded-full bg-white bg-opacity-10">
-                                                            <span>
-                                                                {new Date(e.createdAt).toDateString()}
-                                                            </span>
-                                                        </p>);
-                                                    })()
-                                            }
-                                        </div>
-                                    </div>
+                                    {
+                                        chatDate === new Date(e?.createdAt).toDateString() ? '' :
+                                            (() => {
+                                                chatDate = (new Date(e?.createdAt).toDateString());
+                                                return (
+                                                    <div className={`w-full text-center py-5 text-white text-opacity-30`}>
+                                                        <div className="flex justify-center">
+                                                            <p className="w-fit p-2 rounded-full bg-white bg-opacity-10">
+                                                                <span>
+                                                                    {new Date(e.createdAt).toDateString()}
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })()
+                                    }
                                     <div className={`w-full my-2
                             flex message
                             ${(e.senderID == userID) || ((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
