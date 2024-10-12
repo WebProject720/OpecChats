@@ -15,7 +15,7 @@ export default function Page() {
                 state.loggedUser = res?.data?.data
                 state.isActive = false;
                 state.isGuest = true;
-                router.push('/dashboard/group/search')
+                router.replace('/dashboard/group/search')
             })
         } catch (error) {
             console.log(error);
@@ -26,7 +26,7 @@ export default function Page() {
         <Layout>
             <div className="w-full h-full flex justify-center items-center phone:flex-col">
                 <Loader />
-                <p className="text-white p-3">
+                <p className="text-white p-3 flex justify-center items-center">
                     Wait a minute...
                 </p>
             </div>

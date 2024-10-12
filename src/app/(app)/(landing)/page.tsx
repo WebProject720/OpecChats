@@ -47,7 +47,7 @@ export default function Page() {
               <span>  OpecChats </span>
             </h1>
           </div>
-          <div className='flex flex-row phone:flex-col gap-4 justify-center w-3/4'>
+          <div className='flex flex-row phone:flex-col gap-4 justify-center items-center w-3/4'>
             {/* <LinkButton className='w-52 font-bold' text='Login' url='/auth'></LinkButton> */}
             <LinkButton className='w-52 font-bold' text='Join Group as Guest' url='/auth/guest'></LinkButton>
             <LinkButton className='w-52 font-bold' url='/auth' text='Get Started ->'></LinkButton>
@@ -58,7 +58,7 @@ export default function Page() {
         <div className="heading">
           <div>
             <h1 className='text-3xl font-bold font-serif'>
-              About OpecChats
+              About OpecChats : Documentation
             </h1>
             <hr className='mt-2 mb-2' />
           </div>

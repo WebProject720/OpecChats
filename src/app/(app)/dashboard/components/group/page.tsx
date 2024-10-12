@@ -21,7 +21,6 @@ function GroupChats({ chatsArray, identifier }: any) {
     }, [])
     useEffect(() => {
         socket.on('new-user-added', (data) => {
-            console.log(data);
             setActiveuser(data?.activeUsers)
         })
     }, [])
