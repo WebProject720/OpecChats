@@ -2,37 +2,22 @@
 import { Button } from "@/components/custom/button"
 import { LinkButton } from "@/components/custom/LinkButton"
 import { Search } from "@/components/custom/search"
+import { UserLogout } from "@/helpers/UserLogout"
 import { state } from "@/store/poxy"
-import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 
 
 export const Aside = ({ props }: any) => {
-    const route: any = useRouter()
-    
     const [user, setUser]: any = useState(null);
     useEffect(() => {
         const { isActive, loggedUser } = state;
         setUser(loggedUser)
     }, [])
     const logout = async () => {
-
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/logout`, undefined,
-                {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json',  // Ensure the content type is correct
-                    }
-                });
-            if (res) {
-                state.loggedUser = null;
-                state.isActive = false;
-                route.push('/')
-            }
+            await UserLogout()
         } catch (error) {
             console.log(error);
         }

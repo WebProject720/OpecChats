@@ -18,8 +18,13 @@ export default function Page() {
       state.loggedUser = {}
     }
   }, [])
-  UserLogout();
-  GuestLogout();
+  useEffect(() => {
+    async function Logout() {
+      await UserLogout();
+      await GuestLogout();
+    }
+    Logout()
+  }, [])
   return (
     <div className=" bg-slate-700 text-white
     w-full min-h-screen  bg-gradient-to-t from-[#969697] to-[#2e2c5c]

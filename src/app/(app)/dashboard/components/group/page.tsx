@@ -105,9 +105,8 @@ function GroupChats({ chatsArray, identifier }: any) {
                             flex message
                             ${(e.senderID == userID) || ((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
                         `}>
-
                                         <div className={`p-3 rounded-full bg-white
-                         text-white bg-opacity-25 w-fit my-1 max-w-[60%]
+                         text-white bg-opacity-25 w-fit my-1 max-w-[60%] phone:text-xl
                          ${e.senderID == userID ? 'bg-white ' : 'bg-blue-500 bg-opacity-50'}`}>
                                             <div>
                                                 {e.msg}

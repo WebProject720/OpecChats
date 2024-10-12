@@ -25,8 +25,8 @@ export default function Layout({ children, widthClass }: any) {
                                 OpecChats</h1>
                         </Link>
                         <div
-                            className={`box bg-white bg-opacity-20 rounded-lg text-black p-5 phone:p-1 px-10 phone:px-2
-                            flex flex-col justify-center items-center gap-5 ${widthClass}`} >
+                            className={`box bg-white bg-opacity-20 rounded-lg text-black p-5 px-10 phone:p-8
+                            flex flex-col justify-center items-center gap-5 phone:w-[95%] ${widthClass}`} >
                             {children}
                         </div>
                     </div>
