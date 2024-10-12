@@ -24,9 +24,8 @@ export default function Page() {
     
     return (
         <Layout>
-            <div className="w-full h-full flex justify-center items-center">
+            <div className="w-full h-full flex justify-center items-center phone:flex-col">
                 <Loader />
-                <br />
                 <p className="text-white p-3">
                     Wait a minute...
                 </p>

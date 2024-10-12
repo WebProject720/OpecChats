@@ -47,7 +47,7 @@ export default function Page() {
               <span>  OpecChats </span>
             </h1>
           </div>
-          <div className='flex flex-row gap-4 justify-center w-3/4'>
+          <div className='flex flex-row phone:flex-col gap-4 justify-center w-3/4'>
             {/* <LinkButton className='w-52 font-bold' text='Login' url='/auth'></LinkButton> */}
             <LinkButton className='w-52 font-bold' text='Join Group as Guest' url='/auth/guest'></LinkButton>
             <LinkButton className='w-52 font-bold' url='/auth' text='Get Started ->'></LinkButton>
