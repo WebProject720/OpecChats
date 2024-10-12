@@ -26,7 +26,7 @@ export default function Layout({ children, widthClass }: any) {
                         </Link>
                         <div
                             className={`box bg-white bg-opacity-20 rounded-lg text-black p-5 px-10 phone:p-8
-                            flex flex-col justify-center items-center gap-5 phone:w-[95%] ${widthClass}`} >
+                            flex flex-col justify-center items-center gap-5  ${widthClass}`} >
                             {children}
                         </div>
                     </div>

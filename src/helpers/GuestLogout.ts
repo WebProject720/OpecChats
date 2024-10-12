@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const GuestLogout=async()=>{
     try {
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/GuestLogout`, {guest:true},
+       await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/GuestLogout`, {guest:true},
           {
             withCredentials: true,
             headers: {

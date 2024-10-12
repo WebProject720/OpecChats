@@ -6,18 +6,22 @@ import { UserLogout } from "@/helpers/UserLogout"
 import { state } from "@/store/poxy"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 
 
 export const Aside = ({ props }: any) => {
     const [user, setUser]: any = useState(null);
+    const router = useRouter()
     useEffect(() => {
         const { isActive, loggedUser } = state;
         setUser(loggedUser)
     }, [])
     const logout = async () => {
         try {
-            await UserLogout()
+            await UserLogout().then(() => {
+                router.push('/')
+            })
         } catch (error) {
             console.log(error);
         }
