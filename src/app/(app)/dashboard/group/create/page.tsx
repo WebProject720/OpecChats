@@ -9,6 +9,7 @@ import { state } from "@/store/poxy";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -17,7 +18,7 @@ export default function Page() {
     const [submiting, setSubmit] = useState(false);
     const [isErr, setIsError] = useState(false);
     const [errMsg, setErrMsg] = useState('');
-
+    const router=useRouter()
     const [disabled, setDisabled] = useState(true);
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -27,6 +28,10 @@ export default function Page() {
         },
         resolver: zodResolver(CreateGroupSchema)
     });
+
+    const Back=()=>{
+        router.back()
+    }
     const submit = async (data: any) => {
         setErrMsg('')
         setSubmit(true)
@@ -97,7 +102,8 @@ export default function Page() {
                 </form>
             </div>
             <div className="mt-9">
-                <LinkButton url={'/dashboard'} text={'Go To Home'}></LinkButton>
+                {/* <LinkButton url={'/dashboard'} text={'Go To Home'}></LinkButton> */}
+                <Button onClick={Back} text="Go Back"></Button>
             </div>
         </div>
     )

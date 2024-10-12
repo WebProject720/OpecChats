@@ -1,16 +1,21 @@
+'use client'
 import { Search } from "@/components/custom/search"
 import { Button } from "@/components/custom/button"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 
-export const Header = ({name}:any) => {
-    const router=useRouter()
+export const Header = ({ name, activeUser }: any) => {
+    const router = useRouter();
+    const [user, setuser] = useState(1);
+    useEffect(() => {
+        setuser(activeUser);
+    }, [activeUser])
     return (
         <header className="w-full h-full bg-opacity-15 gap-2 bg-white  p-2 flex items-center">
-            <Button onClick={()=>router.back()} text='<-' className="!p-0 !w-fit font-extrabold !bg-transparent text-white text-3xl"></Button>
+            <Button onClick={() => router.back()} text='<-' className="!p-0 !w-fit font-extrabold !bg-transparent text-white text-3xl"></Button>
             <Link href='' className="w-full gap-2  h-14 p-2 flex items-center">
                 <div>
                     <Image alt='Logo' width={40} height={40} src='/logo-black.svg'
@@ -19,7 +24,10 @@ export const Header = ({name}:any) => {
                 </div>
                 <div>
                     <h1 className="text-xl">
-                       {name|| "Group Name"}
+                        {name || "Group Name"} <br />
+                        <span className="text-xs">
+                            Active user : {user || 1}
+                        </span>
                     </h1>
                 </div>
             </Link>

@@ -5,19 +5,25 @@ import React, { useEffect, useRef, useState } from "react"
 import '../../../globals.css'
 import { Header } from "../header/header"
 import { state } from "@/store/poxy"
-import { io } from "socket.io-client"
 import { Loader } from "@/components/custom/loader"
+import socketServer from "@/helpers/socket"
 
 
 
 function GroupChats({ chatsArray, identifier }: any) {
+    const [activeUser, setActiveuser] = useState(1);
     let [chats, setChats]: any = useState(chatsArray);
     const [msgSending, setMsgSending] = useState(false);
-    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_PATH_ || 'http://localhost:5000';
-    const socket = io(SERVER_URL, { transports: ['websocket'] });
+    const socket = socketServer();
     let scrollDiv: any = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         socket.emit('join-group', identifier);
+    }, [])
+    useEffect(() => {
+        socket.on('new-user-added', (data) => {
+            console.log(data);
+            setActiveuser(data?.activeUsers)
+        })
     }, [])
     useEffect(() => {
         socket.on('new-msg', (msg) => {
@@ -57,7 +63,7 @@ function GroupChats({ chatsArray, identifier }: any) {
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
-                <Header name={identifier} />
+                <Header name={identifier} activeUser={activeUser} />
             </div>
             <div className="h-full flex flex-col p-2">
                 <div

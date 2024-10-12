@@ -1,8 +1,11 @@
 'use client'
+import Layout from "@/app/(app)/auth/AuthLayout";
+import { Button } from "@/components/custom/button";
 import { LinkButton } from "@/components/custom/LinkButton";
 import { Loader } from "@/components/custom/loader";
 import { Search } from "@/components/custom/search";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 
@@ -11,7 +14,11 @@ export default function Page() {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [bounce, setBounce] = useDebounceValue('', 800)
-    
+    const router = useRouter()
+    const Back = () => {
+        router.back()
+    }
+
 
     useEffect(() => {
         const search = async () => {
@@ -30,30 +37,22 @@ export default function Page() {
         search();
     }, [bounce])
     return (
-        <div className="min-w-full  flex flex-col gap-2 justify-center items-center bg-gray-500 bg-gradient-to-tl from-blue-400 to-[#d04dd6] min-h-screen text-white
-    bg-radient">
-            <div className="">
-                <h1 className="text-4xl font-bold mb-6">
-                    <center>
-                        OpecChats
-                    </center>
-                </h1>
-            </div>
-            <div className="bg-white space-y-9  w-screen flex flex-col justify-center items-center py-9 bg-opacity-0 rounded-md p-5">
-                <div className="laptopTheme:w-1/2 phoneTheme:w-full">
+        <Layout widthClass="!w-full m-2">
+            <div className="bg-white space-y-9  w-3/4 phone:w-full flex flex-col justify-center items-center py-9 bg-opacity-0 rounded-md p-1">
+                <div className=" w-full">
                     <form action="">
                         <Search onChange={(e) => {
                             setBounce(e.target.value);
                         }} className="p-3" placeholder="Search Group"></Search>
                     </form>
                 </div>
-                <div className="bg-white gap-2 rounded-md bg-opacity-20 p-3 flex flex-col justify-center items-center min-h-28 laptopTheme:w-1/2 phoneTheme:w-full">
+                <div className="gap-2 w-full rounded-md bg-opacity-20 p-3 flex flex-col justify-center items-center min-h-28">
                     {
                         loading ?
                             <Loader></Loader> :
                             groups && groups.length > 0 ?
                                 groups.map((e: any, i) => (
-                                    <div key={e._id} className="flex items-center w-full flex-row justify-between p-2 bg-white bg-opacity-10 rounded-md">
+                                    <div key={e._id} className="flex items-center w-full text-white flex-row justify-between p-2 bg-white bg-opacity-10 rounded-md">
                                         <div>
                                             <p>
                                                 {e?.groupName}
@@ -75,7 +74,7 @@ export default function Page() {
                                             </p>
                                         </div>
                                         <div>
-                                            {e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}`}></LinkButton>:
+                                            {e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group/join?i=${e?.groupName}`}></LinkButton> :
                                                 <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}&u=g`}></LinkButton>}
                                         </div>
                                     </div>
@@ -92,8 +91,9 @@ export default function Page() {
                 </div>
             </div>
             <div className="mt-9">
-                <LinkButton url={'/'} text={'Go To Home'}></LinkButton>
+                {/* <LinkButton url={'/'} text={'Go To Home'}></LinkButton> */}
+                <Button onClick={Back} text="Go Back"></Button>
             </div>
-        </div>
+        </Layout>
     )
 }
