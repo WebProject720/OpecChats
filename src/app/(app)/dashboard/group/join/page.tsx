@@ -46,7 +46,10 @@ function Join() {
                     }
                 });
             if (res) {
-                console.log(res);
+                // console.log(res);
+                if(state.isActive){
+                    // state.loggeduser.JoinedGroup.push(res?.data?.data)
+                }
                 router.back();
             }
             setError(res?.data?.message || 'Sign In failled')
@@ -63,6 +66,10 @@ function Join() {
                 <h1 className="text-white mb-5 text-2xl font-serif font-bold">
                     <center>
                         Private Group
+                        <br />
+                        <span className="text-xl">
+                            {identifier}
+                        </span>
                     </center>
                 </h1>
                 <form action="" onSubmit={handleSubmit(submit)}>

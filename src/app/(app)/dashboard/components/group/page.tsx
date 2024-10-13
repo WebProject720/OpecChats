@@ -104,15 +104,15 @@ function GroupChats({ chatsArray, identifier }: any) {
                             flex message
                             ${(e.senderID == userID) || ((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
                         `}>
-                                        <div className={`p-3 rounded-full bg-white
-                         text-white bg-opacity-25 w-fit my-1 max-w-[60%] phone:text-xl
+                                        <div className={`p-3 phone:p-1 rounded-md bg-white
+                         text-white bg-opacity-25 w-fit my-1 max-w-[60%]
                          ${e.senderID == userID ? 'bg-white border-[1px] border-white' : 'bg-blue-500 bg-opacity-50'}`}>
-                                            <p>
+                                            <p className="phone:text-xs">
                                                 {e.msg}
                                             </p>
                                         </div>
                                         <div className="">
-                                            <p className="text-xs h-full flex items-end text-opacity-50 text-white">
+                                            <p className="text-xs phone:text-[0.5rem] h-full flex items-end text-opacity-50 text-white">
                                                 {
                                                     new Date(e.updatedAt).toLocaleTimeString('en-US', { hour12: true, minute: '2-digit', hour: 'numeric' })
                                                 }

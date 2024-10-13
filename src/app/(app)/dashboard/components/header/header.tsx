@@ -23,12 +23,15 @@ export const Header = ({ name, activeUser }: any) => {
                     ></Image>
                 </div>
                 <div>
-                    <h1 className="text-xl">
-                        {name || "Group Name"} <br />
+                    <h1 className="text-xl leading-tight">
+                        {name || "Group Name"}
+                         <br />
+                    </h1>
+                    <p>
                         <span className="text-xs">
                             Active user : {user || 1}
                         </span>
-                    </h1>
+                    </p>
                 </div>
             </Link>
             <div>
