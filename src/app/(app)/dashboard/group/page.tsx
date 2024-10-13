@@ -1,5 +1,5 @@
 'use client'
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import GroupChats from "../components/group/page";
 import DashboardLayout from "../DashboardLayout";
 import axios from "axios";
@@ -12,8 +12,8 @@ function Group() {
     const [loading, setLoading] = useState(true);
     const [data, setData]: any = useState(null);
     const [error, setError] = useState(false);
+    const router=useRouter()
     const id = params.get('id');
-    const user = params.get('u');
 
 
 
@@ -32,11 +32,13 @@ function Group() {
                 'Content-Type': 'application/json',  // Ensure the content type is correct
             }
         }).then((data) => {
+            console.log(data.data);
             setData(data.data.data.chatID);
             setLoading(false);
         }).catch((error) => {
             setLoading(false);
-            setError(error.response.data.message);
+            setError(error.response?.data?.message);
+            router.push(`/dashboard/group/join?i=${id}`)
         })
     }, [id])
     return (

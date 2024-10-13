@@ -1,11 +1,20 @@
 'use client'
 
+import { state } from "@/store/poxy"
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import { useRouter } from "next/navigation"
+import React, { useEffect } from "react"
 
 
 export default function Layout({ children, widthClass }: any) {
+    const router = useRouter()
+    useEffect(() => {
+        const url = window.location.href; // Full URL including query parameters
+        if (url.includes('/auth') && state.isActive) {
+            router.push('/dashboard');
+        }
+    }, []);
     return (
         <div className='bg-gray-500 bg-gradient-to-tl from-blue-400 to-[#d04dd6] min-h-screen
     bg-radient

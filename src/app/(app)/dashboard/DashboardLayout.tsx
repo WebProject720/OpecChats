@@ -28,7 +28,8 @@ function Layout({ children }: any) {
     <div className="h-screen flex flex-row bg-[#052043] text-white
     ">
       {/* phone:!bg-[#3d4876] phone:!bg-[#052043] phone:!bg-[#3d4876] */}
-      <div className={`w-1/5   p-3 
+      <div className={`w-1/5   p-3  hiddren-scroll overflow-y-auto 
+                 transition-all duration-1000 ease-linear
       phoneTheme:w-1/2 phone:!w-full 
       border-[0px] border-white    laptop:!bg-[#032f6e]
       phone:${groupPath ? '!hidden' : ''} ${user == 'g' ? 'hidden' : ''}

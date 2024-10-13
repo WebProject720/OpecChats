@@ -106,10 +106,10 @@ function GroupChats({ chatsArray, identifier }: any) {
                         `}>
                                         <div className={`p-3 rounded-full bg-white
                          text-white bg-opacity-25 w-fit my-1 max-w-[60%] phone:text-xl
-                         ${e.senderID == userID ? 'bg-white ' : 'bg-blue-500 bg-opacity-50'}`}>
-                                            <div>
+                         ${e.senderID == userID ? 'bg-white border-[1px] border-white' : 'bg-blue-500 bg-opacity-50'}`}>
+                                            <p>
                                                 {e.msg}
-                                            </div>
+                                            </p>
                                         </div>
                                         <div className="">
                                             <p className="text-xs h-full flex items-end text-opacity-50 text-white">

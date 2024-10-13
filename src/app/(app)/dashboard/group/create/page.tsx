@@ -51,6 +51,7 @@ export default function Page() {
             state.loggedUser.adminOfGroups.push(newG)
 
             setSubmit(false)
+            router.back()
         } catch (error: any) {
             setSubmit(false)
             const errorMsg: any = error?.response?.data?.message;

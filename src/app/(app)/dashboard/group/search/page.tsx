@@ -4,13 +4,14 @@ import { Button } from "@/components/custom/button";
 import { LinkButton } from "@/components/custom/LinkButton";
 import { Loader } from "@/components/custom/loader";
 import { Search } from "@/components/custom/search";
+import { state } from "@/store/poxy";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 
-
 export default function Page() {
+    
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [bounce, setBounce] = useDebounceValue('', 800)
@@ -74,8 +75,10 @@ export default function Page() {
                                             </p>
                                         </div>
                                         <div>
-                                            {e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group/join?i=${e?.groupName}`}></LinkButton> :
-                                                <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}&u=g`}></LinkButton>}
+                                            {
+                                            // e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group/join?i=${e?.groupName}`}></LinkButton> :
+                                                <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}&u=${state.isGuest?'g':'u'}`}></LinkButton>
+                                                }
                                         </div>
                                     </div>
                                 ))
@@ -91,8 +94,12 @@ export default function Page() {
                 </div>
             </div>
             <div className="mt-9">
-                {/* <LinkButton url={'/'} text={'Go To Home'}></LinkButton> */}
+                {
+                    state?.isActive?
+                    <LinkButton url={'/dashboard'} text={'Dashboard'}></LinkButton>
+                    :
                 <Button onClick={Back} text="Go Back"></Button>
+                }
             </div>
         </Layout>
     )

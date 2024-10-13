@@ -9,3 +9,7 @@ export const CreateGroupSchema = z.object({
     message: "If provided, must be at least 3 characters long",
   }),
 });
+
+export const JoinPrivateGroup=z.object({
+  code:z.string().max(15,'Code Must less then 15 ').min(3,'code must greater then 3')
+})
