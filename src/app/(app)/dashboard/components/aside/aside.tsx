@@ -18,7 +18,8 @@ export const Aside = ({ props }: any) => {
     const router = useRouter()
     useEffect(() => {
         const { isActive, loggedUser } = state;
-        setUser(loggedUser)
+        if (isActive)
+            setUser(loggedUser)
     }, [])
     const logout = async () => {
         try {
@@ -59,7 +60,7 @@ export const Aside = ({ props }: any) => {
                         <div className="">
                             <h1 >
                                 <b className="text-xl">
-                                    {user && user?.username.toUpperCase()}
+                                    {user && user?.username?.toUpperCase()}
                                 </b>
                             </h1>
                             <p className="text-xs">
