@@ -63,27 +63,30 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
-.authInput{
-  @apply p-3 bg-white bg-opacity-15 text-white rounded outline-none
-  placeholder-white placeholder-opacity-60
+
+.authInput {
+  @apply p-3 bg-white bg-opacity-15 text-white rounded outline-none placeholder-white placeholder-opacity-60
 }
 
-.authButtons{
+.authButtons {
   @apply bg-white text-black rounded p-3 outline-none font-bold
 }
 
-.authErrorslabel{
+.authErrorslabel {
   @apply text-xs text-[#f86161]
 }
 
-.bg-radient{
-  background: radial-gradient(#5234d8, #01023d);;
+.bg-radient {
+  background: radial-gradient(#5234d8, #01023d);
+  ;
 }
-.CustomAuthBG{
+
+.CustomAuthBG {
   background: repeating-linear-gradient(45deg, #202ea4, #1a1111 100px);
   @apply bg-opacity-25
 }
@@ -103,6 +106,10 @@
   border: 3px solid transparent;
 }
 
-.message{
+.message {
   scroll-snap-align: start;
+}
+
+.Link {
+  @apply text-black bg-white hover:bg-black hover:text-white p-3 rounded-full transition-all duration-500 text-center align-middle flex justify-center items-center
 }

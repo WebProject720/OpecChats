@@ -12,7 +12,6 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Suspense, useState } from "react"
 import { useForm } from "react-hook-form";
 
-
 function Join() {
     const params = useSearchParams();
     const router = useRouter()
@@ -29,8 +28,10 @@ function Join() {
         },
         resolver: zodResolver(JoinPrivateGroup)
     })
-    const Back = () => {
-        router.back()
+    const Back = (para: any) => {
+        if (para) router.push(para)
+        else
+            router.back()
     }
     const submit = async (data: any) => {
         setError('')
@@ -46,9 +47,8 @@ function Join() {
                     }
                 });
             if (res) {
-                // console.log(res);
-                if(state.isActive){
-                    // state.loggeduser.JoinedGroup.push(res?.data?.data)
+                if (state.isActive) {
+                    state.loggedUser.JoinedGroup.push(res?.data?.data)
                 }
                 router.back();
             }
@@ -86,10 +86,8 @@ function Join() {
             </div>
             <div className="mt-9">
                 {
-                    state?.isActive ?
-                        <LinkButton url={'/dashboard'} text={'Dashboard'}></LinkButton>
-                        :
-                        <Button onClick={Back} text="Go Back"></Button>
+                    state &&
+                    <Button onClick={() => { state?.isActive ? Back('/dashboard') : Back(null) }} text={"Go Back"}></Button>
                 }
             </div>
         </Layout>

@@ -25,6 +25,12 @@ function GroupChats({ chatsArray, identifier }: any) {
         })
     }, [])
     useEffect(() => {
+        socket.on('error-msg', (data) => {
+            const { msg } = data;
+            alert(msg)
+        })
+    }, [])
+    useEffect(() => {
         socket.on('new-msg', (msg) => {
             setMsgSending(false)
             setChats((e: []) => [...e, msg])

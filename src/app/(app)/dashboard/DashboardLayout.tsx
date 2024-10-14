@@ -25,12 +25,12 @@ function Layout({ children }: any) {
   }, [path])
 
   return (
-    <div className="h-screen flex flex-row bg-[#052043] text-white
+    <div className="h-screen flex flex-row bg-[#052043] text-white bg-radient
     ">
       {/* phone:!bg-[#3d4876] phone:!bg-[#052043] phone:!bg-[#3d4876] */}
-      <div className={`w-1/5   p-3  hiddren-scroll overflow-y-auto 
+      <div className={`w-2/5   hiddren-scroll overflow-y-auto 
                  transition-all duration-1000 ease-linear
-      phoneTheme:w-1/2 phone:!w-full 
+      phoneTheme:w-1/2 phone:!w-full h-screen
       border-[0px] border-white    laptop:!bg-[#032f6e]
       phone:${groupPath ? '!hidden' : ''} ${user == 'g' ? 'hidden' : ''}
       `}>

@@ -16,8 +16,10 @@ export default function Page() {
     const [loading, setLoading] = useState(false);
     const [bounce, setBounce] = useDebounceValue('', 800)
     const router = useRouter()
-    const Back = () => {
-        router.back()
+    const Back = (para: any) => {
+        if (para) router.push(para)
+        else
+            router.back()
     }
 
 
@@ -44,7 +46,7 @@ export default function Page() {
                     <form action="">
                         <Search onChange={(e) => {
                             setBounce(e.target.value);
-                        }} className="p-3" placeholder="Search Group"></Search>
+                        }} className="p-3" placeholder="Enter Group Name : Public/Private"></Search>
                     </form>
                 </div>
                 <div className="gap-2 w-full rounded-md bg-opacity-20 p-3 flex flex-col justify-center items-center min-h-28">
@@ -94,11 +96,9 @@ export default function Page() {
                 </div>
             </div>
             <div className="mt-9">
-                {
-                    state?.isActive?
-                    <LinkButton url={'/dashboard'} text={'Dashboard'}></LinkButton>
-                    :
-                <Button onClick={Back} text="Go Back"></Button>
+            {
+                    state &&
+                    <Button onClick={() => { state?.isActive ? Back('/dashboard') : Back(null) }} text={"Go Back"}></Button>
                 }
             </div>
         </Layout>

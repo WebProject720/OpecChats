@@ -32,7 +32,7 @@ function Group() {
                 'Content-Type': 'application/json',  // Ensure the content type is correct
             }
         }).then((data) => {
-            console.log(data.data);
+            // console.log(data.data.data);
             setData(data.data.data.chatID);
             setLoading(false);
         }).catch((error) => {
