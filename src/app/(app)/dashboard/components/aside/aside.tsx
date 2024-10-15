@@ -83,12 +83,12 @@ export const Aside = ({ props }: any) => {
                     <section className="flex h-full pb-3 flex-col gap-2 mt-2 overflow-y-auto hiddren-scroll">
                         {user &&
                             user.adminOfGroups.map((e: any, i: number) => (
-                                <AsideGroup isOwner={true} e={e} i={i}></AsideGroup>
+                                <AsideGroup key={i} isOwner={true} e={e} i={i}></AsideGroup>
                             ))
                         }
                         {user &&
                             user.JoinedGroup.map((e: any, i: number) => (
-                                <AsideGroup isOwner={false} e={e} i={i} />
+                                <AsideGroup key={i} isOwner={false} e={e} i={i} />
                             ))
                         }
                     </section>
