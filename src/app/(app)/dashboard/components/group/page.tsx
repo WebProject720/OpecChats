@@ -7,6 +7,8 @@ import { Header } from "../header/header"
 import { state } from "@/store/poxy"
 import { Loader } from "@/components/custom/loader"
 import socketServer from "@/helpers/socket"
+import { deleteChat } from "@/helpers/chatsFunctions/delete"
+import { TextButton } from "@/components/custom/TextButton"
 
 
 
@@ -16,6 +18,7 @@ function GroupChats({ chatsArray, identifier }: any) {
     const [msgSending, setMsgSending] = useState(false);
     const socket = socketServer();
     let scrollDiv: any = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
         socket.emit('join-group', identifier);
     }, [])
@@ -27,12 +30,27 @@ function GroupChats({ chatsArray, identifier }: any) {
     useEffect(() => {
         socket.on('error-msg', (data) => {
             const { msg } = data;
+            setMsgSending(false)
             alert(msg)
+        })
+    }, [])
+    useEffect(() => {
+        socket.on('deleted-msg', (data) => {
+            console.log(chats);
+            console.log(data);
+            if (data?.deleted) {
+                let newChats = chats.filter((e: any) => e._id != data.id);
+                console.log(newChats);
+                setChats(newChats);
+            } else {
+                alert('Error in deleting')
+            }
         })
     }, [])
     useEffect(() => {
         socket.on('new-msg', (msg) => {
             setMsgSending(false)
+
             setChats((e: []) => [...e, msg])
         })
         return () => {
@@ -59,10 +77,24 @@ function GroupChats({ chatsArray, identifier }: any) {
         e.target.reset();
     }
 
+    const deleteChatIn = async (id: string) => {
+        socket.emit('delete-msg', { identifier: id, room: identifier })
+        //APIs
+        // const res = await deleteChat(identifier);
+        // if (res.success) {
+        //     let newChats = chats.filter((e: any) => e._id !== identifier);
+        //     setChats(newChats);
+        // } else {
+        //     alert('Error in deleting')
+        // }
+    }
+
+
     useEffect(() => {
         if (scrollDiv.current)
             scrollDiv.current.scrollTop = scrollDiv.current.scrollHeight
     }, [chats])
+
     let chatDate: any = '';
 
     return (
@@ -107,36 +139,47 @@ function GroupChats({ chatsArray, identifier }: any) {
                                                 );
                                             })()
                                     }
-                                    <div className={`w-full my-2  group
+                                    <div className={`w-full my-2  
                             flex message
                             ${(e.senderID == userID) || ((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
                         `}>
-                                        <div className="relative flex flex-row gap-2 ">
-                                            <div className={`p-3 phone:p-1 rounded-md bg-white 
-                         text-white bg-opacity-25 w-fit my-1 max-w-[60%]
-                         ${e.senderID == userID ? 'bg-white border-[1px] border-white' : 'bg-blue-500 bg-opacity-50'}`}>
-                                                <p className="phone:text-[15px]">
+                                        <div className={`relative flex flex-row gap-2 
+                                        ${(e.senderID == userID) || ((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
+                                            `}>
+                                            <div className={` bg-white 
+                         text-white bg-opacity-15 w-fit my-1 max-w-[60%] group rounded-md
+                         ${e.senderID == userID ? 'bg-white border-[0px] border-white' : 'bg-black bg-opacity-20 text-white'}`}>
+                                                <p className="bg-opacity-10 bg-white rounded-t-md p-1 px-4">
+                                                    {e?.senderID == null ? 'Guest' : e.senderID == userID ? 'You' : e?.sender?.username}
+                                                </p>
+                                                <p className="phone:!text-[17px] p-1 phone:p-2 px-4 text-center">
                                                     {e.msg}
                                                 </p>
+                                                <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2
+                                        top-8 left-12 group-hover:absolute group-hover:flex flex-col gap-2">
+                                                    {e.senderID == userID || e.TempID == userID ?
+                                                        <div className="flex p-1 hover:bg-black rounded-md
+                             hover:bg-opacity-10 w-full flex-row gap-1 items-center">
+                                                            {
+                                                                <TextButton onClick={() => deleteChatIn(e.senderID == null ? e?.TempID : e?._id)}>
+                                                                    Delete
+                                                                </TextButton>
+                                                            }
+                                                        </div> : null}
+                                                    <div className="flex p-1 hover:bg-black rounded-md
+                             hover:bg-opacity-10 w-full flex-row gap-1 items-center">
+                                                        Reply
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="">
-                                                <p className="text-xs phone:text-[0.5rem] h-full flex items-end text-opacity-50 text-white">
+                                                <p className="text-xs phone:text-[0.7rem] h-full flex items-end text-opacity-50 text-white">
                                                     {
                                                         new Date(e.updatedAt).toLocaleTimeString('en-US', { hour12: true, minute: '2-digit', hour: 'numeric' })
                                                     }
                                                 </p>
                                             </div>
-                                            <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2
-                                        top-8 left-12 group-hover:absolute group-hover:flex flex-col gap-2">
-                                                <div className="flex p-1 hover:bg-black rounded-md
-                             hover:bg-opacity-10 w-full flex-row gap-1 items-center">
-                                                    Delete
-                                                </div>
-                                                <div className="flex p-1 hover:bg-black rounded-md
-                             hover:bg-opacity-10 w-full flex-row gap-1 items-center">
-                                                    Reply
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

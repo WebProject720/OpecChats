@@ -43,7 +43,8 @@ function Layout({ children }: any) {
          phone:!hidden ${groupPath ? '!hidden' : ''}`} />
       <main className={`${groupPath ? 'flex' : '!hidden'}
          w-full bg-[#052043] p-0  h-screen flex-col  flex-grow`}>
-        <section className='bg-[#052043] flex-grow'>
+        <section className='bg-[#052043]  flex-grow'>
+        {/* bg-[#052043] */}
           {children}
         </section>
       </main>
