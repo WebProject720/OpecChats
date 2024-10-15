@@ -92,6 +92,7 @@ function GroupChats({ chatsArray, identifier }: any) {
                                     {
                                         chatDate === new Date(e?.createdAt).toDateString() ? '' :
                                             (() => {
+                                                //New Day Chats
                                                 chatDate = (new Date(e?.createdAt).toDateString());
                                                 return (
                                                     <div className={`w-full text-center py-5 text-white text-opacity-30`}>
@@ -106,23 +107,36 @@ function GroupChats({ chatsArray, identifier }: any) {
                                                 );
                                             })()
                                     }
-                                    <div className={`w-full my-2
+                                    <div className={`w-full my-2  group
                             flex message
                             ${(e.senderID == userID) || ((e?.TempID == userID)) ? `justify-end ` : `justify-start`}
                         `}>
-                                        <div className={`p-3 phone:p-1 rounded-md bg-white
+                                        <div className="relative flex flex-row gap-2 ">
+                                            <div className={`p-3 phone:p-1 rounded-md bg-white 
                          text-white bg-opacity-25 w-fit my-1 max-w-[60%]
                          ${e.senderID == userID ? 'bg-white border-[1px] border-white' : 'bg-blue-500 bg-opacity-50'}`}>
-                                            <p className="phone:text-xs">
-                                                {e.msg}
-                                            </p>
-                                        </div>
-                                        <div className="">
-                                            <p className="text-xs phone:text-[0.5rem] h-full flex items-end text-opacity-50 text-white">
-                                                {
-                                                    new Date(e.updatedAt).toLocaleTimeString('en-US', { hour12: true, minute: '2-digit', hour: 'numeric' })
-                                                }
-                                            </p>
+                                                <p className="phone:text-[15px]">
+                                                    {e.msg}
+                                                </p>
+                                            </div>
+                                            <div className="">
+                                                <p className="text-xs phone:text-[0.5rem] h-full flex items-end text-opacity-50 text-white">
+                                                    {
+                                                        new Date(e.updatedAt).toLocaleTimeString('en-US', { hour12: true, minute: '2-digit', hour: 'numeric' })
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2
+                                        top-8 left-12 group-hover:absolute group-hover:flex flex-col gap-2">
+                                                <div className="flex p-1 hover:bg-black rounded-md
+                             hover:bg-opacity-10 w-full flex-row gap-1 items-center">
+                                                    Delete
+                                                </div>
+                                                <div className="flex p-1 hover:bg-black rounded-md
+                             hover:bg-opacity-10 w-full flex-row gap-1 items-center">
+                                                    Reply
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

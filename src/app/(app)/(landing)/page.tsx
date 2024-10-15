@@ -68,7 +68,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className='w-[95%] mt-5'>
+      {/* <div className='w-[95%] mt-5'>
         <h1 className='text-3xl'>
           <center>
             Documentation
@@ -84,7 +84,7 @@ export default function Page() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
