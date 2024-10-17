@@ -54,7 +54,7 @@ export const Aside = ({ props }: any) => {
                                 <LetterImage className="size-14"  letter={user?.username} />
                             }
                         </div>
-                        <div className="flex flex-col items-center justify-center  gap-4">
+                        <div className="flex flex-col items-center justify-center  gap-1">
                             <h1 >
                                 <b className="text-xl">
                                     {user && user?.username?.toUpperCase()}
