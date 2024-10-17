@@ -46,16 +46,16 @@ export default function Page() {
                     <form action="">
                         <Search onChange={(e) => {
                             setBounce(e.target.value);
-                        }} className="p-3" placeholder="Enter Group Name : Public/Private"></Search>
+                        }} className="p-3" placeholder="Group name"></Search>
                     </form>
                 </div>
-                <div className="gap-2 w-full rounded-md bg-opacity-20 p-3 flex flex-col justify-center items-center min-h-28">
+                <div className="gap-2 w-full rounded-md bg-opacity-10 p-3 flex flex-col justify-center items-center min-h-28">
                     {
                         loading ?
                             <Loader></Loader> :
                             groups && groups.length > 0 ?
                                 groups.map((e: any, i) => (
-                                    <div key={e._id} className="flex items-center w-full text-white flex-row justify-between p-2 bg-white bg-opacity-10 rounded-md">
+                                    <div key={e._id} className="flex items-center w-full text-white flex-row justify-between p-2 bg-white bg-opacity-5 rounded-md">
                                         <div>
                                             <p>
                                                 {e?.groupName}

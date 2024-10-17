@@ -4,6 +4,9 @@ import { GroupInfo } from "@/helpers/groups/getInfo";
 import { useRouter, useSearchParams } from "next/navigation"
 import { Suspense, useEffect, useState } from "react";
 import { LetterImage } from '@/components/custom/LetterImage';
+import Link from "next/link";
+import { state } from "@/store/poxy";
+import { Button } from "@/components/custom/button";
 
 
 
@@ -16,6 +19,11 @@ function Details() {
 
     if (!identifier) {
         router.back()
+    }
+    const Back = (para: any) => {
+        if (para) router.push(para)
+        else
+            router.back()
     }
 
     useEffect(() => {
@@ -53,7 +61,7 @@ function Details() {
                         </div>
                         :
                         group && <div className="flex items-center justify-center flex-col gap-4 p-2">
-                            <div className="">
+                            <Link href={`/dashboard/group?id=${group?.groupName}&u=${state.isGuest ? 'g' : 'u'}`} className="flex justify-center flex-col items-center">
                                 <LetterImage className="size-20" letter={group?.groupName}></LetterImage>
                                 <br />
                                 <div>
@@ -66,7 +74,7 @@ function Details() {
                                         </span>
                                     </p>
                                 </div>
-                            </div>
+                            </Link>
                             <div className="bg-black phone:w-full flex flex-col gap-4 p-2 px-4 rounded-md bg-opacity-15">
                                 <div className="flex flex-row items-center gap-2">
                                     <h1>
@@ -98,17 +106,25 @@ function Details() {
                                 </div>
                                 <div>
                                     <p>
-                                        Temp Members : {group.TempMembers.length}
+                                        Temp Members : {group?.TempMembers?.length||0}
                                     </p>
                                 </div>
                                 <div>
                                     <p>
-                                        Permanent Members : {group.memberLists.length}
+                                        Permanent Members : {group?.memberLists?.length||0}
                                     </p>
                                 </div>
                             </div>
                         </div>
                 }
+            </div>
+            <div className="mt-9 w-full flex justify-center items-center">
+            {   
+                    state &&
+                    <div className="w-fit">
+                    <Button className="" onClick={() => { state?.isActive ? Back('/dashboard') : Back(null) }} text={"Go Back"}></Button>
+                    </div>
+            }
             </div>
         </div>
     )

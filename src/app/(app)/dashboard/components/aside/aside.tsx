@@ -2,29 +2,34 @@
 import { Button } from "@/components/custom/button"
 import { LetterImage } from "@/components/custom/LetterImage"
 import { LinkButton } from "@/components/custom/LinkButton"
-import { Loader } from "@/components/custom/loader"
 import { Search } from "@/components/custom/search"
-import { ThreeDOT } from "@/components/custom/ThreeDOT"
 import { AsideGroup } from "@/components/Tools/groupSection"
 import { UserLogout } from "@/helpers/UserLogout"
 import { state } from "@/store/poxy"
-import axios from "axios"
-import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 
 export const Aside = ({ props }: any) => {
-    const [deleting, setDeleting] = useState(false);
     const [user, setUser]: any = useState(null);
-    const [groupDeleting, setgroupDeleting]: any = useState('');
+    const [groups, setGroups]: any = useState(null)
     const router = useRouter()
     useEffect(() => {
         const { isActive, loggedUser } = state;
-        if (isActive)
-            setUser(loggedUser)
-    }, [])
+        if (isActive) {
+            setUser(loggedUser);
+        }
+    }, [state,user,groups])
+
+    // useEffect(() => {
+    //     setGroups(user?.adminOfGroups)
+    //     setGroups((e: any) => [e,...user?.JoinedGroup])
+    // }, [user, setUser])
+
+    useEffect(() => {
+        console.log(groups);
+    }, [user, groups])
+
     const logout = async () => {
         try {
             await UserLogout().then(() => {
@@ -35,21 +40,7 @@ export const Aside = ({ props }: any) => {
         }
     }
 
-    const deleteGroup = async (identifier: string) => {
-        try {
-            setgroupDeleting(identifier)
-            setDeleting(true)
-            const response: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/group/delete`, { identifier }, { withCredentials: true });
-            setDeleting(false)
-            if (response) {
-                const newArray = state.loggedUser.adminOfGroups.filter((e: any) => e.groupName !== identifier)
-                state.loggedUser.adminOfGroups = newArray;
-            }
-        } catch (error) {
-            console.log(error);
-            setDeleting(false)
-        }
-    }
+
 
     return (
         <aside className="w-full p-2 relative h-screen hiddren-scroll phone:!overflow-y-hidden overflow-y-auto 
@@ -58,9 +49,6 @@ export const Aside = ({ props }: any) => {
                 <div className="top w-full h-5/6 flex flex-col gap-2">
                     <div className="flex flex-nowrap text-xl items-center gap-2 bg-white bg-opacity-15 rounded p-2">
                         <div>
-                            {/* <Image alt='Logo' width={30} height={30} src={user && user.profileImage || `/logo-black.svg`}
-                                className='rounded-full'
-                            ></Image> */}
                             {
                                 user &&
                                 <LetterImage letter={user?.username} />

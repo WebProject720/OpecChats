@@ -11,6 +11,7 @@ import { ThreeDOT } from "@/components/custom/ThreeDOT"
 
 export const Header = ({ name, activeUser }: any) => {
     const router = useRouter();
+    const [search, setSearch] = useState(false);
     const [user, setuser] = useState(1);
     useEffect(() => {
         setuser(activeUser);
@@ -38,7 +39,9 @@ export const Header = ({ name, activeUser }: any) => {
                 </div>
             </Link>
             <div className="flex flex-row gap-2 items-center ">
-                <Search placeholder="Search" className="phone:hidden"></Search>
+
+                <Search placeholder="Search" className={`phone:${search ? 'auto' : 'hidden'}`}></Search>
+
                 <div className="group">
                     <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2
                                         top-8 right-8 group-hover:absolute group-hover:flex flex-col gap-2">
@@ -52,7 +55,7 @@ export const Header = ({ name, activeUser }: any) => {
                             ></Image>
                         </Link>
                         <div className="hidden phone:flex">
-                            <Button text='Search'>
+                            <Button text='Search' onClick={()=>{setSearch(!search)}}>
                                 Search
                             </Button>
                         </div>

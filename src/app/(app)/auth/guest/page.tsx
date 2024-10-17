@@ -26,7 +26,7 @@ export default function Page() {
         <Layout>
             <div className="w-full h-full flex justify-center items-center phone:flex-col">
                 <Loader />
-                <p className="text-white p-3 flex justify-center items-center">
+                <p className="text-white p-3 text-center text-xs flex justify-center items-center">
                     Wait a minute...
                 </p>
             </div>

@@ -30,14 +30,14 @@ function GroupChats({ chatsArray, identifier }: any) {
     useEffect(() => {
         socket.on('error-msg', (data) => {
             const { msg } = data;
+            console.log(data);
+            
             setMsgSending(false)
             alert(msg)
         })
     }, [])
     useEffect(() => {
         socket.on('deleted-msg', (data) => {
-            console.log(chats);
-            console.log(data);
             if (data?.deleted) {
                 let newChats = chats.filter((e: any) => e._id != data.id);
                 console.log(newChats);
@@ -155,13 +155,13 @@ function GroupChats({ chatsArray, identifier }: any) {
                                                 <p className="phone:!text-[17px] p-1 phone:p-2 px-4 text-center">
                                                     {e.msg}
                                                 </p>
-                                                <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2
-                                        top-8 left-12 group-hover:absolute group-hover:flex flex-col gap-2">
+                                                <div className={`hidden z-10  bg-white text-black rounded-md px-4 py-2
+                                        top-8  group-hover:absolute group-hover:flex flex-col gap-2 ${(e.senderID == userID) || ((e?.TempID == userID)) ? '-left-12' : 'left-12'}`}>
                                                     {e.senderID == userID || e.TempID == userID ?
                                                         <div className="flex p-1 hover:bg-black rounded-md
                              hover:bg-opacity-10 w-full flex-row gap-1 items-center">
                                                             {
-                                                                <TextButton onClick={() => deleteChatIn(e.senderID == null ? e?.TempID : e?._id)}>
+                                                                <TextButton onClick={() => deleteChatIn(e?._id)}>
                                                                     Delete
                                                                 </TextButton>
                                                             }
