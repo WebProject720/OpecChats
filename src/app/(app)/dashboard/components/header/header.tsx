@@ -19,7 +19,7 @@ export const Header = ({ name, activeUser }: any) => {
     return (
         <header className="w-full h-full bg-opacity-15 gap-2 bg-white  p-2 flex items-center">
             <Button onClick={() => router.back()} text='<-' className="!p-0 !w-fit font-extrabold bg-white bg-opacity-10 rounded-full !px-2 text-white text-3xl"></Button>
-            <Link href='' className="w-full gap-2  h-14 p-2 flex items-center">
+            {search ? null : <Link href='' className="w-full gap-2  h-14 p-2 flex items-center">
                 <div>
                     {/* <Image alt='Logo' width={40} height={40} src='/logo-black.svg'
                         className='rounded-full'
@@ -37,7 +37,7 @@ export const Header = ({ name, activeUser }: any) => {
                         </span>
                     </p>
                 </div>
-            </Link>
+            </Link>}
             <div className="flex flex-row gap-2 items-center ">
 
                 <Search placeholder="Search" className={`phone:${search ? '!auto' : '!hidden'}`}></Search>
@@ -55,7 +55,7 @@ export const Header = ({ name, activeUser }: any) => {
                             ></Image>
                         </Link>
                         <div className="hidden phone:flex">
-                            <Button text='Search' onClick={()=>{setSearch(!search)}}>
+                            <Button text='Search' onClick={() => { setSearch(!search) }}>
                                 Search
                             </Button>
                         </div>
