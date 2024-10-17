@@ -40,7 +40,7 @@ export const Header = ({ name, activeUser }: any) => {
             </Link>
             <div className="flex flex-row gap-2 items-center ">
 
-                <Search placeholder="Search" className={`phone:${search ? 'auto' : 'hidden'}`}></Search>
+                <Search placeholder="Search" className={`phone:${search ? '!auto' : '!hidden'}`}></Search>
 
                 <div className="group">
                     <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2

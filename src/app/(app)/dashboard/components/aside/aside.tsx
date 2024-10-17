@@ -47,14 +47,14 @@ export const Aside = ({ props }: any) => {
                  transition-all duration-1000 ease-linear" {...props}>
             <div className="flex flex-col phone:hiddren-scroll w-full h-full items-center justify-between">
                 <div className="top w-full h-5/6 flex flex-col gap-2">
-                    <div className="flex flex-nowrap text-xl items-center gap-2 bg-white bg-opacity-15 rounded p-2">
+                    <div className="flex flex-col justify-center flex-nowrap text-xl items-center gap-5 bg-white bg-opacity-5 rounded p-2">
                         <div>
                             {
                                 user &&
-                                <LetterImage letter={user?.username} />
+                                <LetterImage className="size-14"  letter={user?.username} />
                             }
                         </div>
-                        <div className="">
+                        <div className="flex flex-col items-center justify-center  gap-4">
                             <h1 >
                                 <b className="text-xl">
                                     {user && user?.username?.toUpperCase()}
