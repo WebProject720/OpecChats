@@ -67,7 +67,7 @@ export const AsideGroup = forwardRef<HTMLDivElement, Props>(({ className, isOwne
                             }
                         </div>
                         <div>
-                            <Link href='#' className="flex p-1 hover:bg-black rounded-md hover:bg-opacity-10 w-full flex-row gap-1 items-center">
+                            <Link href={`/dashboard/group/details?identifier=${e.groupName}`} className="flex p-1 hover:bg-black rounded-md hover:bg-opacity-10 w-full flex-row gap-1 items-center">
                                 Details
                                 <Image src={'https://img.icons8.com/?size=100&id=eHsuACNd0CuI&format=png&color=000000'}
                                     alt="i icon"

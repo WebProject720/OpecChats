@@ -2,7 +2,6 @@
 import Layout from "@/app/(app)/auth/AuthLayout";
 import { Button } from "@/components/custom/button";
 import { Input } from "@/components/custom/input";
-import { LinkButton } from "@/components/custom/LinkButton";
 import { Loader } from "@/components/custom/loader";
 import { JoinPrivateGroup } from "@/schemas/createG";
 import { state } from "@/store/poxy";

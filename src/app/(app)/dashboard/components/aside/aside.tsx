@@ -99,7 +99,7 @@ export const Aside = ({ props }: any) => {
                         <LinkButton className="w-full" url={'/dashboard/group/create'} text='Create Group'></LinkButton>
                         <LinkButton className="w-full" url={'/dashboard/group/search'} text='Join Group'></LinkButton>
                     </div>
-                    <Button onClick={logout} className="w-full rounded-full p-3 phone:p-1 font-normal text-base" text='Logout'></Button>
+                    <Button onClick={logout} className="w-full rounded-full p-3 phone:p-3 font-normal text-base" text='Logout'></Button>
                 </div>
             </div>
         </aside>

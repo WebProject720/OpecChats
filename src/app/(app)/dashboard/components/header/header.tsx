@@ -42,7 +42,7 @@ export const Header = ({ name, activeUser }: any) => {
                 <div className="group">
                     <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2
                                         top-8 right-8 group-hover:absolute group-hover:flex flex-col gap-2">
-                        <Link href='#' className="flex p-1 hover:bg-black rounded-md
+                        <Link href={`/dashboard/group/details?identifier=${name}`} className="flex p-1 hover:bg-black rounded-md
                              hover:bg-opacity-10 w-full flex-row gap-1 items-center">
                             Details
                             <Image src={'https://img.icons8.com/?size=100&id=eHsuACNd0CuI&format=png&color=000000'}
