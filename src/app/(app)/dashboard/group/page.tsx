@@ -5,6 +5,7 @@ import DashboardLayout from "../DashboardLayout";
 import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
 import { Loader } from "@/components/custom/loader";
+import { state } from "@/store/poxy";
 
 
 function Group() {
@@ -34,9 +35,11 @@ function Group() {
         }).then((data) => {
             // console.log(data.data.data);
             setData(data.data.data.chatID);
+            state.Chats=(data.data.data.chatID)
             setLoading(false);
         }).catch((error) => {
             setLoading(false);
+            state.Chats=[]
             setError(error.response?.data?.message);
             router.push(`/dashboard/group/join?i=${id}`)
         })
@@ -52,7 +55,7 @@ function Group() {
                         <center className="text-3xl text-white mb-5 text-opacity-55">Wait a minute...</center>
                     </div> :
                         error ? <h1><center>{error && error || 'Something Error'}</center></h1> :
-                            <GroupChats chatsArray={data || []} identifier={groupName || null} />
+                            <GroupChats  identifier={groupName || null} />
                 }
             </div>
         </DashboardLayout>

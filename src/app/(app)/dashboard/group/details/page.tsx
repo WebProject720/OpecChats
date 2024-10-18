@@ -60,7 +60,7 @@ function Details() {
                             </p>
                         </div>
                         :
-                        group && <div className="flex items-center justify-center flex-col gap-4 p-2">
+                        group && <div className="flex items-center justify-center flex-col gap-4 p-2 ">
                             <Link href={`/dashboard/group?id=${group?.groupName}&u=${state.isGuest ? 'g' : 'u'}`} className="flex justify-center flex-col items-center">
                                 <LetterImage className="size-20" letter={group?.groupName}></LetterImage>
                                 <br />
@@ -75,12 +75,12 @@ function Details() {
                                     </p>
                                 </div>
                             </Link>
-                            <div className="bg-black phone:w-full flex flex-col gap-4 p-2 px-4 rounded-md bg-opacity-15">
+                            <div className="bg-black phone:w-full flex flex-col  gap-4 p-2 px-4 rounded-md bg-opacity-15 laptop:!p-10">
                                 <div className="flex flex-row items-center gap-2">
-                                    <h1>
+                                    {/* <h1>
                                         Admin:
-                                    </h1>
-                                    <br />
+                                    </h1> */}
+                                    {/* <br /> */}
                                     <div className="flex gap-2">
                                         <div>
                                             <LetterImage letter={group.admin.username}></LetterImage>
@@ -99,6 +99,7 @@ function Details() {
                                         </div>
                                     </div>
                                 </div>
+                                <hr />
                                 <div>
                                     <p>
                                         created at : {new Date(group.createdAt).toDateString()}
@@ -106,12 +107,12 @@ function Details() {
                                 </div>
                                 <div>
                                     <p>
-                                        Temp Members : {group?.TempMembers?.length||0}
+                                        Temp Members : {group?.TempMembers?.length || 0}
                                     </p>
                                 </div>
                                 <div>
                                     <p>
-                                        Permanent Members : {group?.memberLists?.length||0}
+                                        Permanent Members : {group?.memberLists?.length || 0}
                                     </p>
                                 </div>
                             </div>
@@ -119,12 +120,12 @@ function Details() {
                 }
             </div>
             <div className="mt-9 w-full flex justify-center items-center">
-            {   
+                {
                     state &&
                     <div className="w-fit">
-                    <Button className="" onClick={() => { state?.isActive ? Back('/dashboard') : Back(null) }} text={"Go Back"}></Button>
+                        <Button className="" onClick={() => { state?.isActive ? Back('/dashboard') : Back(null) }} text={"Go Back"}></Button>
                     </div>
-            }
+                }
             </div>
         </div>
     )

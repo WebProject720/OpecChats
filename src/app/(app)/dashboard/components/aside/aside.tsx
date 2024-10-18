@@ -19,7 +19,7 @@ export const Aside = ({ props }: any) => {
         if (isActive) {
             setUser(loggedUser);
         }
-    }, [state,user,groups])
+    }, [state, user, groups])
 
     // useEffect(() => {
     //     setGroups(user?.adminOfGroups)
@@ -27,7 +27,7 @@ export const Aside = ({ props }: any) => {
     // }, [user, setUser])
 
     useEffect(() => {
-        console.log(groups);
+        // console.log(groups);
     }, [user, groups])
 
     const logout = async () => {
@@ -51,7 +51,7 @@ export const Aside = ({ props }: any) => {
                         <div>
                             {
                                 user &&
-                                <LetterImage className="size-14"  letter={user?.username} />
+                                <LetterImage className="size-24 !text-4xl" letter={user?.username} />
                             }
                         </div>
                         <div className="flex flex-col items-center justify-center  gap-1">

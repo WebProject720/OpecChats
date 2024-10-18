@@ -4,6 +4,7 @@ type Store = {
   loggedUser?: Object;
   isActive: Boolean;
   isGuest:Boolean;
+  Chats?:Array<Object>;
 };
 
 const collection: Store = {

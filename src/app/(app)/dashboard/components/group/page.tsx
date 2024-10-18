@@ -7,41 +7,53 @@ import { Header } from "../header/header"
 import { state } from "@/store/poxy"
 import { Loader } from "@/components/custom/loader"
 import socketServer from "@/helpers/socket"
-import { deleteChat } from "@/helpers/chatsFunctions/delete"
 import { TextButton } from "@/components/custom/TextButton"
+import Image from "next/image"
 
 
 
-function GroupChats({ chatsArray, identifier }: any) {
+function GroupChats({ identifier }: any) {
     const [activeUser, setActiveuser] = useState(1);
-    let [chats, setChats]: any = useState(chatsArray);
+    let [chats, setChats]: any = useState([]);
     const [msgSending, setMsgSending] = useState(false);
+    const [query, setQuery] = useState('');
+    const [replyID, setReplyID]: any = useState(null)
+
+    useEffect(() => {
+        setChats(state.Chats)
+    }, [state, state.Chats])
+
+
+
+
     const socket = socketServer();
     let scrollDiv: any = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         socket.emit('join-group', identifier);
     }, [])
+
     useEffect(() => {
         socket.on('new-user-added', (data) => {
             setActiveuser(data?.activeUsers)
         })
     }, [])
+
     useEffect(() => {
         socket.on('error-msg', (data) => {
             const { msg } = data;
             console.log(data);
-            
             setMsgSending(false)
             alert(msg)
         })
     }, [])
+
     useEffect(() => {
         socket.on('deleted-msg', (data) => {
             if (data?.deleted) {
-                let newChats = chats.filter((e: any) => e._id != data.id);
-                console.log(newChats);
-                setChats(newChats);
+                let newChats = state.Chats?.filter((e: any) => e._id != data.id);
+                state.Chats = newChats
+                setChats(newChats)
             } else {
                 alert('Error in deleting')
             }
@@ -49,9 +61,10 @@ function GroupChats({ chatsArray, identifier }: any) {
     }, [])
     useEffect(() => {
         socket.on('new-msg', (msg) => {
+            console.log(msg);
+            
             setMsgSending(false)
-
-            setChats((e: []) => [...e, msg])
+            state.Chats = (state.Chats).concat(msg)
         })
         return () => {
             if (socket)
@@ -60,7 +73,6 @@ function GroupChats({ chatsArray, identifier }: any) {
     }, [])
 
 
-    if (chats?.length <= 0) chats = [];
     const [userID, setuserID] = useState(null);
     useEffect(() => {
         setuserID(state.loggedUser._id);
@@ -73,20 +85,13 @@ function GroupChats({ chatsArray, identifier }: any) {
         if (text?.length <= 0)
             return
         setMsgSending(true)
-        socket.emit('group-msg', { msg: text, identifier: identifier })
+        setReplyID(null)
+        socket.emit('group-msg', { msg: text, identifier: identifier, replyTo: replyID })
         e.target.reset();
     }
 
     const deleteChatIn = async (id: string) => {
         socket.emit('delete-msg', { identifier: id, room: identifier })
-        //APIs
-        // const res = await deleteChat(identifier);
-        // if (res.success) {
-        //     let newChats = chats.filter((e: any) => e._id !== identifier);
-        //     setChats(newChats);
-        // } else {
-        //     alert('Error in deleting')
-        // }
     }
 
 
@@ -97,10 +102,23 @@ function GroupChats({ chatsArray, identifier }: any) {
 
     let chatDate: any = '';
 
+
+
+    useEffect(() => {
+        if (query.length > 0) {
+            const filterChats = state.Chats?.filter((e: any) => e.msg.includes(query.toLowerCase()))
+            setChats(filterChats);
+        } else {
+            setChats(state.Chats)
+        }
+    }, [query, setQuery])
+
+
+
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
-                <Header name={identifier} activeUser={activeUser} />
+                <Header searchQuery={query} setSearchQuery={setQuery} name={identifier || ''} activeUsers={activeUser || 0} />
             </div>
             <div className="h-full flex flex-col p-2">
                 <div
@@ -152,6 +170,11 @@ function GroupChats({ chatsArray, identifier }: any) {
                                                 <p className="bg-opacity-10 bg-white rounded-t-md p-1 px-4">
                                                     {e?.senderID == null ? 'Guest' : e.senderID == userID ? 'You' : e?.sender?.username}
                                                 </p>
+                                                <div className="bg-white bg-opacity-10 rounded-sm m-1">
+                                                    {
+                                                        e?.replyTo?<p className="text-opacity-70 text-gray-50 text-center phone:!text-[14px]">{e?.replyTo?.msg}</p>:''
+                                                    }
+                                                </div>
                                                 <p className="phone:!text-[17px] p-1 phone:p-2 px-4 text-center">
                                                     {e.msg}
                                                 </p>
@@ -168,7 +191,11 @@ function GroupChats({ chatsArray, identifier }: any) {
                                                         </div> : null}
                                                     <div className="flex p-1 hover:bg-black rounded-md
                              hover:bg-opacity-10 w-full flex-row gap-1 items-center">
-                                                        Reply
+                                                        {
+                                                            <TextButton onClick={() => setReplyID(e?._id)}>
+                                                                Reply
+                                                            </TextButton>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,6 +214,17 @@ function GroupChats({ chatsArray, identifier }: any) {
                     }
                 </div>
                 <div className="input bg-[#052043]">
+                    {replyID ? <div className="flex justify-between items-center w-full flex-row gap-2 p-2 bg-white bg-opacity-10 rounded-md">
+                        <p>
+                            {
+                                chats && replyID &&
+                                (chats?.filter((e: any) => e._id == replyID))[0]?.msg
+                            }
+                        </p>
+                        <button className="bg-transparent bottom-0 border-0 " onClick={() => setReplyID(null)}>
+                            <Image width={30} height={30} alt="Cancel" src='https://img.icons8.com/?size=100&id=3062&format=png&color=FFFFFF'></Image>
+                        </button>
+                    </div> : null}
                     <form onSubmit={sendText} action="" className="flex w-full flex-row gap-2 py-1">
                         <Input name="message" className="w-full flex-grow" placeholder="Message"></Input>
                         <Button disabled={msgSending} className="!w-28 !bg-black hover:!bg-black hover:!text-white !text-white" type='submit' text={msgSending ? <Loader /> : 'Send'}></Button>

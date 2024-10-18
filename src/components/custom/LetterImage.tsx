@@ -11,9 +11,9 @@ export const LetterImage = forwardRef<HTMLDivElement, Option>(({ letter, classNa
     return (
         <div ref={ref}
             className={`p-2 cursor-pointer border-[2px] border-transparent hover:border-white bg-white bg-opacity-20 transition-all duration-100 ease-in-out hover:bg-opacity-15
-             rounded-full size-12 flex justify-center items-center ${className}`}
+             rounded-full size-12 flex justify-center items-center text-white text-xl font-extrabold ${className}`}
             style={{ background: RandomColor() }}>
-            <span className="text-white text-xl font-extrabold">
+            <span className="">
                 {
                     letter && letter?.at(0)?.toUpperCase() || 'G'
                 }

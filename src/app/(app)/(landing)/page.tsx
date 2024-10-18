@@ -16,12 +16,13 @@ export default function Page() {
       router.replace('/dashboard');
     } else {
       state.loggedUser = {}
+      state.Chats = []
     }
   }, [])
   useEffect(() => {
     async function Logout() {
-      await UserLogout();
       await GuestLogout();
+      await UserLogout();
     }
     Logout()
   }, [])
