@@ -61,8 +61,6 @@ function GroupChats({ image, identifier }: any) {
     }, [])
     useEffect(() => {
         socket.on('new-msg', (msg) => {
-            console.log(msg);
-
             setMsgSending(false)
             state.Chats = (state.Chats).concat(msg)
         })

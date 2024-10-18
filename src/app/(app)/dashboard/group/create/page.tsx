@@ -117,7 +117,7 @@ export default function Page() {
                             <Image width="100" height="100" className="bg-white object-cover rounded-full p-0"
                                 src={file.Preview ? file.Preview : `https://img.icons8.com/external-outline-black-m-oki-orlando/32/external-upload-image-photography-outline-outline-black-m-oki-orlando.png`}
                                 alt="external-upload-image-photography-outline-outline-black-m-oki-orlando" />
-                            <Button onClick={upload} disabled={uploading} text={uploading ? <Loader /> : `Upload Image`}></Button>
+                            <Button className="disabled:hover:!bg-black" onClick={upload} disabled={uploading} text={uploading ? <Loader /> : `Upload Image`}></Button>
                         </label>
                         <input disabled={uploading} onChange={(e: any) => { getImage(e) }} className="hidden" type="file" name="file" id="file" />
                     </div>
