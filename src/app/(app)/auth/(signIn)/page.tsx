@@ -87,7 +87,7 @@ export default function Page() {
                 </div>
                 <div>
                     <hr className="mt-5 mb-5" />
-                    <GoogleButton></GoogleButton>
+                    <GoogleButton  />
                 </div>
                 <div className="actions flex justify-between mt-7">
                     <div></div>
