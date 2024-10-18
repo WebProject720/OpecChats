@@ -62,7 +62,7 @@ function GroupChats({ identifier }: any) {
     useEffect(() => {
         socket.on('new-msg', (msg) => {
             console.log(msg);
-            
+
             setMsgSending(false)
             state.Chats = (state.Chats).concat(msg)
         })
@@ -172,7 +172,7 @@ function GroupChats({ identifier }: any) {
                                                 </p>
                                                 <div className="bg-white bg-opacity-10 rounded-sm m-1">
                                                     {
-                                                        e?.replyTo?<p className="text-opacity-70 text-gray-50 text-center phone:!text-[14px]">{e?.replyTo?.msg}</p>:''
+                                                        e?.replyTo ? <p className="text-opacity-70 text-gray-50 text-center phone:!text-[14px]">{e?.replyTo?.msg}</p> : ''
                                                     }
                                                 </div>
                                                 <p className="phone:!text-[17px] p-1 phone:p-2 px-4 text-center">

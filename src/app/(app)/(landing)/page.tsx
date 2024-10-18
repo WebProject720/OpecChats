@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import '../globals.css'
 import { LinkButton } from '@/components/custom/LinkButton';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { state } from '@/store/poxy';
 import { useRouter } from 'next/navigation';
 import { UserLogout } from '@/helpers/UserLogout';
@@ -10,7 +10,9 @@ import { GuestLogout } from '@/helpers/GuestLogout';
 
 
 export default function Page() {
+  
   const router = useRouter();
+
   useEffect(() => {
     if (state.isActive) {
       router.replace('/dashboard');
@@ -69,23 +71,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      {/* <div className='w-[95%] mt-5'>
-        <h1 className='text-3xl'>
-          <center>
-            Documentation
-          </center>
-        </h1>
-        <div className="container">
-          <div className="box">
-            <h1>
-              <span>Path : </span><span>/</span>
-            </h1>
-            <p>
-
-            </p>
-          </div>
-        </div>
-      </div> */}
+     
     </div>
   );
 }

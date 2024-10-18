@@ -12,23 +12,22 @@ import React, { useEffect, useState } from "react"
 
 export const Aside = ({ props }: any) => {
     const [user, setUser]: any = useState(null);
-    const [groups, setGroups]: any = useState(null)
+    const [ownedGroups, setOwnedGroups]: any = useState();
+    const [joinGroups, setJoinGroups]: any = useState()
     const router = useRouter()
+
+    useEffect(() => {
+        setOwnedGroups(state.loggedUser.adminOfGroups)
+        setJoinGroups(state.loggedUser.JoinedGroup)
+    }, [state, state.loggedUser])
+
     useEffect(() => {
         const { isActive, loggedUser } = state;
         if (isActive) {
             setUser(loggedUser);
         }
-    }, [state, user, groups])
+    }, [state, user])
 
-    // useEffect(() => {
-    //     setGroups(user?.adminOfGroups)
-    //     setGroups((e: any) => [e,...user?.JoinedGroup])
-    // }, [user, setUser])
-
-    useEffect(() => {
-        // console.log(groups);
-    }, [user, groups])
 
     const logout = async () => {
         try {
@@ -37,6 +36,16 @@ export const Aside = ({ props }: any) => {
             })
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    const SearchGroups = (query: string) => {
+        if (query.length > 0) {
+            setOwnedGroups((pre: any) => pre?.filter((e: any) => e.groupName.toLowerCase().includes(query.toLowerCase())))
+            setJoinGroups((pre: any) => pre?.filter((e: any) => e.groupName.toLowerCase().includes(query.toLowerCase())))
+        } else {
+            setOwnedGroups(state.loggedUser.adminOfGroups)
+            setJoinGroups(state.loggedUser.JoinedGroup)
         }
     }
 
@@ -66,16 +75,16 @@ export const Aside = ({ props }: any) => {
                         </div>
                     </div>
                     <div className="search">
-                        <Search className="bg-transparent" placeholder="Search"></Search>
+                        <Search onChange={(e) => SearchGroups(e.target.value)} className="bg-transparent" placeholder="Search"></Search>
                     </div>
                     <section className="flex h-full pb-3 flex-col gap-2 mt-2 overflow-y-auto hiddren-scroll">
-                        {user &&
-                            user.adminOfGroups.map((e: any, i: number) => (
+                        {ownedGroups &&
+                            ownedGroups?.map((e: any, i: number) => (
                                 <AsideGroup key={i} isOwner={true} e={e} i={i}></AsideGroup>
                             ))
                         }
-                        {user &&
-                            user.JoinedGroup.map((e: any, i: number) => (
+                        {joinGroups &&
+                            joinGroups?.map((e: any, i: number) => (
                                 <AsideGroup key={i} isOwner={false} e={e} i={i} />
                             ))
                         }
