@@ -1,17 +1,20 @@
 'use client'
 import Layout from "@/app/(app)/auth/AuthLayout";
 import { Button } from "@/components/custom/button";
+import { LetterImage } from "@/components/custom/LetterImage";
 import { LinkButton } from "@/components/custom/LinkButton";
 import { Loader } from "@/components/custom/loader";
 import { Search } from "@/components/custom/search";
 import { state } from "@/store/poxy";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 
+
 export default function Page() {
-    
+
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [bounce, setBounce] = useDebounceValue('', 800)
@@ -56,8 +59,18 @@ export default function Page() {
                             groups && groups.length > 0 ?
                                 groups.map((e: any, i) => (
                                     <div key={e._id} className="flex items-center w-full text-white flex-row justify-between p-2 bg-white bg-opacity-5 rounded-md">
+                                        <div className={`p-[1px]  rounded-full ${e?.isGroupPrivate ? 'bg-red-500' : 'bg-green-500'}`}>
+                                            {
+                                                e?.profileImage ?
+                                                    <Image alt='Logo' width={30} height={30} src={e?.profileImage}
+                                                        className='rounded-full size-16' unoptimized
+                                                    ></Image>
+                                                    :
+                                                    <LetterImage className="size-16" letter={e?.groupName}></LetterImage>
+                                            }
+                                        </div>
                                         <div>
-                                            <p>
+                                            <p className="text-xl">
                                                 {e?.groupName}
                                                 <span>
                                                     <sup>
@@ -78,9 +91,9 @@ export default function Page() {
                                         </div>
                                         <div>
                                             {
-                                            // e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group/join?i=${e?.groupName}`}></LinkButton> :
-                                                <LinkButton className="!p-1" url={`/dashboard/group?id=${e?.groupName}&u=${state.isGuest?'g':'u'}`}></LinkButton>
-                                                }
+                                                // e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group/join?i=${e?.groupName}`}></LinkButton> :
+                                                <LinkButton className="!p-2" text='Join Chats' url={`/dashboard/group?id=${e?.groupName}&u=${state.isGuest ? 'g' : 'u'}`}></LinkButton>
+                                            }
                                         </div>
                                     </div>
                                 ))
@@ -96,7 +109,7 @@ export default function Page() {
                 </div>
             </div>
             <div className="mt-9">
-            {
+                {
                     state &&
                     <Button onClick={() => { state?.isActive ? Back('/dashboard') : Back(null) }} text={"Go Back"}></Button>
                 }

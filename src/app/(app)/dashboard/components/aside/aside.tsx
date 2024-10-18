@@ -19,7 +19,7 @@ export const Aside = ({ props }: any) => {
     useEffect(() => {
         setOwnedGroups(state.loggedUser.adminOfGroups)
         setJoinGroups(state.loggedUser.JoinedGroup)
-    }, [state, state.loggedUser])
+    }, [state, state.loggedUser, state.loggedUser.adminOfGroups, state.loggedUser.JoinedGroup])
 
     useEffect(() => {
         const { isActive, loggedUser } = state;
@@ -77,7 +77,7 @@ export const Aside = ({ props }: any) => {
                     <div className="search">
                         <Search onChange={(e) => SearchGroups(e.target.value)} className="bg-transparent" placeholder="Search"></Search>
                     </div>
-                    <section className="flex h-full pb-3 flex-col gap-2 mt-2 overflow-y-auto hiddren-scroll">
+                    <section className="flex p-4 bg-white bg-opacity-5 rounded-md h-full pb-3 flex-col gap-2 mt-2 overflow-y-auto hiddren-scroll">
                         {ownedGroups &&
                             ownedGroups?.map((e: any, i: number) => (
                                 <AsideGroup key={i} isOwner={true} e={e} i={i}></AsideGroup>

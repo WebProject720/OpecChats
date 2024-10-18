@@ -12,7 +12,7 @@ import Image from "next/image"
 
 
 
-function GroupChats({ identifier }: any) {
+function GroupChats({ image, identifier }: any) {
     const [activeUser, setActiveuser] = useState(1);
     let [chats, setChats]: any = useState([]);
     const [msgSending, setMsgSending] = useState(false);
@@ -118,7 +118,7 @@ function GroupChats({ identifier }: any) {
     return (
         <div className="h-full flex flex-col ">
             <div className='h-16'>
-                <Header searchQuery={query} setSearchQuery={setQuery} name={identifier || ''} activeUsers={activeUser || 0} />
+                <Header profileImage={image || null} searchQuery={query} setSearchQuery={setQuery} name={identifier || ''} activeUsers={activeUser || 0} />
             </div>
             <div className="h-full flex flex-col p-2">
                 <div

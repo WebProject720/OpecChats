@@ -13,6 +13,7 @@ function Group() {
     const [loading, setLoading] = useState(true);
     const [data, setData]: any = useState(null);
     const [error, setError] = useState(false);
+    const [image,setimage]=useState();
     const router=useRouter()
     const id = params.get('id');
 
@@ -35,6 +36,7 @@ function Group() {
         }).then((data) => {
             // console.log(data.data.data);
             setData(data.data.data.chatID);
+            setimage(data.data?.data?.profileImage)
             state.Chats=(data.data.data.chatID)
             setLoading(false);
         }).catch((error) => {
@@ -55,7 +57,7 @@ function Group() {
                         <center className="text-3xl text-white mb-5 text-opacity-55">Wait a minute...</center>
                     </div> :
                         error ? <h1><center>{error && error || 'Something Error'}</center></h1> :
-                            <GroupChats  identifier={groupName || null} />
+                            <GroupChats image={image}  identifier={groupName || null} />
                 }
             </div>
         </DashboardLayout>

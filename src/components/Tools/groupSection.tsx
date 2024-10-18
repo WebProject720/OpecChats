@@ -30,7 +30,9 @@ export const AsideGroup = forwardRef<HTMLDivElement, Props>(({ className, isOwne
             const response: any = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_PATH}/group/delete`, { identifier }, { withCredentials: true });
             setDeleting(false)
             if (response) {
+
                 const newArray = state.loggedUser.adminOfGroups.filter((e: any) => e.groupName !== identifier)
+
                 state.loggedUser.adminOfGroups = newArray;
             }
         } catch (error) {
@@ -38,19 +40,23 @@ export const AsideGroup = forwardRef<HTMLDivElement, Props>(({ className, isOwne
             setDeleting(false)
         }
     }
+
     return (
-        <div className="flex relative flex-row justify-between gap-4 items-center 
+        <div className={`flex relative flex-row justify-between gap-4 items-center 
                                 bg-white rounded-md bg-opacity-10 p-1
-                                border-transparent border-[1px] hover:border-white" key={i} >
+                                border-transparent border-[1px] hover:border-white
+                                ${e?.groupName == groupDeleting ? 'hidden' : ''}`} key={i} >
             <Link href={`/dashboard/group?id=${e?.groupName}`} className="flex border-[0px] border-white border-opacity-55
                                      flex-row 
                                      rounded p-2 gap-1 justify-start items-center">
                 <div>
-                    {/* <Image alt='Logo' width={30} height={30} src='/logo-black.svg'
-                                                className='rounded-full'
-                                            ></Image> */}
                     {
-                        <LetterImage letter={e?.groupName}></LetterImage>
+                        e?.profileImage ?
+                            <Image alt='Logo' width={30} height={30} src={e?.profileImage}
+                                className='rounded-full size-12' unoptimized
+                            ></Image>
+                            :
+                            <LetterImage letter={e?.groupName}></LetterImage>
                     }
                 </div>
                 <div className="pl-2 ">

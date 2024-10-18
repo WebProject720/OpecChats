@@ -12,10 +12,11 @@ interface headerProps {
     searchQuery: string,
     setSearchQuery: (query: string) => void,
     name: string,
-    activeUsers: number | 0
+    activeUsers: number | 0,
+    profileImage?: string
 }
 
-export const Header = ({ name, activeUsers, searchQuery, setSearchQuery }: headerProps) => {
+export const Header = ({ name, activeUsers, profileImage, searchQuery, setSearchQuery }: headerProps) => {
     const router = useRouter();
     const [search, setSearch] = useState(false);
     const [user, setuser] = useState(1);
@@ -29,7 +30,14 @@ export const Header = ({ name, activeUsers, searchQuery, setSearchQuery }: heade
             <Button onClick={() => router.back()} text='<-' className="!p-0 !w-fit font-extrabold bg-white bg-opacity-10 rounded-full !px-2 text-white text-3xl"></Button>
             {search ? null : <Link href='' className="w-full gap-2  h-14 p-2 flex items-center">
                 <div>
-                    <LetterImage letter={name}></LetterImage>
+                    {
+                        profileImage ?
+                            <Image alt='Logo' width={30} height={30} src={profileImage}
+                                className='rounded-full size-12' unoptimized
+                            ></Image>
+                            :
+                            <LetterImage letter={name}></LetterImage>
+                    }
                 </div>
                 <div>
                     <h1 className="text-xl leading-tight">

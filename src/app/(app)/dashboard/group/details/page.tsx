@@ -7,6 +7,7 @@ import { LetterImage } from '@/components/custom/LetterImage';
 import Link from "next/link";
 import { state } from "@/store/poxy";
 import { Button } from "@/components/custom/button";
+import Image from "next/image";
 
 
 
@@ -62,7 +63,15 @@ function Details() {
                         :
                         group && <div className="flex items-center justify-center flex-col gap-4 p-2 ">
                             <Link href={`/dashboard/group?id=${group?.groupName}&u=${state.isGuest ? 'g' : 'u'}`} className="flex justify-center flex-col items-center">
-                                <LetterImage className="size-20" letter={group?.groupName}></LetterImage>
+
+                                {
+                                    group?.profileImage ?
+                                        <Image alt='Logo' width={30} height={30} src={group?.profileImage}
+                                            className='rounded-full size-20'
+                                        ></Image>
+                                        :
+                                        <LetterImage className="size-20" letter={group?.groupName}></LetterImage>
+                                }
                                 <br />
                                 <div>
                                     <p className="text-center text-3xl font-bold">
