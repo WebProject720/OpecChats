@@ -67,7 +67,7 @@ function Details() {
                                 {
                                     group?.profileImage ?
                                         <Image alt='Logo' width={30} height={30} src={group?.profileImage}
-                                            className='rounded-full size-20'
+                                            className='rounded-full size-20' unoptimized
                                         ></Image>
                                         :
                                         <LetterImage className="size-20" letter={group?.groupName}></LetterImage>
