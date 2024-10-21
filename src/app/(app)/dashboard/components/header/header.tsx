@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 import { LetterImage } from "@/components/custom/LetterImage"
 import { ThreeDOT } from "@/components/custom/ThreeDOT"
+import { toggleFullScreen } from "@/helpers/fullScreen"
 
 interface headerProps {
     searchQuery: string,
@@ -73,6 +74,11 @@ export const Header = ({ name, activeUsers, profileImage, searchQuery, setSearch
                         <div className="hidden phone:flex">
                             <Button text='Search' onClick={() => { setSearch(!search) }}>
                                 Search
+                            </Button>
+                        </div>
+                        <div className="hidden phone:flex">
+                            <Button text='Full Screen' onClick={() => { toggleFullScreen() }}>
+                                Full Screen
                             </Button>
                         </div>
                     </div>

@@ -35,7 +35,7 @@ export default function Page() {
     const [submiting, setSubmiting] = useState(false)
     useEffect(() => {
         setDebounce(watch('username'))
-    }, [debounceUsername,watch])
+    }, [watch('username')])
 
 
     const submitForm = async (e: any) => {
@@ -129,7 +129,7 @@ export default function Page() {
                                 {errors.password.message}
                             </p>)}
                         </div>
-                        <Button className={`${submiting ? 'cursor-not-allowed' : ''}  text-center flex justify-center`}
+                        <Button className={`${submiting ? 'cursor-not-allowed disabled:bg-black' : ''}  text-center flex justify-center`}
                             disabled={submiting}
                             type="submit"
                             text={submiting ? <Loader></Loader> : 'save'}>

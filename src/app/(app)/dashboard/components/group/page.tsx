@@ -42,7 +42,6 @@ function GroupChats({ image, identifier }: any) {
     useEffect(() => {
         socket.on('error-msg', (data) => {
             const { msg } = data;
-            console.log(data);
             setMsgSending(false)
             alert(msg)
         })
@@ -62,7 +61,8 @@ function GroupChats({ image, identifier }: any) {
     useEffect(() => {
         socket.on('new-msg', (msg) => {
             setMsgSending(false)
-            state.Chats = (state.Chats).concat(msg)
+            state.Chats = (state.Chats).concat(msg);
+            setChats(state.Chats)
         })
         return () => {
             if (socket)
