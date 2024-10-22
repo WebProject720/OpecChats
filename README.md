@@ -1,4 +1,3 @@
-```markdown
 # OpecChats Documentation
 
 OpecChats is a hobby project developed using the MERN stack, inspired by the WhatsApp chat app. While it shares some similarities with WhatsApp, OpecChats introduces unique features and functionalities. The project leverages the MERN stack:
@@ -59,4 +58,4 @@ This route is accessible to both guests and verified users. It includes a search
 ---
 
 Feel free to reach out for any questions or contributions!
-```
+
