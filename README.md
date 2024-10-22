@@ -1,5 +1,3 @@
-Here’s a version of the documentation formatted for a `README.md` file for GitHub:
-
 ```markdown
 # OpecChats Documentation
 
@@ -62,5 +60,3 @@ This route is accessible to both guests and verified users. It includes a search
 
 Feel free to reach out for any questions or contributions!
 ```
-
-This Markdown file is formatted to be clear and easy to read on GitHub, with section headers, bullet points, and links. It provides a structured overview of the project, deployment information, features, and additional resources.
