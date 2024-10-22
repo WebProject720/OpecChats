@@ -8,9 +8,11 @@ import { Search } from "@/components/custom/search";
 import { state } from "@/store/poxy";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
+
 
 
 export default function Page() {
@@ -58,15 +60,18 @@ export default function Page() {
                             <Loader></Loader> :
                             groups && groups.length > 0 ?
                                 groups.map((e: any, i) => (
-                                    <div key={e._id} className="flex items-center w-full text-white flex-row justify-between p-2 bg-white bg-opacity-5 rounded-md">
+                                    <Link href={`/dashboard/group?id=${e?.groupName}&u=${state.isGuest ? 'g' : 'u'}`}
+                                     key={e._id}
+                                     className="flex items-center w-full text-white flex-row justify-between p-2 bg-white bg-opacity-5 rounded-md
+                                     hover:border-[1px] border-white border-0">
                                         <div className={`p-[1px]  rounded-full ${e?.isGroupPrivate ? 'bg-red-500' : 'bg-green-500'}`}>
                                             {
                                                 e?.profileImage ?
                                                     <Image alt='Logo' width={30} height={30} src={e?.profileImage}
-                                                        className='rounded-full size-16' unoptimized
+                                                        className='rounded-full size-16 phone:size-8' unoptimized
                                                     ></Image>
                                                     :
-                                                    <LetterImage className="size-16" letter={e?.groupName}></LetterImage>
+                                                    <LetterImage className="size-16 phone:size-8" letter={e?.groupName}></LetterImage>
                                             }
                                         </div>
                                         <div>
@@ -75,8 +80,8 @@ export default function Page() {
                                                 <span>
                                                     <sup>
                                                         {
-                                                            e?.isGroupPrivate ? <span className="bg-red-500 p-1 rounded-md bg-opacity-70 ml-2">Private</span> : <span
-                                                                className="bg-green-500 ml-2 p-1 bg-opacity-70 rounded-md">Public</span>
+                                                            e?.isGroupPrivate ? <span className="bg-red-500 p-1 rounded-md bg-opacity-70 ml-2 phone:text-xs">Private</span> : <span
+                                                                className="bg-green-500 ml-2 p-1 bg-opacity-70 rounded-md phone:text-xs">Public</span>
                                                         }
                                                     </sup>
                                                 </span>
@@ -89,13 +94,13 @@ export default function Page() {
                                                 }
                                             </p>
                                         </div>
-                                        <div>
+                                        <div className="phone:hidden">
                                             {
                                                 // e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group/join?i=${e?.groupName}`}></LinkButton> :
                                                 <LinkButton className="!p-2" text='Join Chats' url={`/dashboard/group?id=${e?.groupName}&u=${state.isGuest ? 'g' : 'u'}`}></LinkButton>
                                             }
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))
                                 :
                                 <div>

@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Here’s a version of the documentation formatted for a `README.md` file for GitHub:
 
-## Getting Started
+```markdown
+# OpecChats Documentation
 
-First, run the development server:
+OpecChats is a hobby project developed using the MERN stack, inspired by the WhatsApp chat app. While it shares some similarities with WhatsApp, OpecChats introduces unique features and functionalities. The project leverages the MERN stack:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Backend**: Built with Node.js for handling API requests and MongoDB as the database.
+- **Frontend**: Uses Next.js to create a fast, SEO-friendly web application.
+
+## Deployment
+
+OpecChats is deployed using two platforms suitable for hobby projects and free to use:
+
+- **Server (Node.js)**: Deployed on [Render](https://render.com/).
+- **Client (Next.js)**: Deployed on [Vercel](https://vercel.com/).
+
+To deploy the project, the server and client code are committed to the GitHub repository [webproject720](https://github.com/webproject720).
+
+## Groups
+
+OpecChats supports two types of groups:
+
+- **Public Groups**: Accessible to all users without any restrictions or permissions.
+- **Private Groups**: Require a code or password to join. Users must provide this information to access the group and participate in the chat.
+
+## User Roles
+
+There are two types of users in OpecChats:
+
+- **Guest Users**: Can join public groups and, if they have the code, can access private groups. A temporary ID is created for guests to log in and join groups.
+- **Registered Users**: Must sign up and verify their email to create an account. Registered users can create and delete public or private groups, join groups, and have their chat history recorded.
+
+## App Routes
+
+### `/` (Home Route)
+
+The homepage provides options to get started as a guest or registered user, view documentation, or connect via social media links. Upon landing, two requests are made to the server to log out any existing session, whether guest or logged in.
+
+### `/auth` (Authentication Route)
+
+This route enables users to sign up or sign in. Email verification is required upon registration. Users can also choose to log in via Google authentication. The app utilizes server-side APIs to authenticate users and create cookies for session management.
+
+### `/dashboard` (User Dashboard Route)
+
+After logging in, users can access the dashboard to view their joined private groups, created groups, and account details. The dashboard allows users to create new groups, join additional groups, or log out.
+
+### `/dashboard/group` (Group Route)
+
+This route is accessible to both guests and verified users. It includes a search functionality to find and join groups. For private groups, users need to enter the group code to gain access. Public groups are open to all users.
+
+## Additional Information
+
+- **GitHub Repositories**:
+  - [OpecChats (Frontend)](https://github.com/webproject720/OpecChats)
+  - [OpecChatsServer (Backend)](https://github.com/webproject720/OpecChatsServer)
+
+- **Contact**:
+  - Email: [webproject720@gmail.com](mailto:webproject720@gmail.com)
+
+---
+
+Feel free to reach out for any questions or contributions!
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This Markdown file is formatted to be clear and easy to read on GitHub, with section headers, bullet points, and links. It provides a structured overview of the project, deployment information, features, and additional resources.

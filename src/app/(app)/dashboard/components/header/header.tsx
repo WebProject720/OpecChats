@@ -62,8 +62,8 @@ export const Header = ({ name, activeUsers, profileImage, searchQuery, setSearch
                 <div className="group">
                     <div className="hidden z-10  bg-white text-black rounded-md px-4 py-2
                                         top-8 right-8 group-hover:absolute group-hover:flex flex-col gap-2">
-                        <Link href={`/dashboard/group/details?identifier=${name}`} className="flex p-1 hover:bg-black rounded-md
-                             hover:bg-opacity-10 w-full flex-row gap-1 items-center">
+                        <Link href={`/dashboard/group/details?identifier=${name}`} className="flex m-1 p-1 hover:bg-black rounded-md
+                             hover:bg-opacity-10 w-full flex-row gap-1 items-center bg-gray-400">
                             Details
                             <Image src={'https://img.icons8.com/?size=100&id=eHsuACNd0CuI&format=png&color=000000'}
                                 alt="i icon"
@@ -71,13 +71,13 @@ export const Header = ({ name, activeUsers, profileImage, searchQuery, setSearch
                                 height={30}
                             ></Image>
                         </Link>
-                        <div className="hidden phone:flex">
-                            <Button text='Search' onClick={() => { setSearch(!search) }}>
+                        <div className="hidden m-1 phone:flex">
+                            <Button text='Search' className="bg-gray-400" onClick={() => { setSearch(!search) }}>
                                 Search
                             </Button>
                         </div>
-                        <div className="hidden phone:flex">
-                            <Button text='Full Screen' onClick={() => { toggleFullScreen() }}>
+                        <div className="hidden m-1 phone:flex">
+                            <Button text='Full Screen' className="bg-gray-400" onClick={() => { toggleFullScreen() }}>
                                 Full Screen
                             </Button>
                         </div>
