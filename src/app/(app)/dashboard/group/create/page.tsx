@@ -117,9 +117,9 @@ export default function Page() {
                             <Image width="100" height="100" className="bg-white object-cover rounded-full p-0"
                                 src={file.Preview ? file.Preview : `https://img.icons8.com/external-outline-black-m-oki-orlando/32/external-upload-image-photography-outline-outline-black-m-oki-orlando.png`}
                                 alt="external-upload-image-photography-outline-outline-black-m-oki-orlando" />
-                            <Button className="disabled:hover:!bg-black" onClick={upload} disabled={uploading} text={uploading ? <Loader /> :file.data? 'Change': `Upload `}></Button>
+                            <Button className="disabled:hover:!bg-black" onClick={upload} disabled={uploading} text={uploading ? <Loader /> : file.data ? 'Change' : `Upload `}></Button>
                         </label>
-                        <input disabled={uploading} onChange={(e: any) => { getImage(e) }} className="hidden" type="file" name="file" id="file" />
+                        <input accept=".png, .jpg, .jpeg" disabled={uploading} onChange={(e: any) => { getImage(e) }} className="hidden" type="file" name="file" id="file" />
                     </div>
                     <Input className="w-full" {...register('name')} placeholder="Group Name"></Input>
                     {errors.name &&
@@ -136,7 +136,7 @@ export default function Page() {
                         errMsg &&
                         <p className="authErrorslabel">{errMsg}</p>
                     }
-                    <Button className={submiting ? 'disabled:bg-black' : ''} disabled={submiting||uploading} type='submit' text={submiting ? <Loader /> : 'Create'}></Button>
+                    <Button className={submiting ? 'disabled:bg-black' : ''} disabled={submiting || uploading} type='submit' text={submiting ? <Loader /> : 'Create'}></Button>
                 </form>
             </div>
             <div className="mt-9">
