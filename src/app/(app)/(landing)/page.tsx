@@ -7,11 +7,21 @@ import { state } from '@/store/poxy';
 import { useRouter } from 'next/navigation';
 import { UserLogout } from '@/helpers/UserLogout';
 import { GuestLogout } from '@/helpers/GuestLogout';
+import { Loader } from '@/components/custom/loader';
 
 
 export default function Page() {
 
+  const [serverStatus, setServerStatus] = useState(false);
+  const [userLogoutWaiting, setUserLogout] = useState(false);
+  const [GuestLogoutWaiting, setGuestLogout] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (userLogoutWaiting && GuestLogoutWaiting) {
+      setServerStatus(true);
+    }
+  }, [userLogoutWaiting, GuestLogoutWaiting]);
 
   useEffect(() => {
     if (state.isActive) {
@@ -23,8 +33,12 @@ export default function Page() {
   }, [])
   useEffect(() => {
     async function Logout() {
-      await GuestLogout();
-      await UserLogout();
+      await GuestLogout().then(() => {
+        setGuestLogout(true);
+      })
+      await UserLogout().then(() => {
+        setUserLogout(true);
+      })
     }
     Logout()
   }, [])
@@ -50,11 +64,22 @@ export default function Page() {
               <span>  OpecChats </span>
             </h1>
           </div>
-          <div className='flex flex-row phone:flex-col gap-4 justify-center items-center w-3/4'>
-            {/* <LinkButton className='w-52 font-bold' text='Login' url='/auth'></LinkButton> */}
-            <LinkButton className='w-52 font-bold' text='Join Group as Guest' url='/auth/guest'></LinkButton>
-            <LinkButton className='w-52 font-bold' url='/auth' text='Get Started ->'></LinkButton>
-          </div>
+          {
+            !serverStatus ?
+              <div className='flex justify-center items-center flex-col'>
+                <Loader></Loader>
+                <br />
+                <p>
+                  Conneting to Server...
+                </p>
+              </div>
+              :
+              <div className='flex flex-row phone:flex-col gap-4 justify-center items-center w-3/4'>
+                {/* <LinkButton className='w-52 font-bold' text='Login' url='/auth'></LinkButton> */}
+                <LinkButton className='w-52 font-bold' text='Join Group as Guest' url='/auth/guest'></LinkButton>
+                <LinkButton className='w-52 font-bold' url='/auth' text='Get Started ->'></LinkButton>
+              </div>
+          }
         </div>
       </div>
       <div className='w-full laptop:w-2/3 p-4 bg-white bg-opacity-10 rounded mt-6'>

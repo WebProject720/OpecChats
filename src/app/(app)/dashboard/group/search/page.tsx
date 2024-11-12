@@ -94,7 +94,7 @@ export default function Page() {
                                                 }
                                             </p>
                                         </div>
-                                        <div className="phone:hidden">
+                                        <div className="hidden">
                                             {
                                                 // e?.isGroupPrivate ? <LinkButton className="!p-1" url={`/dashboard/group/join?i=${e?.groupName}`}></LinkButton> :
                                                 <LinkButton className="!p-2" text='Join Chats' url={`/dashboard/group?id=${e?.groupName}&u=${state.isGuest ? 'g' : 'u'}`}></LinkButton>
